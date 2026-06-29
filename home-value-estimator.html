@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's My Home Worth? — Mack Mortgages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F8F8F6; --ink: #111110; --ink-soft: #555552;
+    --accent: #3D5A80; --accent-light: #E8EEF4; --border: #E2E2DE;
+    --white: #FFFFFF; --radius: 4px;
+    --green: #2D6A4F; --amber: #B45309; --red: #991B1B;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(248,248,246,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 0 5vw;
+    height: 64px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .nav-logo span { color: var(--accent); }
+  .nav-back { font-size: 0.875rem; color: var(--ink-soft); text-decoration: none; }
+  .nav-back:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--accent); }
+
+  .page-hero { padding: 120px 5vw 60px; max-width: 760px; margin: 0 auto; text-align: center; }
+  .page-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-sub { font-size: 1rem; color: var(--ink-soft); font-weight: 300; line-height: 1.75; }
+
+  .steps-bar { max-width: 560px; margin: 0 auto 3rem; display: flex; align-items: center; padding: 0 5vw; }
+  .step { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .step-dot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: var(--ink-soft); z-index: 1; transition: all 0.3s; }
+  .step.active .step-dot { background: var(--ink); border-color: var(--ink); color: var(--white); }
+  .step.done .step-dot { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  .step-label { font-size: 0.7rem; color: var(--ink-soft); margin-top: 0.4rem; white-space: nowrap; }
+  .step.active .step-label { color: var(--ink); font-weight: 500; }
+  .step-line { flex: 1; height: 1px; background: var(--border); margin-bottom: 1.2rem; }
+  .step-line.done { background: var(--accent); }
+
+  .form-wrap { max-width: 640px; margin: 0 auto; padding: 0 5vw 80px; }
+  .tool-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; }
+  .tool-card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+  .tool-card-sub { font-size: 0.875rem; color: var(--ink-soft); margin-bottom: 2rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .form-group label { font-size: 0.75rem; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
+  .form-group input, .form-group select {
+    font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 0.75rem 0.9rem; font-size: 0.9rem; background: var(--bg); color: var(--ink);
+    outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .input-prefix-wrap { position: relative; }
+  .input-prefix { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--ink-soft); font-size: 0.9rem; pointer-events: none; }
+  .input-prefix-wrap input { padding-left: 1.6rem; }
+  .form-hint { font-size: 0.75rem; color: var(--ink-soft); margin-top: -0.9rem; margin-bottom: 0.5rem; }
+
+  .btn-full { width: 100%; padding: 1rem; background: var(--ink); color: var(--white); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+  .btn-full:hover { background: var(--accent); }
+  .disclaimer { font-size: 0.72rem; color: var(--ink-soft); text-align: center; margin-top: 1rem; line-height: 1.6; }
+  .error-msg { font-size: 0.8rem; color: var(--red); margin-top: 0.4rem; margin-bottom: 0.75rem; display: none; }
+  .error-msg.show { display: block; }
+
+  .loading-state { display: none; text-align: center; padding: 3rem 0; }
+  .loading-state.active { display: block; }
+  .spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1.5rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-msg { font-size: 0.9rem; color: var(--ink-soft); }
+  .loading-steps { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .load-step { font-size: 0.8rem; color: var(--ink-soft); opacity: 0; transition: opacity 0.4s; display: flex; align-items: center; gap: 0.5rem; justify-content: center; }
+  .load-step.show { opacity: 1; }
+  .load-step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  .teaser-state { display: none; }
+  .teaser-state.active { display: block; }
+
+  /* VALUE RANGE DISPLAY */
+  .value-range-wrap { text-align: center; padding: 2rem 0 1.5rem; }
+  .value-range-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.75rem; }
+  .value-range-nums { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.4rem; }
+  .value-low, .value-high { font-size: 1.5rem; font-weight: 300; letter-spacing: -0.03em; color: var(--ink-soft); }
+  .value-mid { font-size: 2.75rem; font-weight: 300; letter-spacing: -0.04em; color: var(--ink); }
+  .value-range-dash { color: var(--border); font-size: 1.5rem; }
+  .value-range-bar { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; }
+  .range-track { width: 200px; height: 6px; background: var(--border); border-radius: 3px; position: relative; }
+  .range-fill { position: absolute; left: 15%; right: 15%; top: 0; height: 6px; background: var(--accent); border-radius: 3px; }
+  .range-marker { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: var(--ink); border-radius: 50%; border: 2px solid var(--white); }
+  .range-low-label, .range-high-label { font-size: 0.7rem; color: var(--ink-soft); }
+  .value-caption { font-size: 0.825rem; color: var(--ink-soft); margin-bottom: 2rem; }
+
+  /* EQUITY TEASER */
+  .equity-teaser { background: var(--accent-light); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .equity-item { text-align: center; }
+  .equity-item-val { font-size: 1.4rem; font-weight: 500; letter-spacing: -0.03em; }
+  .equity-item-label { font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .blurred-preview { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+  .blurred-content { filter: blur(6px); user-select: none; pointer-events: none; padding: 1.5rem; background: var(--bg); }
+  .blur-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+  .blur-row:last-child { border-bottom: none; }
+  .blur-key { color: var(--ink-soft); }
+  .blur-val { font-weight: 600; }
+  .blur-overlay { position: absolute; inset: 0; background: rgba(248,248,246,0.7); backdrop-filter: blur(2px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; }
+  .blur-overlay-icon { font-size: 1.5rem; }
+  .blur-overlay-text { font-size: 0.875rem; font-weight: 500; text-align: center; }
+  .blur-overlay-sub { font-size: 0.78rem; color: var(--ink-soft); text-align: center; }
+
+  .gate-form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .gate-form input { font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem 0.9rem; font-size: 0.9rem; background: var(--white); color: var(--ink); outline: none; transition: border-color 0.2s; width: 100%; }
+  .gate-form input:focus { border-color: var(--accent); }
+
+  .full-result { display: none; }
+  .full-result.active { display: block; }
+  .result-section { margin-bottom: 1.5rem; }
+  .result-section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.75rem; font-weight: 500; }
+  .result-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; gap: 1rem; }
+  .result-row:last-child { border-bottom: none; }
+  .result-key { color: var(--ink-soft); }
+  .result-val { font-weight: 500; text-align: right; }
+  .result-val.good { color: var(--green); }
+  .result-val.warn { color: var(--amber); }
+  .result-val.bad { color: var(--red); }
+  .result-insight { background: var(--accent-light); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.875rem; line-height: 1.7; margin-top: 1rem; color: var(--ink); }
+  .result-insight strong { display: block; font-weight: 600; margin-bottom: 0.3rem; }
+  .cta-box { background: var(--ink); color: var(--white); border-radius: 8px; padding: 2rem; text-align: center; margin-top: 1.5rem; }
+  .cta-box h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .cta-box p { font-size: 0.875rem; color: #A8A8A4; margin-bottom: 1.25rem; line-height: 1.6; }
+  .cta-box a { display: inline-block; background: var(--white); color: var(--ink); padding: 0.75rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+  .cta-box a:hover { background: var(--accent-light); }
+
+  /* VALUE CHART (full report) */
+  .value-chart { margin: 1.5rem 0; }
+  .chart-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 1rem; font-weight: 500; }
+  .chart-bar-wrap { display: flex; flex-direction: column; gap: 0.75rem; }
+  .chart-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; }
+  .chart-label { width: 100px; color: var(--ink-soft); text-align: right; flex-shrink: 0; }
+  .chart-track { flex: 1; height: 24px; background: var(--bg); border-radius: 3px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+  .chart-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; font-weight: 600; color: var(--white); transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+  .chart-fill.purchase { background: var(--border); color: var(--ink-soft); }
+  .chart-fill.current { background: var(--accent); }
+  .chart-fill.high { background: var(--green); }
+
+  footer { background: var(--ink); color: var(--white); padding: 2.5rem 5vw; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-size: 1rem; font-weight: 600; }
+  .footer-logo span { color: #8AABC4; }
+  .footer-copy { font-size: 0.78rem; color: #666662; }
+
+  @media (max-width: 640px) {
+    .form-row { grid-template-columns: 1fr; }
+    .tool-card { padding: 1.5rem; }
+    .value-mid { font-size: 2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Mack<span>Mortgages</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+  <a href="index.html#contact" class="nav-cta">Talk to an Advisor</a>
+</nav>
+
+<div class="page-hero">
+  <p class="page-eyebrow">Free Tool</p>
+  <h1 class="page-title">What's My Home <em>Worth?</em></h1>
+  <p class="page-sub">Enter your address and what you paid — get an AI-estimated current value range, your equity position, and a full property snapshot in under a minute.</p>
+</div>
+
+<div class="steps-bar" id="steps-bar">
+  <div class="step active" id="step1-dot"><div class="step-dot">1</div><div class="step-label">Your property</div></div>
+  <div class="step-line" id="line1"></div>
+  <div class="step" id="step2-dot"><div class="step-dot">2</div><div class="step-label">Value estimate</div></div>
+  <div class="step-line" id="line2"></div>
+  <div class="step" id="step3-dot"><div class="step-dot">3</div><div class="step-label">Full report</div></div>
+</div>
+
+<div class="form-wrap">
+  <div class="tool-card">
+
+    <!-- INPUT FORM -->
+    <div id="input-state">
+      <div class="tool-card-title">Tell us about your property</div>
+      <div class="tool-card-sub">Just your address, what you paid, and when — no account needed.</div>
+
+      <div class="form-group">
+        <label>Property Address</label>
+        <input type="text" id="address" placeholder="123 Main St, Vancouver, BC" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>Property Type</label>
+        <select id="prop-type">
+          <option value="">Select type</option>
+          <option>Detached house</option>
+          <option>Semi-detached / townhouse</option>
+          <option>Condo / apartment</option>
+          <option>Duplex / triplex</option>
+          <option>Acreage / rural</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Purchase Price</label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix">$</span>
+            <input type="number" id="purchase-price" placeholder="750,000" min="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Year Purchased</label>
+          <input type="number" id="purchase-year" placeholder="2019" min="1990" max="2026">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Current Mortgage Balance (optional)</label>
+        <div class="input-prefix-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="mortgage-bal" placeholder="520,000 — leave blank if paid off or unknown" min="0">
+        </div>
+      </div>
+      <p class="form-hint">Leave blank if paid off or unknown — we'll skip equity calculation.</p>
+
+      <div id="form-error" class="error-msg">Please fill in address, property type, purchase price, and year.</div>
+
+      <button class="btn-full" onclick="runValuation()">
+        <span>Estimate My Home Value</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </button>
+      <p class="disclaimer">Estimates are AI-generated using public market data and are not appraisals. For legal or financial decisions, obtain a certified appraisal.</p>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading-state" id="loading-state">
+      <div class="spinner"></div>
+      <div class="loading-msg">Researching your property…</div>
+      <div class="loading-steps">
+        <div class="load-step" id="ls1"><div class="load-step-dot"></div>Analysing neighbourhood sales data</div>
+        <div class="load-step" id="ls2"><div class="load-step-dot"></div>Comparing similar properties</div>
+        <div class="load-step" id="ls3"><div class="load-step-dot"></div>Applying market trends since purchase</div>
+        <div class="load-step" id="ls4"><div class="load-step-dot"></div>Building your equity snapshot</div>
+      </div>
+    </div>
+
+    <!-- TEASER -->
+    <div class="teaser-state" id="teaser-state">
+      <div class="value-range-wrap">
+        <div class="value-range-label">Estimated Current Value Range</div>
+        <div class="value-range-nums">
+          <div class="value-low" id="val-low">—</div>
+          <div class="value-range-dash">–</div>
+          <div class="value-mid" id="val-mid">—</div>
+          <div class="value-range-dash">–</div>
+          <div class="value-high" id="val-high">—</div>
+        </div>
+        <div class="value-range-bar">
+          <span class="range-low-label" id="label-low">Low</span>
+          <div class="range-track">
+            <div class="range-fill"></div>
+            <div class="range-marker" style="left:50%"></div>
+          </div>
+          <span class="range-high-label" id="label-high">High</span>
+        </div>
+        <div class="value-caption" id="val-caption"></div>
+      </div>
+
+      <!-- EQUITY TEASER (shown if balance entered) -->
+      <div class="equity-teaser" id="equity-teaser" style="display:none;">
+        <div class="equity-item">
+          <div class="equity-item-val" id="eq-value">—</div>
+          <div class="equity-item-label">Est. Value</div>
+        </div>
+        <div class="equity-item" style="font-size:1.5rem;color:var(--border)">→</div>
+        <div class="equity-item">
+          <div class="equity-item-val" id="eq-balance">—</div>
+          <div class="equity-item-label">Mortgage Balance</div>
+        </div>
+        <div class="equity-item" style="font-size:1.5rem;color:var(--border)">=</div>
+        <div class="equity-item">
+          <div class="equity-item-val" id="eq-equity" style="color:var(--green)">—</div>
+          <div class="equity-item-label">Your Equity</div>
+        </div>
+      </div>
+
+      <!-- BLURRED PREVIEW -->
+      <div class="blurred-preview">
+        <div class="blurred-content">
+          <div class="blur-row"><span class="blur-key">Appreciation since purchase</span><span class="blur-val">+$187,000 (+24.9%)</span></div>
+          <div class="blur-row"><span class="blur-key">Annual growth rate (est.)</span><span class="blur-val">4.6% / year</span></div>
+          <div class="blur-row"><span class="blur-key">Equity-to-value ratio</span><span class="blur-val">38.2% (LTV: 61.8%)</span></div>
+          <div class="blur-row"><span class="blur-key">HELOC available (80% LTV)</span><span class="blur-val">~$80,000</span></div>
+          <div class="blur-row"><span class="blur-key">Neighbourhood trend (12mo)</span><span class="blur-val">+3.1% appreciation</span></div>
+        </div>
+        <div class="blur-overlay">
+          <div class="blur-overlay-icon">🔒</div>
+          <div class="blur-overlay-text">Your full property report is ready</div>
+          <div class="blur-overlay-sub">Free — just your name and email to unlock it.</div>
+        </div>
+      </div>
+
+      <!-- GATE -->
+      <div class="gate-form">
+        <div class="form-row">
+          <input type="text" id="gate-name" placeholder="Your first name">
+          <input type="email" id="gate-email" placeholder="Your email address">
+        </div>
+        <div id="gate-error" class="error-msg">Please enter your name and a valid email.</div>
+        <button class="btn-full" onclick="unlockReport()">
+          <span>Unlock My Full Report</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- FULL REPORT -->
+    <div class="full-result" id="full-result">
+      <div class="value-range-wrap" style="padding-top:0.5rem;">
+        <div class="value-range-label">Estimated Current Value Range</div>
+        <div class="value-range-nums">
+          <div class="value-low" id="val-low-2">—</div>
+          <div class="value-range-dash">–</div>
+          <div class="value-mid" id="val-mid-2">—</div>
+          <div class="value-range-dash">–</div>
+          <div class="value-high" id="val-high-2">—</div>
+        </div>
+        <div class="value-caption" id="val-caption-2"></div>
+      </div>
+      <div id="full-report-content"></div>
+      <div class="cta-box">
+        <h3>Want to put your equity to work?</h3>
+        <p>Whether you're refinancing, renewing, or thinking about your next property, Mack can show you what your equity position means for your options.</p>
+        <a href="index.html#contact">Book a Free Equity Review →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Mack<span>Mortgages</span></div>
+    <div class="footer-copy">© 2026 Mack Mortgages. Value estimates are AI-generated and not certified appraisals.</div>
+  </div>
+</footer>
+
+<script>
+  let reportData = null;
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-CA'); }
+  function fmtPct(n) { return (n > 0 ? '+' : '') + n.toFixed(1) + '%'; }
+
+  function validateForm() {
+    const a = document.getElementById('address').value.trim();
+    const p = document.getElementById('prop-type').value;
+    const pr = document.getElementById('purchase-price').value;
+    const yr = document.getElementById('purchase-year').value;
+    return a && p && pr && yr;
+  }
+
+  async function runValuation() {
+    if (!validateForm()) {
+      document.getElementById('form-error').classList.add('show');
+      return;
+    }
+    document.getElementById('form-error').classList.remove('show');
+
+    const address = document.getElementById('address').value.trim();
+    const propType = document.getElementById('prop-type').value;
+    const purchasePrice = parseFloat(document.getElementById('purchase-price').value);
+    const purchaseYear = parseInt(document.getElementById('purchase-year').value);
+    const mortgageBal = parseFloat(document.getElementById('mortgage-bal').value) || null;
+    const yearsSince = new Date().getFullYear() - purchaseYear;
+
+    document.getElementById('input-state').style.display = 'none';
+    document.getElementById('loading-state').classList.add('active');
+    setStep(2);
+
+    ['ls1','ls2','ls3','ls4'].forEach((id, i) => setTimeout(() => document.getElementById(id).classList.add('show'), i * 900));
+
+    const prompt = `You are a Canadian real estate valuation expert. Analyze this property and return ONLY a JSON object (no markdown, no preamble).
+
+Property details:
+- Address: ${address}
+- Type: ${propType}
+- Purchase price: $${purchasePrice.toLocaleString()}
+- Year purchased: ${purchaseYear} (${yearsSince} years ago)
+- Current mortgage balance: ${mortgageBal ? fmt(mortgageBal) : 'Not provided'}
+- Analysis date: ${new Date().toLocaleDateString('en-CA', {month:'long', year:'numeric'})}
+
+Return this exact JSON structure:
+{
+  "value_low": <integer — conservative estimate>,
+  "value_mid": <integer — most likely estimate>,
+  "value_high": <integer — optimistic estimate>,
+  "appreciation_dollars": <integer — mid estimate minus purchase price>,
+  "appreciation_pct": <float — percentage gain since purchase>,
+  "annual_growth_rate": <float — implied CAGR>,
+  "neighbourhood_trend_12mo": <float — estimated 12-month appreciation % for this area>,
+  "neighbourhood_note": <1 sentence about this neighbourhood/city's market>,
+  "equity_dollars": <integer if balance provided, else null>,
+  "ltv_ratio": <float 0-100 if balance provided, else null>,
+  "heloc_available": <integer — estimated HELOC room at 80% LTV, or null>,
+  "market_context": <1-2 sentences on broader Canadian market context relevant to this property>,
+  "property_type_trend": <1 sentence on how this property type is performing in this market>,
+  "value_drivers": [
+    {"factor": <string>, "impact": <"positive" | "neutral" | "negative">, "note": <short string>},
+    {"factor": <string>, "impact": <"positive" | "neutral" | "negative">, "note": <short string>},
+    {"factor": <string>, "impact": <"positive" | "neutral" | "negative">, "note": <short string>}
+  ],
+  "best_action": <1 sentence recommendation based on equity/market position>,
+  "confidence": <"High" | "Medium" | "Low">,
+  "confidence_note": <1 sentence on data confidence>
+}
+
+Be realistic for the Canadian market in 2026. Use known market trends for the city/neighbourhood if identifiable from the address.`;
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await res.json();
+      const text = data.content?.find(b => b.type === 'text')?.text || '';
+      reportData = JSON.parse(text.replace(/```json|```/g, '').trim());
+    } catch(e) {
+      reportData = generateFallback(purchasePrice, purchaseYear, mortgageBal, propType, address);
+    }
+
+    await new Promise(r => setTimeout(r, 3800));
+    document.getElementById('loading-state').classList.remove('active');
+    showTeaser(mortgageBal);
+  }
+
+  function generateFallback(purchasePrice, purchaseYear, mortgageBal, propType, address) {
+    const yearsSince = new Date().getFullYear() - purchaseYear;
+    const isBC = address.toLowerCase().includes('bc') || address.toLowerCase().includes('vancouver') || address.toLowerCase().includes('richmond') || address.toLowerCase().includes('surrey') || address.toLowerCase().includes('burnaby');
+    const annualGrowth = isBC ? 0.055 : 0.042;
+    const midVal = Math.round(purchasePrice * Math.pow(1 + annualGrowth, yearsSince));
+    const appPct = ((midVal - purchasePrice) / purchasePrice) * 100;
+    const equity = mortgageBal ? midVal - mortgageBal : null;
+    const ltv = mortgageBal ? (mortgageBal / midVal) * 100 : null;
+    const heloc = mortgageBal ? Math.max(0, midVal * 0.80 - mortgageBal) : null;
+    return {
+      value_low: Math.round(midVal * 0.93),
+      value_mid: midVal,
+      value_high: Math.round(midVal * 1.07),
+      appreciation_dollars: midVal - purchasePrice,
+      appreciation_pct: appPct,
+      annual_growth_rate: annualGrowth * 100,
+      neighbourhood_trend_12mo: isBC ? 3.2 : 2.8,
+      neighbourhood_note: isBC ? "Greater Vancouver continues to see constrained supply relative to demand, supporting long-term price floors." : "This market has shown steady appreciation in line with national trends.",
+      equity_dollars: equity,
+      ltv_ratio: ltv,
+      heloc_available: heloc,
+      market_context: "The Canadian housing market in 2026 reflects stabilization after rate-driven corrections, with supply remaining the key long-term driver in most urban centres.",
+      property_type_trend: `${propType}s in this area have generally tracked or outpaced the broader market over the past few years.`,
+      value_drivers: [
+        { factor: "Location", impact: "positive", note: isBC ? "BC metro market with strong long-term demand" : "Urban Canadian market with stable demand" },
+        { factor: "Time held", impact: yearsSince >= 5 ? "positive" : "neutral", note: `${yearsSince} years of appreciation captured` },
+        { factor: "Property type", impact: propType.includes('Condo') ? "neutral" : "positive", note: propType.includes('Condo') ? "Condo market has been more volatile" : "Ground-oriented properties retain strong demand" }
+      ],
+      best_action: equity && equity > 100000 ? "Your equity position is strong — consider whether it could be working harder via a HELOC or strategic refinance." : "Continue building equity; your property has appreciated well relative to purchase price.",
+      confidence: isBC ? "Medium" : "Medium",
+      confidence_note: "AI estimate based on general market data. A formal appraisal will give the most accurate value for lending purposes."
+    };
+  }
+
+  function showTeaser(mortgageBal) {
+    document.getElementById('teaser-state').classList.add('active');
+    setStep(2, 'done');
+    setStep(3, 'active');
+
+    const r = reportData;
+    document.getElementById('val-low').textContent = fmt(r.value_low);
+    document.getElementById('val-mid').textContent = fmt(r.value_mid);
+    document.getElementById('val-high').textContent = fmt(r.value_high);
+    document.getElementById('val-caption').textContent = `Based on ${r.annual_growth_rate.toFixed(1)}% average annual growth since purchase. ${r.confidence} confidence.`;
+
+    if (mortgageBal && r.equity_dollars !== null) {
+      const et = document.getElementById('equity-teaser');
+      et.style.display = 'flex';
+      document.getElementById('eq-value').textContent = fmt(r.value_mid);
+      document.getElementById('eq-balance').textContent = fmt(mortgageBal);
+      document.getElementById('eq-equity').textContent = fmt(r.equity_dollars);
+    }
+  }
+
+  function unlockReport() {
+    const name = document.getElementById('gate-name').value.trim();
+    const email = document.getElementById('gate-email').value.trim();
+    if (!name || !email || !email.includes('@')) {
+      document.getElementById('gate-error').classList.add('show');
+      return;
+    }
+    document.getElementById('gate-error').classList.remove('show');
+
+    storeLead(name, email);
+
+    document.getElementById('teaser-state').classList.remove('active');
+    document.getElementById('full-result').classList.add('active');
+    setStep(3, 'done');
+
+    const r = reportData;
+    document.getElementById('val-low-2').textContent = fmt(r.value_low);
+    document.getElementById('val-mid-2').textContent = fmt(r.value_mid);
+    document.getElementById('val-high-2').textContent = fmt(r.value_high);
+    document.getElementById('val-caption-2').textContent = `${r.confidence} confidence · ${r.confidence_note}`;
+
+    const mortgageBal = parseFloat(document.getElementById('mortgage-bal').value) || null;
+    const purchasePrice = parseFloat(document.getElementById('purchase-price').value);
+    const purchaseYear = parseInt(document.getElementById('purchase-year').value);
+
+    document.getElementById('full-report-content').innerHTML = `
+      <div class="value-chart">
+        <div class="chart-title">Value Over Time</div>
+        <div class="chart-bar-wrap">
+          <div class="chart-row">
+            <div class="chart-label">Purchased (${purchaseYear})</div>
+            <div class="chart-track">
+              <div class="chart-fill purchase" style="width:${Math.round((purchasePrice/r.value_high)*85)}%">${fmt(purchasePrice)}</div>
+            </div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-label">Est. today</div>
+            <div class="chart-track">
+              <div class="chart-fill current" style="width:${Math.round((r.value_mid/r.value_high)*85)}%">${fmt(r.value_mid)}</div>
+            </div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-label">High estimate</div>
+            <div class="chart-track">
+              <div class="chart-fill high" style="width:85%">${fmt(r.value_high)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-section">
+        <div class="result-section-title">Appreciation Summary</div>
+        <div class="result-row"><span class="result-key">Purchase price</span><span class="result-val">${fmt(purchasePrice)}</span></div>
+        <div class="result-row"><span class="result-key">Estimated gain</span><span class="result-val good">${fmt(r.appreciation_dollars)} (${fmtPct(r.appreciation_pct)})</span></div>
+        <div class="result-row"><span class="result-key">Annual growth rate (est.)</span><span class="result-val">${r.annual_growth_rate.toFixed(1)}% / year</span></div>
+        <div class="result-row"><span class="result-key">Neighbourhood trend (12mo)</span><span class="result-val ${r.neighbourhood_trend_12mo >= 3 ? 'good' : r.neighbourhood_trend_12mo >= 1 ? '' : 'warn'}">${fmtPct(r.neighbourhood_trend_12mo)}</span></div>
+      </div>
+
+      ${mortgageBal && r.equity_dollars !== null ? `
+      <div class="result-section">
+        <div class="result-section-title">Equity Position</div>
+        <div class="result-row"><span class="result-key">Estimated value (mid)</span><span class="result-val">${fmt(r.value_mid)}</span></div>
+        <div class="result-row"><span class="result-key">Mortgage balance</span><span class="result-val">${fmt(mortgageBal)}</span></div>
+        <div class="result-row"><span class="result-key">Your equity</span><span class="result-val good">${fmt(r.equity_dollars)}</span></div>
+        <div class="result-row"><span class="result-key">Loan-to-value (LTV)</span><span class="result-val ${r.ltv_ratio < 65 ? 'good' : r.ltv_ratio < 80 ? '' : 'warn'}">${r.ltv_ratio.toFixed(1)}%</span></div>
+        ${r.heloc_available > 0 ? `<div class="result-row"><span class="result-key">Est. HELOC room (at 80% LTV)</span><span class="result-val good">${fmt(r.heloc_available)}</span></div>` : ''}
+      </div>` : ''}
+
+      <div class="result-section">
+        <div class="result-section-title">Value Drivers</div>
+        ${r.value_drivers.map(d => `
+          <div class="result-row">
+            <span class="result-key">${d.factor}</span>
+            <span class="result-val ${d.impact === 'positive' ? 'good' : d.impact === 'negative' ? 'bad' : ''}">${d.note}</span>
+          </div>`).join('')}
+      </div>
+
+      <div class="result-insight">
+        <strong>Market Context</strong>
+        ${r.neighbourhood_note} ${r.property_type_trend}
+      </div>
+      <div class="result-insight" style="margin-top:0.75rem;">
+        <strong>Mack's Take</strong>
+        ${r.best_action}
+      </div>
+    `;
+
+    // Animate chart bars
+    setTimeout(() => {
+      document.querySelectorAll('.chart-fill').forEach(el => {
+        const w = el.style.width;
+        el.style.width = '0';
+        setTimeout(() => { el.style.width = w; }, 50);
+      });
+    }, 100);
+
+    window.scrollTo({ top: document.getElementById('full-result').getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  }
+
+  function storeLead(name, email) {
+    try {
+      const leads = JSON.parse(localStorage.getItem('mm_leads') || '[]');
+      leads.push({ name, email, tool: 'Home Valuation', address: document.getElementById('address').value, value_est: reportData?.value_mid, timestamp: new Date().toISOString() });
+      localStorage.setItem('mm_leads', JSON.stringify(leads));
+    } catch(e) {}
+  }
+
+  function setStep(num, state) {
+    const dot = document.getElementById(`step${num}-dot`);
+    if (!dot) return;
+    dot.classList.remove('active','done');
+    if (state) dot.classList.add(state);
+    if (num > 1) {
+      const line = document.getElementById(`line${num-1}`);
+      if (line && state === 'done') line.classList.add('done');
+    }
+  }
+</script>
+</body>
+</html>

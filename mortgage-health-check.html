@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Health Check — Mack Mortgages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F8F8F6; --ink: #111110; --ink-soft: #555552;
+    --accent: #3D5A80; --accent-light: #E8EEF4; --border: #E2E2DE;
+    --white: #FFFFFF; --radius: 4px;
+    --green: #2D6A4F; --amber: #B45309; --red: #991B1B;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(248,248,246,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 0 5vw;
+    height: 64px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .nav-logo span { color: var(--accent); }
+  .nav-back { font-size: 0.875rem; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; }
+  .nav-back:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--accent); }
+
+  .page-hero {
+    padding: 120px 5vw 60px; max-width: 760px; margin: 0 auto; text-align: center;
+  }
+  .page-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-sub { font-size: 1rem; color: var(--ink-soft); font-weight: 300; line-height: 1.75; }
+
+  /* STEPS */
+  .steps-bar {
+    max-width: 560px; margin: 0 auto 3rem; display: flex; align-items: center; gap: 0; padding: 0 5vw;
+  }
+  .step { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+  .step-dot {
+    width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border);
+    background: var(--bg); display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 600; color: var(--ink-soft); z-index: 1; transition: all 0.3s;
+  }
+  .step.active .step-dot { background: var(--ink); border-color: var(--ink); color: var(--white); }
+  .step.done .step-dot { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  .step-label { font-size: 0.7rem; color: var(--ink-soft); margin-top: 0.4rem; white-space: nowrap; }
+  .step.active .step-label { color: var(--ink); font-weight: 500; }
+  .step-line { flex: 1; height: 1px; background: var(--border); margin: 0 -1px; margin-bottom: 1.2rem; }
+  .step-line.done { background: var(--accent); }
+
+  /* FORM CARD */
+  .form-wrap { max-width: 640px; margin: 0 auto; padding: 0 5vw 80px; }
+  .tool-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem;
+  }
+  .tool-card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+  .tool-card-sub { font-size: 0.875rem; color: var(--ink-soft); margin-bottom: 2rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .form-group label { font-size: 0.75rem; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
+  .form-group input, .form-group select {
+    font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 0.75rem 0.9rem; font-size: 0.9rem; background: var(--bg); color: var(--ink);
+    outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .input-prefix-wrap { position: relative; }
+  .input-prefix { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--ink-soft); font-size: 0.9rem; pointer-events: none; }
+  .input-prefix-wrap input { padding-left: 1.6rem; }
+  .input-suffix-wrap { position: relative; }
+  .input-suffix { position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--ink-soft); font-size: 0.9rem; pointer-events: none; }
+  .input-suffix-wrap input { padding-right: 1.8rem; }
+
+  .btn-full {
+    width: 100%; padding: 1rem; background: var(--ink); color: var(--white);
+    border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; letter-spacing: 0.01em;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .btn-full:hover { background: var(--accent); }
+  .btn-full:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .disclaimer { font-size: 0.72rem; color: var(--ink-soft); text-align: center; margin-top: 1rem; line-height: 1.6; }
+
+  /* LOADING */
+  .loading-state { display: none; text-align: center; padding: 3rem 0; }
+  .loading-state.active { display: block; }
+  .spinner {
+    width: 40px; height: 40px; border: 2px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin: 0 auto 1.5rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-msg { font-size: 0.9rem; color: var(--ink-soft); }
+  .loading-steps { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .load-step { font-size: 0.8rem; color: var(--ink-soft); opacity: 0; transition: opacity 0.4s; display: flex; align-items: center; gap: 0.5rem; justify-content: center; }
+  .load-step.show { opacity: 1; }
+  .load-step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  /* TEASER RESULT */
+  .teaser-state { display: none; }
+  .teaser-state.active { display: block; }
+  .teaser-score-wrap { text-align: center; padding: 2rem 0 1.5rem; }
+  .teaser-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 1rem; }
+  .score-ring-wrap { position: relative; width: 160px; height: 160px; margin: 0 auto 1rem; }
+  .score-ring-svg { transform: rotate(-90deg); }
+  .score-ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+  .score-ring-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1); }
+  .score-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .score-num { font-size: 2.5rem; font-weight: 300; letter-spacing: -0.04em; line-height: 1; }
+  .score-denom { font-size: 0.75rem; color: var(--ink-soft); }
+
+  .grade-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 56px; height: 56px; border-radius: 50%;
+    font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .grade-a { background: #D1FAE5; color: var(--green); }
+  .grade-b { background: #DBEAFE; color: #1D4ED8; }
+  .grade-c { background: #FEF3C7; color: var(--amber); }
+  .grade-d { background: #FEE2E2; color: var(--red); }
+
+  .teaser-headline { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .teaser-sub { font-size: 0.875rem; color: var(--ink-soft); margin-bottom: 2rem; }
+
+  /* BLURRED PREVIEW */
+  .blurred-preview {
+    position: relative; border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border); margin-bottom: 1.5rem;
+  }
+  .blurred-content {
+    filter: blur(6px); user-select: none; pointer-events: none;
+    padding: 1.5rem; background: var(--bg);
+  }
+  .blur-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+  .blur-row:last-child { border-bottom: none; }
+  .blur-key { color: var(--ink-soft); }
+  .blur-val { font-weight: 600; }
+  .blur-overlay {
+    position: absolute; inset: 0; background: rgba(248,248,246,0.7);
+    backdrop-filter: blur(2px); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 1rem;
+  }
+  .blur-overlay-icon { font-size: 1.5rem; }
+  .blur-overlay-text { font-size: 0.875rem; font-weight: 500; text-align: center; }
+  .blur-overlay-sub { font-size: 0.78rem; color: var(--ink-soft); text-align: center; }
+
+  /* GATE FORM */
+  .gate-form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .gate-form input {
+    font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 0.75rem 0.9rem; font-size: 0.9rem; background: var(--white); color: var(--ink);
+    outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .gate-form input:focus { border-color: var(--accent); }
+
+  /* FULL RESULT */
+  .full-result { display: none; }
+  .full-result.active { display: block; }
+  .result-section { margin-bottom: 1.5rem; }
+  .result-section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.75rem; font-weight: 500; }
+  .result-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; gap: 1rem; }
+  .result-row:last-child { border-bottom: none; }
+  .result-key { color: var(--ink-soft); flex-shrink: 0; }
+  .result-val { font-weight: 500; text-align: right; }
+  .result-val.good { color: var(--green); }
+  .result-val.warn { color: var(--amber); }
+  .result-val.bad { color: var(--red); }
+  .result-insight {
+    background: var(--accent-light); border-left: 3px solid var(--accent);
+    padding: 1rem 1.25rem; border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.875rem; line-height: 1.7; margin-top: 1rem; color: var(--ink);
+  }
+  .result-insight strong { display: block; font-weight: 600; margin-bottom: 0.3rem; }
+  .cta-box {
+    background: var(--ink); color: var(--white); border-radius: 8px;
+    padding: 2rem; text-align: center; margin-top: 1.5rem;
+  }
+  .cta-box h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .cta-box p { font-size: 0.875rem; color: #A8A8A4; margin-bottom: 1.25rem; line-height: 1.6; }
+  .cta-box a {
+    display: inline-block; background: var(--white); color: var(--ink);
+    padding: 0.75rem 1.75rem; border-radius: var(--radius);
+    text-decoration: none; font-size: 0.9rem; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .cta-box a:hover { background: var(--accent-light); }
+
+  .error-msg { font-size: 0.8rem; color: var(--red); margin-top: 0.4rem; display: none; }
+  .error-msg.show { display: block; }
+
+  footer { background: var(--ink); color: var(--white); padding: 2.5rem 5vw; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-size: 1rem; font-weight: 600; }
+  .footer-logo span { color: #8AABC4; }
+  .footer-copy { font-size: 0.78rem; color: #666662; }
+
+  @media (max-width: 640px) {
+    .form-row { grid-template-columns: 1fr; }
+    .tool-card { padding: 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Mack<span>Mortgages</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+  <a href="index.html#contact" class="nav-cta">Talk to an Advisor</a>
+</nav>
+
+<div class="page-hero">
+  <p class="page-eyebrow">Free Tool</p>
+  <h1 class="page-title">Your Mortgage <em>Health Check</em></h1>
+  <p class="page-sub">Enter your mortgage details and get an instant score out of 100 — rating your rate, term, lender competitiveness, and potential savings.</p>
+</div>
+
+<!-- STEPS BAR -->
+<div class="steps-bar" id="steps-bar">
+  <div class="step active" id="step1-dot"><div class="step-dot">1</div><div class="step-label">Your details</div></div>
+  <div class="step-line" id="line1"></div>
+  <div class="step" id="step2-dot"><div class="step-dot">2</div><div class="step-label">Your score</div></div>
+  <div class="step-line" id="line2"></div>
+  <div class="step" id="step3-dot"><div class="step-dot">3</div><div class="step-label">Full report</div></div>
+</div>
+
+<div class="form-wrap">
+  <div class="tool-card">
+
+    <!-- STEP 1: INPUT FORM -->
+    <div id="input-state">
+      <div class="tool-card-title">Tell us about your mortgage</div>
+      <div class="tool-card-sub">Takes about 60 seconds. No SIN, no banking info — just the basics.</div>
+
+      <div class="form-group">
+        <label>Property Address</label>
+        <input type="text" id="address" placeholder="123 Main St, Vancouver, BC" autocomplete="off">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Mortgage Balance</label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix">$</span>
+            <input type="number" id="balance" placeholder="420,000" min="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Current Rate</label>
+          <div class="input-suffix-wrap">
+            <input type="number" id="curr-rate" placeholder="5.14" step="0.01" min="0" max="20">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Lender</label>
+          <select id="lender">
+            <option value="">Select lender</option>
+            <optgroup label="Big 6 Banks">
+              <option>RBC</option><option>TD</option><option>Scotiabank</option>
+              <option>BMO</option><option>CIBC</option><option>National Bank</option>
+            </optgroup>
+            <optgroup label="Credit Unions & Monoline">
+              <option>First National</option><option>MCAP</option><option>Meridian</option>
+              <option>Desjardins</option><option>Vancity</option><option>HSBC / RBC Premier</option>
+            </optgroup>
+            <option value="other">Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Remaining Term</label>
+          <select id="term">
+            <option value="">Select term</option>
+            <option value="0.5">Less than 6 months</option>
+            <option value="1">~1 year</option>
+            <option value="2">~2 years</option>
+            <option value="3">~3 years</option>
+            <option value="4">~4 years</option>
+            <option value="5">~5 years</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="form-error" class="error-msg">Please fill in all fields before continuing.</div>
+
+      <button class="btn-full" onclick="runHealthCheck()">
+        <span>Run My Health Check</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </button>
+      <p class="disclaimer">Your information is used only to generate your report. We don't share or sell your data.</p>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading-state" id="loading-state">
+      <div class="spinner"></div>
+      <div class="loading-msg">Analysing your mortgage…</div>
+      <div class="loading-steps">
+        <div class="load-step" id="ls1"><div class="load-step-dot"></div>Checking current market rates</div>
+        <div class="load-step" id="ls2"><div class="load-step-dot"></div>Evaluating lender competitiveness</div>
+        <div class="load-step" id="ls3"><div class="load-step-dot"></div>Calculating your health score</div>
+        <div class="load-step" id="ls4"><div class="load-step-dot"></div>Preparing your report</div>
+      </div>
+    </div>
+
+    <!-- TEASER -->
+    <div class="teaser-state" id="teaser-state">
+      <div class="teaser-score-wrap">
+        <div class="teaser-label">Your Mortgage Health Score</div>
+        <div class="score-ring-wrap">
+          <svg class="score-ring-svg" width="160" height="160" viewBox="0 0 160 160">
+            <circle class="score-ring-bg" cx="80" cy="80" r="68"/>
+            <circle class="score-ring-fill" id="score-ring" cx="80" cy="80" r="68"
+              stroke-dasharray="427.26" stroke-dashoffset="427.26"/>
+          </svg>
+          <div class="score-center">
+            <div class="score-num" id="score-display">—</div>
+            <div class="score-denom">/100</div>
+          </div>
+        </div>
+        <div id="grade-badge" class="grade-badge">—</div>
+        <div class="teaser-headline" id="teaser-headline">Calculating…</div>
+        <div class="teaser-sub" id="teaser-sub"></div>
+      </div>
+
+      <!-- BLURRED PREVIEW -->
+      <div class="blurred-preview">
+        <div class="blurred-content">
+          <div class="blur-row"><span class="blur-key">Rate vs. market best</span><span class="blur-val">0.45% above ideal</span></div>
+          <div class="blur-row"><span class="blur-key">Annual overpayment</span><span class="blur-val">$1,890 / year</span></div>
+          <div class="blur-row"><span class="blur-key">Lender score</span><span class="blur-val">62 / 100</span></div>
+          <div class="blur-row"><span class="blur-key">Refinance opportunity</span><span class="blur-val">Strong — act now</span></div>
+          <div class="blur-row"><span class="blur-key">Recommended action</span><span class="blur-val">Switch lender at renewal</span></div>
+        </div>
+        <div class="blur-overlay">
+          <div class="blur-overlay-icon">🔒</div>
+          <div class="blur-overlay-text">Your full report is ready</div>
+          <div class="blur-overlay-sub">Enter your name and email to unlock it — free, no spam.</div>
+        </div>
+      </div>
+
+      <!-- GATE FORM -->
+      <div class="gate-form">
+        <div class="form-row">
+          <input type="text" id="gate-name" placeholder="Your first name">
+          <input type="email" id="gate-email" placeholder="Your email address">
+        </div>
+        <div id="gate-error" class="error-msg">Please enter your name and email.</div>
+        <button class="btn-full" onclick="unlockReport()">
+          <span>Unlock My Full Report</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- FULL REPORT -->
+    <div class="full-result" id="full-result">
+      <div class="teaser-score-wrap" style="padding-top:0.5rem;">
+        <div class="teaser-label">Your Mortgage Health Score</div>
+        <div class="score-ring-wrap">
+          <svg class="score-ring-svg" width="160" height="160" viewBox="0 0 160 160">
+            <circle class="score-ring-bg" cx="80" cy="80" r="68"/>
+            <circle class="score-ring-fill" id="score-ring-2" cx="80" cy="80" r="68"
+              stroke-dasharray="427.26" stroke-dashoffset="427.26"/>
+          </svg>
+          <div class="score-center">
+            <div class="score-num" id="score-display-2">—</div>
+            <div class="score-denom">/100</div>
+          </div>
+        </div>
+        <div id="grade-badge-2" class="grade-badge">—</div>
+        <div class="teaser-headline" id="full-headline"></div>
+        <div class="teaser-sub" id="full-sub" style="margin-bottom:0"></div>
+      </div>
+      <div id="full-report-content"></div>
+      <div class="cta-box">
+        <h3>Ready to improve your score?</h3>
+        <p>Mack can review your mortgage in detail and show you exactly what options are available at renewal — or sooner.</p>
+        <a href="index.html#contact">Book a Free Review →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Mack<span>Mortgages</span></div>
+    <div class="footer-copy">© 2026 Mack Mortgages. Results are estimates for informational purposes only.</div>
+  </div>
+</footer>
+
+<script>
+  let reportData = null;
+
+  function validateForm() {
+    const address = document.getElementById('address').value.trim();
+    const balance = document.getElementById('balance').value;
+    const rate = document.getElementById('curr-rate').value;
+    const lender = document.getElementById('lender').value;
+    const term = document.getElementById('term').value;
+    return address && balance && rate && lender && term;
+  }
+
+  async function runHealthCheck() {
+    if (!validateForm()) {
+      document.getElementById('form-error').classList.add('show');
+      return;
+    }
+    document.getElementById('form-error').classList.remove('show');
+
+    const address = document.getElementById('address').value.trim();
+    const balance = parseFloat(document.getElementById('balance').value);
+    const rate = parseFloat(document.getElementById('curr-rate').value);
+    const lender = document.getElementById('lender').value;
+    const term = document.getElementById('term').value;
+
+    // Show loading
+    document.getElementById('input-state').style.display = 'none';
+    document.getElementById('loading-state').classList.add('active');
+    setStep(2);
+
+    // Stagger loading messages
+    const steps = ['ls1','ls2','ls3','ls4'];
+    steps.forEach((id, i) => setTimeout(() => document.getElementById(id).classList.add('show'), i * 900));
+
+    // Call Claude API
+    const prompt = `You are a Canadian mortgage expert. Analyze this mortgage and return ONLY a JSON object (no markdown, no preamble).
+
+Mortgage details:
+- Property: ${address}
+- Balance: $${balance.toLocaleString()}
+- Current rate: ${rate}%
+- Lender: ${lender}
+- Remaining term: ${term} year(s)
+- Analysis date: ${new Date().toLocaleDateString('en-CA', {month:'long', year:'numeric'})}
+
+Return this exact JSON structure:
+{
+  "score": <integer 0-100>,
+  "grade": <"A+" | "A" | "B+" | "B" | "C+" | "C" | "D">,
+  "headline": <short 6-8 word headline about their mortgage health>,
+  "summary": <1 sentence plain English summary>,
+  "rate_vs_market": <string, e.g. "0.35% above best available">,
+  "annual_overpayment": <number in dollars, 0 if rate is competitive>,
+  "lender_score": <integer 0-100>,
+  "lender_note": <1 sentence about this lender's competitiveness>,
+  "renewal_strategy": <"Refinance now" | "Switch at renewal" | "Stay — rate is competitive" | "Negotiate with current lender">,
+  "opportunity_level": <"High" | "Moderate" | "Low">,
+  "opportunity_note": <1 sentence on savings opportunity>,
+  "savings_potential": <annual dollar savings estimate if they optimize — integer>,
+  "insights": [
+    {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">},
+    {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">},
+    {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">},
+    {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">},
+    {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">}
+  ],
+  "top_recommendation": <2-3 sentence actionable advice specific to their situation>
+}
+
+Be realistic and specific. Use current Canadian mortgage market context (mid-2026). Big 6 banks typically offer less competitive rates than monolines. Score 80-100 = excellent, 60-79 = good, 40-59 = fair, below 40 = needs attention.`;
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await res.json();
+      const text = data.content?.find(b => b.type === 'text')?.text || '';
+      const clean = text.replace(/```json|```/g, '').trim();
+      reportData = JSON.parse(clean);
+    } catch(e) {
+      // Fallback if API fails
+      reportData = generateFallback(rate, lender, balance, term);
+    }
+
+    // Hide loading, show teaser
+    await new Promise(r => setTimeout(r, 3800));
+    document.getElementById('loading-state').classList.remove('active');
+    showTeaser();
+  }
+
+  function generateFallback(rate, lender, balance, term) {
+    const marketRate = 4.89;
+    const diff = rate - marketRate;
+    const score = Math.max(20, Math.min(95, Math.round(75 - diff * 15)));
+    const grade = score >= 85 ? 'A' : score >= 75 ? 'B+' : score >= 65 ? 'B' : score >= 55 ? 'C+' : 'C';
+    const bigBanks = ['RBC','TD','Scotiabank','BMO','CIBC','National Bank'];
+    const isBigBank = bigBanks.includes(lender);
+    return {
+      score, grade,
+      headline: diff > 0.5 ? "Your rate has room to improve" : "Your mortgage is reasonably healthy",
+      summary: diff > 0.3 ? `Your rate is ${diff.toFixed(2)}% above current market best — there may be savings available.` : "Your mortgage is competitive with the current market.",
+      rate_vs_market: diff > 0 ? `${diff.toFixed(2)}% above best available` : "At or below market",
+      annual_overpayment: Math.round(balance * (diff / 100)),
+      lender_score: isBigBank ? 58 : 74,
+      lender_note: isBigBank ? "Big banks typically post rates 0.3–0.6% above what brokers can access." : "This lender offers competitive rates through the broker channel.",
+      renewal_strategy: diff > 0.5 ? "Switch at renewal" : diff > 0.2 ? "Negotiate with current lender" : "Stay — rate is competitive",
+      opportunity_level: diff > 0.5 ? "High" : diff > 0.2 ? "Moderate" : "Low",
+      opportunity_note: `Potential to save ~$${Math.round(balance * (Math.max(0, diff - 0.1) / 100)).toLocaleString()} annually by optimizing.`,
+      savings_potential: Math.round(balance * (Math.max(0, diff - 0.1) / 100)),
+      insights: [
+        { label: "Current rate", value: `${rate}%`, flag: diff > 0.5 ? 'bad' : diff > 0.2 ? 'warn' : 'good' },
+        { label: "Best available (broker)", value: "4.89% (5yr fixed)", flag: 'neutral' },
+        { label: "Lender type", value: isBigBank ? "Big 6 Bank" : "Monoline / Credit Union", flag: isBigBank ? 'warn' : 'good' },
+        { label: "Term remaining", value: `${term} year(s)`, flag: parseFloat(term) <= 1 ? 'good' : 'neutral' },
+        { label: "Prepayment flexibility", value: isBigBank ? "Standard (20/20)" : "Check your contract", flag: 'neutral' }
+      ],
+      top_recommendation: diff > 0.4
+        ? `With ${term} year(s) remaining, your best move is to lock in a plan for renewal now. A broker can negotiate on your behalf or line up a better rate before your term ends — potentially saving you $${Math.round(balance * diff / 100).toLocaleString()} per year.`
+        : `Your mortgage is in decent shape. At renewal, shop the market through a broker to ensure you're getting the best available rate. Even a 0.15% improvement on your balance is meaningful.`
+    };
+  }
+
+  function getGradeClass(grade) {
+    if (grade.startsWith('A')) return 'grade-a';
+    if (grade.startsWith('B')) return 'grade-b';
+    if (grade.startsWith('C')) return 'grade-c';
+    return 'grade-d';
+  }
+
+  function getScoreColor(score) {
+    if (score >= 75) return '#2D6A4F';
+    if (score >= 55) return '#3D5A80';
+    if (score >= 40) return '#B45309';
+    return '#991B1B';
+  }
+
+  function animateRing(ringId, score) {
+    const circumference = 427.26;
+    const offset = circumference - (score / 100) * circumference;
+    const ring = document.getElementById(ringId);
+    ring.style.stroke = getScoreColor(score);
+    setTimeout(() => { ring.style.strokeDashoffset = offset; }, 100);
+  }
+
+  function showTeaser() {
+    document.getElementById('teaser-state').classList.add('active');
+    setStep(2, 'done');
+    setStep(3, 'active');
+
+    const s = reportData.score;
+    document.getElementById('score-display').textContent = s;
+    document.getElementById('teaser-headline').textContent = reportData.headline;
+    document.getElementById('teaser-sub').textContent = reportData.summary;
+
+    const badge = document.getElementById('grade-badge');
+    badge.textContent = reportData.grade;
+    badge.className = 'grade-badge ' + getGradeClass(reportData.grade);
+
+    animateRing('score-ring', s);
+  }
+
+  function unlockReport() {
+    const name = document.getElementById('gate-name').value.trim();
+    const email = document.getElementById('gate-email').value.trim();
+    if (!name || !email || !email.includes('@')) {
+      document.getElementById('gate-error').classList.add('show');
+      return;
+    }
+    document.getElementById('gate-error').classList.remove('show');
+
+    // Log lead (in production you'd POST to a backend)
+    console.log('LEAD:', { name, email, address: document.getElementById('address').value, timestamp: new Date().toISOString() });
+    storeLead(name, email);
+
+    document.getElementById('teaser-state').classList.remove('active');
+    document.getElementById('full-result').classList.add('active');
+    setStep(3, 'done');
+
+    const s = reportData.score;
+    document.getElementById('score-display-2').textContent = s;
+    document.getElementById('full-headline').textContent = `${name}, here's your full report.`;
+    document.getElementById('full-sub').textContent = reportData.summary;
+
+    const badge2 = document.getElementById('grade-badge-2');
+    badge2.textContent = reportData.grade;
+    badge2.className = 'grade-badge ' + getGradeClass(reportData.grade);
+    animateRing('score-ring-2', s);
+
+    // Build report content
+    const r = reportData;
+    document.getElementById('full-report-content').innerHTML = `
+      <div class="result-section" style="margin-top:1.5rem;">
+        <div class="result-section-title">Rate Analysis</div>
+        ${r.insights.map(i => `
+          <div class="result-row">
+            <span class="result-key">${i.label}</span>
+            <span class="result-val ${i.flag === 'neutral' ? '' : i.flag}">${i.value}</span>
+          </div>`).join('')}
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Opportunity Summary</div>
+        <div class="result-row"><span class="result-key">Rate vs. market best</span><span class="result-val ${r.annual_overpayment > 500 ? 'warn' : 'good'}">${r.rate_vs_market}</span></div>
+        <div class="result-row"><span class="result-key">Annual overpayment est.</span><span class="result-val ${r.annual_overpayment > 1000 ? 'bad' : r.annual_overpayment > 300 ? 'warn' : 'good'}">$${r.annual_overpayment.toLocaleString()}</span></div>
+        <div class="result-row"><span class="result-key">Savings potential (annual)</span><span class="result-val good">$${r.savings_potential.toLocaleString()}</span></div>
+        <div class="result-row"><span class="result-key">Opportunity level</span><span class="result-val ${r.opportunity_level === 'High' ? 'bad' : r.opportunity_level === 'Moderate' ? 'warn' : 'good'}">${r.opportunity_level}</span></div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Lender Assessment</div>
+        <div class="result-row"><span class="result-key">Lender competitiveness</span><span class="result-val ${r.lender_score >= 70 ? 'good' : r.lender_score >= 50 ? 'warn' : 'bad'}">${r.lender_score}/100</span></div>
+        <div class="result-row" style="display:block;padding:0.75rem 0;"><span class="result-key" style="display:block;margin-bottom:0.3rem;">Lender note</span><span style="font-size:0.875rem;">${r.lender_note}</span></div>
+        <div class="result-row"><span class="result-key">Recommended action</span><span class="result-val">${r.renewal_strategy}</span></div>
+      </div>
+      <div class="result-insight">
+        <strong>Mack's Take</strong>
+        ${r.top_recommendation}
+      </div>
+    `;
+
+    window.scrollTo({ top: document.getElementById('full-result').getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  }
+
+  function storeLead(name, email) {
+    try {
+      const leads = JSON.parse(localStorage.getItem('mm_leads') || '[]');
+      leads.push({ name, email, tool: 'Mortgage Health Check', address: document.getElementById('address').value, score: reportData?.score, timestamp: new Date().toISOString() });
+      localStorage.setItem('mm_leads', JSON.stringify(leads));
+    } catch(e) {}
+  }
+
+  function setStep(num, state) {
+    const dot = document.getElementById(`step${num}-dot`);
+    if (!dot) return;
+    dot.classList.remove('active', 'done');
+    if (state) dot.classList.add(state);
+    if (num > 1) {
+      const line = document.getElementById(`line${num-1}`);
+      if (line && state === 'done') line.classList.add('done');
+    }
+  }
+</script>
+</body>
+</html>
