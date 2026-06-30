@@ -64,7 +64,9 @@ exports.handler = async (event) => {
   const errors = [];
 
   // ─── 1. SAVE TO NOTION ────────────────────────────────────────────────────
-  if (NOTION_KEY && NOTION_DB_ID) {
+  // Only write a lead when this is an actual lead-capture call (has name + email),
+  // not on the Claude-scoring call (which only sends claudeMessages).
+  if (NOTION_KEY && NOTION_DB_ID && name && email) {
     try {
       // Build properties based on source
       const properties = {
