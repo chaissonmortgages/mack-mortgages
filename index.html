@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mack Mortgages — Home Financing, Simplified</title>
+<title>Mack Mortgages - Home Financing, Simplified</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
@@ -18,13 +18,7 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(248,248,246,0.95); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border); padding: 0 5vw;
-    height: 64px; display: flex; align-items: center; justify-content: space-between;
-  }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,248,246,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 5vw; height: 64px; display: flex; align-items: center; justify-content: space-between; }
   .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
   .nav-logo span { color: var(--accent); }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -36,9 +30,8 @@
   .mobile-nav { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(248,248,246,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 99; flex-direction: column; }
   .mobile-nav a { text-decoration: none; color: var(--ink); font-size: 1rem; font-weight: 500; padding: 1rem 5vw; border-bottom: 1px solid var(--border); display: block; }
   .mobile-nav a:hover { background: var(--accent-light); }
-  .mobile-nav-cta { margin: 1rem 5vw 1.5rem; display: block; text-align: center; background: var(--ink); color: var(--white); padding: 0.9rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .mobile-nav-cta { margin: 1rem 5vw 1.5rem; display: block; text-align: center; background: var(--ink); color: var(--white); padding: 0.9rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; width: calc(100% - 10vw); }
 
-  /* HERO */
   #hero { padding: 160px 5vw 120px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
   .hero-eyebrow { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
   .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 4.5vw, 3.75rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
@@ -64,14 +57,17 @@
   .rate-bar-wrap { height: 3px; background: var(--border); border-radius: 2px; margin: 0.25rem 0; }
   .rate-bar { height: 3px; background: var(--accent); border-radius: 2px; }
 
-  /* SERVICES */
-  #services { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 5vw; }
+  #tools { padding: 80px 5vw; background: var(--white); border-top: 1px solid var(--border); }
+  .tools-inner { max-width: 1200px; margin: 0 auto; }
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+  #services { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 5vw; }
   .section-inner { max-width: 1200px; margin: 0 auto; }
   .section-header { margin-bottom: 4rem; }
   .section-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
   .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; max-width: 560px; }
   .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-  .service-card { background: var(--bg); padding: 2.5rem 2rem; border-right: 1px solid var(--border); transition: background 0.2s; display: flex; flex-direction: column; }
+  .service-card { background: var(--white); padding: 2.5rem 2rem; border-right: 1px solid var(--border); transition: background 0.2s; display: flex; flex-direction: column; }
   .service-card:last-child { border-right: none; }
   .service-card:hover { background: var(--accent-light); }
   .service-icon { width: 40px; height: 40px; margin-bottom: 1.5rem; color: var(--accent); }
@@ -80,8 +76,7 @@
   .service-link { margin-top: 1.25rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-align: left; padding: 0; }
   .service-link:hover { text-decoration: underline; }
 
-  /* CALCULATOR */
-  #calculator { padding: 100px 5vw; background: var(--bg); }
+  #calculator { padding: 100px 5vw; background: var(--white); }
   .calc-layout { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: start; }
   .calc-controls { display: flex; flex-direction: column; gap: 2rem; }
   .calc-field label { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.75rem; }
@@ -90,7 +85,7 @@
   input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--ink); border-radius: 50%; border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--ink); transition: background 0.15s; }
   input[type="range"]::-webkit-slider-thumb:hover { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
   input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: var(--ink); border-radius: 50%; border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--ink); cursor: pointer; }
-  .calc-result { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; }
+  .calc-result { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; }
   .calc-result-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.5rem; }
   .calc-monthly { font-size: 3.75rem; font-weight: 300; letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem; }
   .calc-monthly-sub { font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 2.5rem; }
@@ -101,7 +96,6 @@
   .calc-cta { margin-top: 2rem; display: block; text-align: center; background: var(--ink); color: var(--white); padding: 1rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 500; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; width: 100%; }
   .calc-cta:hover { background: var(--accent); }
 
-  /* ABOUT */
   #about { background: var(--ink); color: var(--white); padding: 100px 5vw; }
   .about-layout { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
   .about-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #8AABC4; margin-bottom: 1.25rem; }
@@ -113,18 +107,18 @@
   .about-val-text strong { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
   .about-val-text p { font-size: 0.8rem; color: #A8A8A4; line-height: 1.6; }
 
-  /* TESTIMONIALS */
   #testimonials { background: var(--white); border-top: 1px solid var(--border); padding: 100px 5vw; }
   .testimonials-grid { max-width: 1200px; margin: 0 auto; }
   .testimonials-header { margin-bottom: 4rem; }
-  .testi-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .testi-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; }
-  .testi-stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 2px; }
-  .testi-quote { font-size: 0.95rem; line-height: 1.75; color: var(--ink); margin-bottom: 1.5rem; font-style: italic; font-weight: 300; }
-  .testi-author { font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); }
-  .testi-location { font-size: 0.75rem; color: var(--ink-soft); opacity: 0.7; }
+  .testi-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .testi-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; display: flex; flex-direction: column; }
+  .testi-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+  .testi-stars { color: #F59E0B; font-size: 0.9rem; letter-spacing: 2px; }
+  .testi-source { font-size: 0.72rem; color: var(--ink-soft); display: flex; align-items: center; gap: 0.35rem; }
+  .testi-quote { font-size: 0.875rem; line-height: 1.75; color: var(--ink); margin-bottom: 1.25rem; font-weight: 300; flex: 1; }
+  .testi-author { font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+  .testi-date { font-size: 0.75rem; color: var(--ink-soft); margin-top: 0.2rem; }
 
-  /* FAQ */
   #faq { padding: 100px 5vw; background: var(--bg); }
   .faq-inner { max-width: 780px; margin: 0 auto; }
   .faq-header { margin-bottom: 3rem; }
@@ -138,24 +132,7 @@
   .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; font-size: 0.925rem; color: var(--ink-soft); line-height: 1.8; }
   .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.5rem; }
 
-  /* BLOG */
-  #blog { background: var(--white); border-top: 1px solid var(--border); padding: 100px 5vw; }
-  .blog-inner { max-width: 1200px; margin: 0 auto; }
-  .blog-header { margin-bottom: 4rem; display: flex; justify-content: space-between; align-items: flex-end; }
-  .blog-all { font-size: 0.875rem; color: var(--accent); text-decoration: none; font-weight: 500; }
-  .blog-all:hover { text-decoration: underline; }
-  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .blog-card { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--bg); transition: transform 0.2s, box-shadow 0.2s; }
-  .blog-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.07); }
-  .blog-card-img { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3rem; background: var(--accent-light); }
-  .blog-card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
-  .blog-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
-  .blog-card-title { font-size: 1rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-  .blog-card-excerpt { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; flex: 1; }
-  .blog-card-meta { font-size: 0.75rem; color: var(--ink-soft); margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-
-  /* CONTACT */
-  #contact { padding: 100px 5vw; background: var(--bg); }
+  #contact { padding: 100px 5vw; background: var(--white); }
   .contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
   .contact-info-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; margin-bottom: 1.25rem; }
   .contact-info-sub { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.75; font-weight: 300; margin-bottom: 2rem; }
@@ -167,18 +144,17 @@
   .contact-det-val a:hover { color: var(--accent); }
   .book-cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: var(--white); padding: 0.85rem 1.5rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
   .book-cta-btn:hover { background: var(--ink); }
-  .contact-form { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; }
+  .contact-form { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
   .form-group label { font-size: 0.78rem; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
-  .form-group input, .form-group select, .form-group textarea { font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.7rem 0.85rem; font-size: 0.9rem; background: var(--bg); color: var(--ink); outline: none; transition: border-color 0.2s; }
+  .form-group input, .form-group select, .form-group textarea { font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.7rem 0.85rem; font-size: 0.9rem; background: var(--white); color: var(--ink); outline: none; transition: border-color 0.2s; }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
   .form-group textarea { resize: vertical; min-height: 100px; }
   .form-submit { width: 100%; padding: 1rem; background: var(--ink); color: var(--white); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; letter-spacing: 0.02em; }
   .form-submit:hover { background: var(--accent); }
   .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  /* FOOTER */
   footer { background: var(--ink); color: var(--white); padding: 3rem 5vw; border-top: 1px solid rgba(255,255,255,0.08); }
   .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
   .footer-logo { font-size: 1rem; font-weight: 600; }
@@ -188,17 +164,16 @@
   .footer-links a:hover { color: var(--white); }
   .footer-copy { font-size: 0.78rem; color: #666662; }
 
-  /* RESPONSIVE */
   @media (max-width: 900px) {
     #hero { grid-template-columns: 1fr; padding: 120px 5vw 80px; gap: 3rem; }
     .hero-visual { display: none; }
+    .tools-grid { grid-template-columns: 1fr; }
     .services-grid { grid-template-columns: 1fr; }
     .service-card { border-right: none; border-bottom: 1px solid var(--border); }
     .service-card:last-child { border-bottom: none; }
     .calc-layout { grid-template-columns: 1fr; gap: 3rem; }
     .about-layout { grid-template-columns: 1fr; gap: 3rem; }
     .testi-cards { grid-template-columns: 1fr; }
-    .blog-grid { grid-template-columns: 1fr; }
     .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
     .nav-links { display: none; }
     .nav-cta { display: none; }
@@ -212,6 +187,8 @@
     .hero-stats { grid-template-columns: 1fr 1fr; }
     .calc-result { padding: 1.5rem; }
     .contact-form { padding: 1.5rem; }
+    #tools { padding: 60px 5vw; }
+    #services, #calculator, #about, #testimonials, #faq, #contact { padding: 70px 5vw; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
@@ -227,7 +204,7 @@
     <li><a href="#tools">Free Tools</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
-  <button class="nav-cta" onclick="openCalendly()">Book a Call</button>
+  <button class="nav-cta" onclick="openCalendly()">Book a Call with Mack</button>
   <button class="nav-mobile-toggle" onclick="toggleMobileNav()" id="nav-toggle" aria-label="Menu">
     <svg id="hamburger-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
     <svg id="close-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -240,47 +217,83 @@
   <a href="#tools" onclick="closeMobileNav()">Free Tools</a>
   <a href="#faq" onclick="closeMobileNav()">FAQ</a>
   <a href="#contact" onclick="closeMobileNav()">Contact</a>
-  <button class="mobile-nav-cta" onclick="openCalendly();closeMobileNav();">Book a Free Call →</button>
+  <button class="mobile-nav-cta" onclick="openCalendly();closeMobileNav();">Book a Free Call with Mack</button>
 </div>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-left">
-    <p class="hero-eyebrow">Licensed Mortgage Broker · BC &amp; Canada</p>
+    <p class="hero-eyebrow">Licensed Mortgage Broker · BC and Canada</p>
     <h1 class="hero-headline">Your path to home ownership, <em>made clear.</em></h1>
-    <p class="hero-sub">We cut through the complexity so you can focus on what matters — finding your home. Transparent rates, honest advice, and a process that actually makes sense.</p>
+    <p class="hero-sub">We cut through the complexity so you can focus on what matters: finding your home. Transparent rates, honest advice, and a process that actually makes sense.</p>
     <div class="hero-actions">
       <a href="#calculator" class="btn-primary">Calculate Your Rate</a>
-      <button class="btn-secondary" onclick="openCalendly()">Talk to an Advisor</button>
+      <button class="btn-secondary" onclick="openCalendly()">Book a Call with Mack</button>
     </div>
     <div class="hero-stats">
-      <div>
-        <div class="stat-num">$100M+</div>
-        <div class="stat-label">Funded to date</div>
-      </div>
-      <div>
-        <div class="stat-num">100+</div>
-        <div class="stat-label">Happy homeowners</div>
-      </div>
-      <div>
-        <div class="stat-num">5.0★</div>
-        <div class="stat-label">Google rating</div>
-      </div>
+      <div><div class="stat-num">$100M+</div><div class="stat-label">Funded to date</div></div>
+      <div><div class="stat-num">100+</div><div class="stat-label">Happy homeowners</div></div>
+      <div><div class="stat-num">5.0★</div><div class="stat-label">Google rating</div></div>
     </div>
   </div>
   <div class="hero-visual">
     <div class="hero-visual-label">Today's featured rate</div>
-    <div class="rate-display">4.89<span>%</span></div>
+    <div class="rate-display">4.09<span>%</span></div>
     <div class="rate-subtitle">5-year fixed · Subject to qualification</div>
     <div class="rate-breakdown">
-      <div class="rate-row"><span class="rate-row-label">Variable (5yr)</span><span class="rate-row-val">5.10%</span></div>
-      <div class="rate-bar-wrap"><div class="rate-bar" style="width:78%"></div></div>
-      <div class="rate-row"><span class="rate-row-label">Fixed (3yr)</span><span class="rate-row-val">4.95%</span></div>
+      <div class="rate-row"><span class="rate-row-label">Variable (5yr)</span><span class="rate-row-val">3.45%</span></div>
+      <div class="rate-bar-wrap"><div class="rate-bar" style="width:60%"></div></div>
+      <div class="rate-row"><span class="rate-row-label">Fixed (3yr)</span><span class="rate-row-val">3.89%</span></div>
+      <div class="rate-bar-wrap"><div class="rate-bar" style="width:68%"></div></div>
+      <div class="rate-row"><span class="rate-row-label">Fixed (5yr)</span><span class="rate-row-val">4.09%</span></div>
       <div class="rate-bar-wrap"><div class="rate-bar" style="width:72%"></div></div>
-      <div class="rate-row"><span class="rate-row-label">Fixed (5yr)</span><span class="rate-row-val">4.89%</span></div>
-      <div class="rate-bar-wrap"><div class="rate-bar" style="width:65%"></div></div>
-      <div class="rate-row"><span class="rate-row-label">HELOC</span><span class="rate-row-val">6.45%</span></div>
-      <div class="rate-bar-wrap"><div class="rate-bar" style="width:40%"></div></div>
+      <div class="rate-row"><span class="rate-row-label">HELOC</span><span class="rate-row-val">4.45%</span></div>
+      <div class="rate-bar-wrap"><div class="rate-bar" style="width:78%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE TOOLS - moved to top -->
+<section id="tools">
+  <div class="tools-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Free Tools</p>
+      <h2 class="section-title">Know where you stand before you call.</h2>
+    </div>
+    <div class="tools-grid">
+      <a href="mortgage-health-check.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="background:var(--accent-light);padding:2.5rem 2.5rem 1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:var(--accent);opacity:0.08;border-radius:50%;"></div>
+          <div style="font-size:2.5rem;margin-bottom:1rem;">🩺</div>
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;">Free · Takes 60 seconds</div>
+          <div style="font-size:1.4rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:0.5rem;">Mortgage Health Check</div>
+          <div style="font-size:0.875rem;color:var(--ink-soft);line-height:1.6;">Get a score out of 100 on your current mortgage, including rate, lender, term, and savings opportunity. Unlock your full report free.</div>
+        </div>
+        <div style="padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);">
+          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Score out of 100</div>
+            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Letter grade</div>
+            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Savings estimate</div>
+          </div>
+          <svg width="18" height="18" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </div>
+      </a>
+      <a href="home-value-estimator.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="background:#EEF4EC;padding:2.5rem 2.5rem 1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:#2D6A4F;opacity:0.08;border-radius:50%;"></div>
+          <div style="font-size:2.5rem;margin-bottom:1rem;">🏡</div>
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#2D6A4F;margin-bottom:0.5rem;">Free · Takes 60 seconds</div>
+          <div style="font-size:1.4rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:0.5rem;">What's My Home Worth?</div>
+          <div style="font-size:0.875rem;color:var(--ink-soft);line-height:1.6;">Get an AI-estimated current value range for your property, your equity position, and what you could access through a HELOC.</div>
+        </div>
+        <div style="padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);">
+          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Value range</div>
+            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Equity snapshot</div>
+            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ HELOC estimate</div>
+          </div>
+          <svg width="18" height="18" fill="none" stroke="#2D6A4F" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -334,8 +347,8 @@
         <input type="range" id="down" min="5" max="50" step="1" value="20" oninput="calcUpdate()">
       </div>
       <div class="calc-field">
-        <label>Interest Rate <span class="calc-val" id="rate-val">4.89%</span></label>
-        <input type="range" id="rate" min="1" max="10" step="0.05" value="4.89" oninput="calcUpdate()">
+        <label>Interest Rate <span class="calc-val" id="rate-val">4.09%</span></label>
+        <input type="range" id="rate" min="1" max="10" step="0.05" value="4.09" oninput="calcUpdate()">
       </div>
       <div class="calc-field">
         <label>Amortization <span class="calc-val" id="amort-val">25 years</span></label>
@@ -344,61 +357,15 @@
     </div>
     <div class="calc-result">
       <div class="calc-result-label">Estimated Monthly Payment</div>
-      <div class="calc-monthly" id="monthly-payment">$2,954</div>
+      <div class="calc-monthly" id="monthly-payment">--</div>
       <div class="calc-monthly-sub">Principal + Interest only · Excludes property tax, insurance</div>
       <div class="calc-breakdown">
-        <div class="calc-row"><span class="calc-row-key">Loan Amount</span><span class="calc-row-num" id="loan-amt">$520,000</span></div>
-        <div class="calc-row"><span class="calc-row-key">Total Interest</span><span class="calc-row-num" id="total-interest">$366,200</span></div>
-        <div class="calc-row"><span class="calc-row-key">Total Cost</span><span class="calc-row-num" id="total-cost">$886,200</span></div>
-        <div class="calc-row"><span class="calc-row-key">Payoff Date</span><span class="calc-row-num" id="payoff-date">June 2051</span></div>
+        <div class="calc-row"><span class="calc-row-key">Loan Amount</span><span class="calc-row-num" id="loan-amt">--</span></div>
+        <div class="calc-row"><span class="calc-row-key">Total Interest</span><span class="calc-row-num" id="total-interest">--</span></div>
+        <div class="calc-row"><span class="calc-row-key">Total Cost</span><span class="calc-row-num" id="total-cost">--</span></div>
+        <div class="calc-row"><span class="calc-row-key">Payoff Date</span><span class="calc-row-num" id="payoff-date">--</span></div>
       </div>
-      <button class="calc-cta" onclick="openCalendly()">Apply for This Rate →</button>
-    </div>
-  </div>
-</section>
-
-<!-- FREE TOOLS -->
-<section id="tools" style="padding:100px 5vw;background:var(--bg);border-top:1px solid var(--border);">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-header">
-      <p class="section-eyebrow">Free Tools</p>
-      <h2 class="section-title">Know where you stand before you call.</h2>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
-      <a href="mortgage-health-check.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="background:var(--accent-light);padding:2.5rem 2.5rem 1.5rem;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:var(--accent);opacity:0.08;border-radius:50%;"></div>
-          <div style="font-size:2.5rem;margin-bottom:1rem;">🩺</div>
-          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;">Free · Takes 60 seconds</div>
-          <div style="font-size:1.4rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:0.5rem;">Mortgage Health Check</div>
-          <div style="font-size:0.875rem;color:var(--ink-soft);line-height:1.6;">Get a score out of 100 on your current mortgage — rate, lender, term, and savings opportunity. Unlock your full report free.</div>
-        </div>
-        <div style="padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);">
-          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Score out of 100</div>
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Letter grade</div>
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Savings estimate</div>
-          </div>
-          <svg width="18" height="18" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </div>
-      </a>
-      <a href="home-value-estimator.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="background:#EEF4EC;padding:2.5rem 2.5rem 1.5rem;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:#2D6A4F;opacity:0.08;border-radius:50%;"></div>
-          <div style="font-size:2.5rem;margin-bottom:1rem;">🏡</div>
-          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#2D6A4F;margin-bottom:0.5rem;">Free · Takes 60 seconds</div>
-          <div style="font-size:1.4rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:0.5rem;">What's My Home Worth?</div>
-          <div style="font-size:0.875rem;color:var(--ink-soft);line-height:1.6;">Get an AI-estimated current value range for your property, your equity position, and what you could access through a HELOC.</div>
-        </div>
-        <div style="padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);">
-          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Value range</div>
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Equity snapshot</div>
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ HELOC estimate</div>
-          </div>
-          <svg width="18" height="18" fill="none" stroke="#2D6A4F" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </div>
-      </a>
+      <button class="calc-cta" onclick="openCalendly()">Apply for This Rate</button>
     </div>
   </div>
 </section>
@@ -408,17 +375,25 @@
   <div class="about-layout">
     <div>
       <p class="about-eyebrow">Why Mack Mortgages</p>
-      <h2 class="about-title">We're brokers, not banks. That difference matters.</h2>
-      <p class="about-body">As an independent broker, I work for you — not a lender. That means shopping dozens of lenders to find the rate and terms that serve your situation, not whoever pays the biggest commission.</p>
-      <p class="about-body">Since 2018, I've helped 100+ homeowners across BC and Canada secure financing that actually fits their lives — with a 5.0 Google rating to show for it.</p>
-      <button class="btn-primary" style="margin-top:1rem;" onclick="openCalendly()">Book a Free Consultation</button>
+      <div style="display:flex;align-items:center;gap:1.75rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+        <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;border:4px solid rgba(255,255,255,0.25);flex-shrink:0;box-shadow:0 0 0 8px rgba(255,255,255,0.06);">
+          <img src="mack.jpg" alt="Mack Chaisson, Mortgage Broker" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+        </div>
+        <h2 class="about-title" style="margin-bottom:0;">We're brokers, not banks. That difference matters.</h2>
+      </div>
+      <p class="about-body">As an independent broker, I work for you, not a lender. That means shopping dozens of lenders to find the rate and terms that serve your situation, not whoever pays the biggest commission.</p>
+      <p class="about-body">Since 2018, I've helped 100+ homeowners across BC and Canada secure financing that actually fits their lives, with a 5.0 Google rating to show for it.</p>
+      <button onclick="openCalendly()" style="margin-top:1.5rem;display:inline-flex;align-items:center;gap:0.6rem;background:#E8EEF4;color:#111110;border:none;padding:1rem 1.75rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.01em;" onmouseover="this.style.background='#ffffff'" onmouseout="this.style.background='#E8EEF4'">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Book a Free Consult
+      </button>
     </div>
     <div class="about-vals">
       <div class="about-val">
         <div class="about-val-icon">🔍</div>
         <div class="about-val-text">
           <strong>Full market access</strong>
-          <p>We compare rates from 50+ lenders — big banks, credit unions, and private lenders — to find your best option.</p>
+          <p>We compare rates from 50+ lenders, including big banks, credit unions, and private lenders, to find your best option.</p>
         </div>
       </div>
       <div class="about-val">
@@ -443,27 +418,45 @@
 <section id="testimonials">
   <div class="testimonials-grid">
     <div class="testimonials-header section-header">
-      <p class="section-eyebrow">Client Stories</p>
-      <h2 class="section-title">Real people, real homes.</h2>
+      <p class="section-eyebrow">Client Reviews</p>
+      <h2 class="section-title">What clients are saying.</h2>
     </div>
     <div class="testi-cards">
       <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"As a first-time buyer, I was completely overwhelmed. Mack made the whole thing feel manageable — he explained everything without making me feel rushed or foolish."</p>
-        <div class="testi-author">Sarah &amp; Tom K.</div>
-        <div class="testi-location">Burnaby, BC · First-time buyers</div>
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>
+        </div>
+        <p class="testi-quote">"Working with Mack was an absolute pleasure from start to finish. He's friendly, prompt, and incredibly well-organized and was always on top of the details so we didn't have to be. Our mortgage situation wasn't exactly straightforward, but Mack handled it with complete confidence and walked us through every step without making us feel overwhelmed. If you're looking for a confident, professional Mortgage Broker, I recommend contacting Mack!"</p>
+        <div class="testi-author">Eric Adams</div>
+        <div class="testi-date">3 months ago</div>
       </div>
       <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"We refinanced during a complicated time — self-employed, two rental properties. Mack found a lender who actually understood our situation. Saved us nearly $400/month."</p>
-        <div class="testi-author">Daniel R.</div>
-        <div class="testi-location">Richmond, BC · Refinance</div>
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>
+        </div>
+        <p class="testi-quote">"Mack was recommended to me by my real estate agent, and he assisted me with obtaining a mortgage for a more complex situation. Mack was a pleasure to work with. He is very knowledgeable, professional and responsive. He helped me identify the mortgage product that fit my needs, negotiated with the bank to get a competitive rate, and promptly answered all of my questions. I highly recommend Mack for anyone seeking a mortgage."</p>
+        <div class="testi-author">Eivan</div>
+        <div class="testi-date">3 months ago</div>
       </div>
       <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"I'd been turned down by two banks. Mack got me approved and into my home within three weeks. I can't recommend him enough — he genuinely went to bat for me."</p>
-        <div class="testi-author">Priya M.</div>
-        <div class="testi-location">Surrey, BC · Investment property</div>
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>
+        </div>
+        <p class="testi-quote">"I came to Mack with a desperate case. My bank didn't give me the renewal rate on my mortgage until the last minute, so I had only a couple of weeks to find something better and close the transfer. Didn't have high hopes, but Mack jumped on it, worked really hard and in a few days I had a much better offer and everything went smoothly from that point on! Besides finding me an excellent deal, Mack went above and beyond leading me step by step, making sure that I understood the pros and cons of every detail, and never hesitated to direct me to what served my best interest regardless of the impact on his own commission."</p>
+        <div class="testi-author">Tarek Trabulsi</div>
+        <div class="testi-date">7 months ago</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>
+        </div>
+        <p class="testi-quote">"Mack helped us with our mortgage of our second home, right before the arrival of our first baby. In what could have been a stressful experience, Mack helped create a seamless situation. Excellent communication! Did all the hard work and made everything so easy for us despite being on a time crunch! Highly recommend!"</p>
+        <div class="testi-author">Jasmine Harkness</div>
+        <div class="testi-date">1 month ago</div>
       </div>
     </div>
   </div>
@@ -476,67 +469,26 @@
       <p class="section-eyebrow">FAQ</p>
       <h2 class="section-title">Questions we hear often.</h2>
     </div>
-    <div class="faq-list" id="faq-list">
+    <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What's the difference between a broker and a bank?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">A bank only offers their own products. A mortgage broker like Mack has access to dozens of lenders and shops the market on your behalf. In most cases the lender pays our fee — there's no cost to you for using our service.</div>
+        <div class="faq-a">A bank only offers their own products. A mortgage broker like Mack has access to dozens of lenders and shops the market on your behalf. In most cases the lender pays our fee, so there's no cost to you for using our service.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How does a pre-approval work?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">We review your income, credit, and assets and present them to lenders to get a commitment on the maximum amount you can borrow at what rate. Pre-approvals typically take 24 hours and are valid for 90–120 days. It doesn't affect your credit score.</div>
+        <div class="faq-a">We review your income, credit, and assets and present them to lenders to get a commitment on the maximum amount you can borrow at what rate. Pre-approvals typically take 24 hours and are valid for 90 to 120 days. It doesn't affect your credit score.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What credit score do I need to qualify?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">Most prime lenders require a score of 680+, though some will work with 620+. For clients with challenged credit, we work with alternative lenders who weigh other factors like equity and income. Everyone's file is different — book a call and we'll give you an honest assessment.</div>
+        <div class="faq-a">Most prime lenders require a score of 680+, though some will work with 620+. For clients with challenged credit, we work with alternative lenders who weigh other factors like equity and income. Everyone's file is different. Book a call and we'll give you an honest assessment.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How much of a down payment do I need?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">In Canada, the minimum is 5% for homes under $500K, scaling to 10% for the portion between $500K–$999K. Homes over $1M require 20% minimum. Putting 20%+ down avoids mortgage default insurance (CMHC), which reduces your total cost.</div>
+        <div class="faq-a">In Canada, the minimum is 5% for homes under $500K, scaling to 10% for the portion between $500K and $999K. Homes over $1M require 20% minimum. Putting 20%+ down avoids mortgage default insurance (CMHC), which reduces your total cost.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How long does the mortgage process take?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">Pre-approval: 24 hours. Full approval after an accepted offer: 3–7 business days for most files. Complex files (self-employed, commercial, non-resident) can take longer. We always aim to give you a clear timeline upfront.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BLOG -->
-<section id="blog">
-  <div class="blog-inner">
-    <div class="blog-header">
-      <div>
-        <p class="section-eyebrow">Latest Insights</p>
-        <h2 class="section-title" style="max-width:100%;">Stay informed.</h2>
-      </div>
-    </div>
-    <div class="blog-grid">
-      <div class="blog-card">
-        <div class="blog-card-img">🏡</div>
-        <div class="blog-card-body">
-          <div class="blog-tag">First-Time Buyers</div>
-          <div class="blog-card-title">What to Expect in Your First 90 Days of Homeownership</div>
-          <div class="blog-card-excerpt">Beyond the mortgage, here's what actually costs money once the keys are in your hand — and how to plan for it without stress.</div>
-          <div class="blog-card-meta">June 3, 2026 · 5 min read</div>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="blog-card-img">📊</div>
-        <div class="blog-card-body">
-          <div class="blog-tag">Market Update</div>
-          <div class="blog-card-title">Bank of Canada Rate Decisions: What They Mean For Your Mortgage</div>
-          <div class="blog-card-excerpt">A plain-language breakdown of how central bank rate changes flow through to fixed and variable mortgage rates — and what to do about it.</div>
-          <div class="blog-card-meta">May 22, 2026 · 7 min read</div>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="blog-card-img">🔄</div>
-        <div class="blog-card-body">
-          <div class="blog-tag">Refinancing</div>
-          <div class="blog-card-title">The 3 Signs It's Time to Refinance (And 2 When It Isn't)</div>
-          <div class="blog-card-excerpt">Refinancing can save thousands — or cost thousands if the timing is off. Here's a practical framework to figure out which camp you're in.</div>
-          <div class="blog-card-meta">May 10, 2026 · 6 min read</div>
-        </div>
+        <div class="faq-a">Pre-approval: 24 hours. Full approval after an accepted offer: 3 to 7 business days for most files. Complex files (self-employed, commercial, non-resident) can take longer. We always aim to give you a clear timeline upfront.</div>
       </div>
     </div>
   </div>
@@ -544,64 +496,34 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-inner">
-    <div>
-      <p class="section-eyebrow">Get in Touch</p>
-      <h2 class="contact-info-title">Let's find the right mortgage for you.</h2>
-      <p class="contact-info-sub">Whether you're ready to apply, just starting to explore, or not sure if you qualify — reach out. No obligation, no judgment, just an honest conversation.</p>
-      <div class="contact-details">
-        <div class="contact-det-row"><span class="contact-det-icon">📞</span><span class="contact-det-val"><a href="tel:7788742451">778-874-2451</a></span></div>
-        <div class="contact-det-row"><span class="contact-det-icon">✉️</span><span class="contact-det-val"><a href="mailto:Mack.Chaisson@Cleartrust.ca">Mack.Chaisson@Cleartrust.ca</a></span></div>
-        <div class="contact-det-row"><span class="contact-det-icon">📍</span><span class="contact-det-val">Richmond, BC · Serving all of Canada</span></div>
-        <div class="contact-det-row"><span class="contact-det-icon">🕐</span><span class="contact-det-val">Mon–Fri 8am–7pm · Sat 9am–4pm</span></div>
+  <div style="max-width:860px;margin:0 auto;text-align:center;">
+    <p class="section-eyebrow">Get in Touch</p>
+    <h2 style="font-size:clamp(2rem,3.5vw,2.75rem);font-weight:500;letter-spacing:-0.025em;line-height:1.2;margin-bottom:1.25rem;">Ready to save money on your mortgage?</h2>
+    <p style="font-size:1.05rem;color:var(--ink-soft);line-height:1.75;font-weight:300;max-width:560px;margin:0 auto 0.75rem;">Book a free 30-minute call with Mack. No paperwork, no pressure, just a straight conversation about your options. You won't regret finding out how much you could be saving.</p>
+    <p style="font-size:0.875rem;color:var(--accent);font-weight:600;margin-bottom:2.5rem;">Most clients are surprised by what's available to them.</p>
+
+    <button onclick="openCalendly()" style="display:inline-flex;align-items:center;gap:0.75rem;background:var(--ink);color:var(--white);border:none;padding:1.1rem 2.25rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s;letter-spacing:0.01em;box-shadow:0 4px 20px rgba(17,17,16,0.25);" onmouseover="this.style.background='#3D5A80'" onmouseout="this.style.background='#111110'">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book a Free Call with Mack
+    </button>
+
+    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;">
+        <span style="font-size:1.1rem;">📞</span>
+        <a href="tel:7788742451" style="color:var(--ink);text-decoration:none;font-weight:500;">778-874-2451</a>
       </div>
-      <button class="book-cta-btn" onclick="openCalendly()">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Book a Free 30-Min Call
-      </button>
-    </div>
-    <div class="contact-form" id="contact-form-wrap">
-      <div id="contact-form-inner">
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" id="contact-fname" placeholder="Sarah">
-          </div>
-          <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" id="contact-lname" placeholder="Johnson">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="contact-email" placeholder="sarah@email.com">
-        </div>
-        <div class="form-group">
-          <label>Phone</label>
-          <input type="tel" id="contact-phone" placeholder="604-555-0100">
-        </div>
-        <div class="form-group">
-          <label>I'm looking to…</label>
-          <select id="contact-inquiry">
-            <option value="">Select an option</option>
-            <option value="Buy my first home">Buy my first home</option>
-            <option value="Buy another property">Buy another property</option>
-            <option value="Refinance">Refinance my current mortgage</option>
-            <option value="Investment property">Finance an investment property</option>
-            <option value="Just exploring">Just exploring my options</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Message (optional)</label>
-          <textarea id="contact-message" placeholder="Anything you'd like us to know before we connect…"></textarea>
-        </div>
-        <button class="form-submit" id="form-submit-btn" onclick="handleSubmit(event)">Send Message →</button>
+      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;">
+        <span style="font-size:1.1rem;">✉️</span>
+        <a href="mailto:Mack.Chaisson@Cleartrust.ca" style="color:var(--ink);text-decoration:none;font-weight:500;">Mack.Chaisson@Cleartrust.ca</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;">
+        <span style="font-size:1.1rem;">📍</span>
+        <span style="font-weight:500;">Richmond, BC · Serving all of Canada</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">Mack<span>Mortgages</span></div>
@@ -617,7 +539,6 @@
 
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <script>
-  // Calendly
   function openCalendly() {
     if (typeof Calendly !== 'undefined') {
       Calendly.initPopupWidget({ url: 'https://calendly.com/chaissonmortgages/initialmeet' });
@@ -627,7 +548,6 @@
     return false;
   }
 
-  // Mobile nav
   function toggleMobileNav() {
     const nav = document.getElementById('mobile-nav');
     const ham = document.getElementById('hamburger-icon');
@@ -643,7 +563,6 @@
     document.getElementById('close-icon').style.display = 'none';
   }
 
-  // Calculator
   function fmt(n) { return '$' + Math.round(n).toLocaleString('en-CA'); }
   function calcUpdate() {
     const price = +document.getElementById('price').value;
@@ -671,7 +590,6 @@
   }
   calcUpdate();
 
-  // FAQ
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
@@ -679,44 +597,7 @@
     if (!isOpen) item.classList.add('open');
   }
 
-  // Contact form
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const btn = document.getElementById('form-submit-btn');
-    const fname = document.getElementById('contact-fname').value.trim();
-    const email = document.getElementById('contact-email').value.trim();
-    if (!fname || !email || !email.includes('@')) {
-      btn.textContent = 'Please fill in your name and email →';
-      setTimeout(() => { btn.textContent = 'Send Message →'; }, 3000);
-      return;
-    }
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    try {
-      await fetch('/.netlify/functions/capture-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: `${fname} ${document.getElementById('contact-lname').value.trim()}`.trim(),
-          email,
-          phone: document.getElementById('contact-phone').value.trim(),
-          source: 'Contact Form',
-          inquiry_type: document.getElementById('contact-inquiry').value,
-          message: document.getElementById('contact-message').value.trim()
-        })
-      });
-    } catch(e) {}
-    document.getElementById('contact-form-inner').innerHTML = `
-      <div style="text-align:center;padding:2rem 0;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">✓</div>
-        <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:0.75rem;">Message received, ${fname}!</h3>
-        <p style="font-size:0.875rem;color:var(--ink-soft);margin-bottom:2rem;line-height:1.7;">I'll be in touch within one business day. Or if you'd prefer, book a time that works for you right now — no waiting.</p>
-        <button onclick="openCalendly()" style="background:var(--accent);color:var(--white);border:none;padding:0.9rem 1.75rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          Book a Call Now →
-        </button>
-      </div>`;
-  }
+
 </script>
 </body>
 </html>
