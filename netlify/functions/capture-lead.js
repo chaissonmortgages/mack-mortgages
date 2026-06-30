@@ -109,10 +109,10 @@ exports.handler = async (event) => {
           properties['Current Rate'] = { number: parseFloat(rate) };
         }
         if (lender) {
-          properties['Lender'] = { select: { name: lender } };
+          properties['Lender'] = { rich_text: [{ text: { content: lender } }] };
         }
         if (term) {
-          properties['Term Remaining'] = { select: { name: `${term} yr` } };
+          properties['Term Remaining'] = { rich_text: [{ text: { content: `${term} yr` } }] };
         }
         if (renewal_strategy) {
           properties['Recommended Action'] = {
@@ -127,10 +127,10 @@ exports.handler = async (event) => {
       // Home Value Estimator specific fields
       if (source === 'Home Value Estimator') {
         if (value_mid) {
-          properties['Est. Property Value'] = { number: parseFloat(value_mid) };
+          properties['Est Property Value'] = { number: parseFloat(value_mid) };
         }
         if (equity_dollars) {
-          properties['Est. Equity'] = { number: parseFloat(equity_dollars) };
+          properties['Est Equity'] = { number: parseFloat(equity_dollars) };
         }
         if (purchase_price) {
           properties['Purchase Price'] = { number: parseFloat(purchase_price) };
@@ -139,7 +139,7 @@ exports.handler = async (event) => {
           properties['Purchase Year'] = { number: parseInt(purchase_year) };
         }
         if (appreciation_pct) {
-          properties['Appreciation %'] = { number: parseFloat(appreciation_pct) };
+          properties['Appreciation Pct'] = { number: parseFloat(appreciation_pct) };
         }
         if (prop_type) {
           properties['Property Type'] = { select: { name: prop_type } };
