@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -18,17 +19,12 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(248,248,246,0.92); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border); padding: 0 5vw;
-    height: 64px; display: flex; align-items: center; justify-content: space-between;
-  }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,248,246,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 5vw; height: 64px; display: flex; align-items: center; justify-content: space-between; }
   .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
   .nav-logo span { color: var(--accent); }
   .nav-back { font-size: 0.875rem; color: var(--ink-soft); text-decoration: none; }
   .nav-back:hover { color: var(--ink); }
-  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
+  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
   .nav-cta:hover { background: var(--accent); }
 
   .page-hero { padding: 120px 5vw 60px; max-width: 760px; margin: 0 auto; text-align: center; }
@@ -54,17 +50,18 @@
 
   .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
   .form-group label { font-size: 0.75rem; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
-  .form-group input, .form-group select {
-    font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 0.75rem 0.9rem; font-size: 0.9rem; background: var(--bg); color: var(--ink);
-    outline: none; transition: border-color 0.2s; width: 100%;
-  }
+  .form-group input, .form-group select { font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem 0.9rem; font-size: 0.9rem; background: var(--bg); color: var(--ink); outline: none; transition: border-color 0.2s; width: 100%; }
   .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .input-prefix-wrap { position: relative; }
   .input-prefix { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--ink-soft); font-size: 0.9rem; pointer-events: none; }
   .input-prefix-wrap input { padding-left: 1.6rem; }
   .form-hint { font-size: 0.75rem; color: var(--ink-soft); margin-top: -0.9rem; margin-bottom: 0.5rem; }
+  .autocomplete-wrap { position: relative; }
+  .address-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); z-index: 50; display: none; max-height: 220px; overflow-y: auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .addr-option { padding: 0.7rem 0.9rem; font-size: 0.82rem; cursor: pointer; border-bottom: 1px solid var(--border); color: var(--ink); line-height: 1.4; }
+  .addr-option:last-child { border-bottom: none; }
+  .addr-option:hover { background: var(--accent-light); color: var(--accent); }
 
   .btn-full { width: 100%; padding: 1rem; background: var(--ink); color: var(--white); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
   .btn-full:hover { background: var(--accent); }
@@ -84,11 +81,9 @@
 
   .teaser-state { display: none; }
   .teaser-state.active { display: block; }
-
-  /* VALUE RANGE DISPLAY */
   .value-range-wrap { text-align: center; padding: 2rem 0 1.5rem; }
   .value-range-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.75rem; }
-  .value-range-nums { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.4rem; }
+  .value-range-nums { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
   .value-low, .value-high { font-size: 1.5rem; font-weight: 300; letter-spacing: -0.03em; color: var(--ink-soft); }
   .value-mid { font-size: 2.75rem; font-weight: 300; letter-spacing: -0.04em; color: var(--ink); }
   .value-range-dash { color: var(--border); font-size: 1.5rem; }
@@ -98,8 +93,6 @@
   .range-marker { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: var(--ink); border-radius: 50%; border: 2px solid var(--white); }
   .range-low-label, .range-high-label { font-size: 0.7rem; color: var(--ink-soft); }
   .value-caption { font-size: 0.825rem; color: var(--ink-soft); margin-bottom: 2rem; }
-
-  /* EQUITY TEASER */
   .equity-teaser { background: var(--accent-light); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .equity-item { text-align: center; }
   .equity-item-val { font-size: 1.4rem; font-weight: 500; letter-spacing: -0.03em; }
@@ -133,19 +126,19 @@
   .result-val.bad { color: var(--red); }
   .result-insight { background: var(--accent-light); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.875rem; line-height: 1.7; margin-top: 1rem; color: var(--ink); }
   .result-insight strong { display: block; font-weight: 600; margin-bottom: 0.3rem; }
+  .book-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; background: var(--accent); color: var(--white); border: none; padding: 0.75rem 1.4rem; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .book-btn:hover { background: var(--ink); }
   .cta-box { background: var(--ink); color: var(--white); border-radius: 8px; padding: 2rem; text-align: center; margin-top: 1.5rem; }
   .cta-box h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
   .cta-box p { font-size: 0.875rem; color: #A8A8A4; margin-bottom: 1.25rem; line-height: 1.6; }
-  .cta-box a { display: inline-block; background: var(--white); color: var(--ink); padding: 0.75rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
-  .cta-box a:hover { background: var(--accent-light); }
-
-  /* VALUE CHART (full report) */
+  .cta-box-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--white); color: var(--ink); border: none; padding: 0.75rem 1.75rem; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .cta-box-btn:hover { background: var(--accent-light); }
   .value-chart { margin: 1.5rem 0; }
   .chart-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 1rem; font-weight: 500; }
   .chart-bar-wrap { display: flex; flex-direction: column; gap: 0.75rem; }
   .chart-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; }
   .chart-label { width: 100px; color: var(--ink-soft); text-align: right; flex-shrink: 0; }
-  .chart-track { flex: 1; height: 24px; background: var(--bg); border-radius: 3px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+  .chart-track { flex: 1; height: 24px; background: var(--bg); border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
   .chart-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; font-weight: 600; color: var(--white); transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
   .chart-fill.purchase { background: var(--border); color: var(--ink-soft); }
   .chart-fill.current { background: var(--accent); }
@@ -161,6 +154,10 @@
     .form-row { grid-template-columns: 1fr; }
     .tool-card { padding: 1.5rem; }
     .value-mid { font-size: 2rem; }
+    .value-range-nums { gap: 0.5rem; }
+    .steps-bar { padding: 0 2vw; }
+    .step-label { font-size: 0.65rem; }
+    .chart-label { width: 70px; font-size: 0.72rem; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
@@ -170,7 +167,7 @@
 <nav>
   <a href="index.html" class="nav-logo">Mack<span>Mortgages</span></a>
   <a href="index.html" class="nav-back">← Back to site</a>
-  <a href="index.html#contact" class="nav-cta">Talk to an Advisor</a>
+  <button class="nav-cta" onclick="openCalendly()">Talk to an Advisor</button>
 </nav>
 
 <div class="page-hero">
@@ -190,14 +187,14 @@
 <div class="form-wrap">
   <div class="tool-card">
 
-    <!-- INPUT FORM -->
     <div id="input-state">
       <div class="tool-card-title">Tell us about your property</div>
       <div class="tool-card-sub">Just your address, what you paid, and when — no account needed.</div>
-
       <div class="form-group">
         <label>Property Address</label>
-        <input type="text" id="address" placeholder="123 Main St, Vancouver, BC" autocomplete="off">
+        <div class="autocomplete-wrap">
+          <input type="text" id="address" placeholder="123 Main St, Vancouver, BC" autocomplete="off">
+        </div>
       </div>
       <div class="form-group">
         <label>Property Type</label>
@@ -227,13 +224,11 @@
         <label>Current Mortgage Balance (optional)</label>
         <div class="input-prefix-wrap">
           <span class="input-prefix">$</span>
-          <input type="number" id="mortgage-bal" placeholder="520,000 — leave blank if paid off or unknown" min="0">
+          <input type="number" id="mortgage-bal" placeholder="520,000 — leave blank if paid off" min="0">
         </div>
       </div>
       <p class="form-hint">Leave blank if paid off or unknown — we'll skip equity calculation.</p>
-
       <div id="form-error" class="error-msg">Please fill in address, property type, purchase price, and year.</div>
-
       <button class="btn-full" onclick="runValuation()">
         <span>Estimate My Home Value</span>
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
@@ -241,7 +236,6 @@
       <p class="disclaimer">Estimates are AI-generated using public market data and are not appraisals. For legal or financial decisions, obtain a certified appraisal.</p>
     </div>
 
-    <!-- LOADING -->
     <div class="loading-state" id="loading-state">
       <div class="spinner"></div>
       <div class="loading-msg">Researching your property…</div>
@@ -253,7 +247,6 @@
       </div>
     </div>
 
-    <!-- TEASER -->
     <div class="teaser-state" id="teaser-state">
       <div class="value-range-wrap">
         <div class="value-range-label">Estimated Current Value Range</div>
@@ -265,17 +258,15 @@
           <div class="value-high" id="val-high">—</div>
         </div>
         <div class="value-range-bar">
-          <span class="range-low-label" id="label-low">Low</span>
+          <span class="range-low-label">Low</span>
           <div class="range-track">
             <div class="range-fill"></div>
             <div class="range-marker" style="left:50%"></div>
           </div>
-          <span class="range-high-label" id="label-high">High</span>
+          <span class="range-high-label">High</span>
         </div>
         <div class="value-caption" id="val-caption"></div>
       </div>
-
-      <!-- EQUITY TEASER (shown if balance entered) -->
       <div class="equity-teaser" id="equity-teaser" style="display:none;">
         <div class="equity-item">
           <div class="equity-item-val" id="eq-value">—</div>
@@ -292,15 +283,13 @@
           <div class="equity-item-label">Your Equity</div>
         </div>
       </div>
-
-      <!-- BLURRED PREVIEW -->
       <div class="blurred-preview">
         <div class="blurred-content">
           <div class="blur-row"><span class="blur-key">Appreciation since purchase</span><span class="blur-val">+$187,000 (+24.9%)</span></div>
           <div class="blur-row"><span class="blur-key">Annual growth rate (est.)</span><span class="blur-val">4.6% / year</span></div>
           <div class="blur-row"><span class="blur-key">Equity-to-value ratio</span><span class="blur-val">38.2% (LTV: 61.8%)</span></div>
           <div class="blur-row"><span class="blur-key">HELOC available (80% LTV)</span><span class="blur-val">~$80,000</span></div>
-          <div class="blur-row"><span class="blur-key">Neighbourhood trend (12mo)</span><span class="blur-val">+3.1% appreciation</span></div>
+          <div class="blur-row"><span class="blur-key">Recommended next step</span><span class="blur-val">Book a free equity review</span></div>
         </div>
         <div class="blur-overlay">
           <div class="blur-overlay-icon">🔒</div>
@@ -308,8 +297,6 @@
           <div class="blur-overlay-sub">Free — just your name and email to unlock it.</div>
         </div>
       </div>
-
-      <!-- GATE -->
       <div class="gate-form">
         <div class="form-row">
           <input type="text" id="gate-name" placeholder="Your first name">
@@ -323,7 +310,6 @@
       </div>
     </div>
 
-    <!-- FULL REPORT -->
     <div class="full-result" id="full-result">
       <div class="value-range-wrap" style="padding-top:0.5rem;">
         <div class="value-range-label">Estimated Current Value Range</div>
@@ -339,8 +325,11 @@
       <div id="full-report-content"></div>
       <div class="cta-box">
         <h3>Want to put your equity to work?</h3>
-        <p>Whether you're refinancing, renewing, or thinking about your next property, Mack can show you what your equity position means for your options.</p>
-        <a href="index.html#contact">Book a Free Equity Review →</a>
+        <p>Book a free 30-minute call and I'll show you exactly what your equity position means for refinancing, renewal, or your next property — no obligation, no cost to you.</p>
+        <button class="cta-box-btn" onclick="openCalendly()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Book My Free Equity Review →
+        </button>
       </div>
     </div>
 
@@ -350,29 +339,79 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">Mack<span>Mortgages</span></div>
+    <div style="font-size:0.82rem;color:#888884;">📞 <a href="tel:7788742451" style="color:#888884;text-decoration:none;">778-874-2451</a> &nbsp;·&nbsp; ✉️ <a href="mailto:Mack.Chaisson@Cleartrust.ca" style="color:#888884;text-decoration:none;">Mack.Chaisson@Cleartrust.ca</a></div>
     <div class="footer-copy">© 2026 Mack Mortgages. Value estimates are AI-generated and not certified appraisals.</div>
   </div>
 </footer>
 
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <script>
   let reportData = null;
+  let addrTimeout;
+
+  function openCalendly() {
+    if (typeof Calendly !== 'undefined') {
+      Calendly.initPopupWidget({ url: 'https://calendly.com/chaissonmortgages/initialmeet' });
+    } else {
+      window.open('https://calendly.com/chaissonmortgages/initialmeet', '_blank');
+    }
+    return false;
+  }
 
   function fmt(n) { return '$' + Math.round(n).toLocaleString('en-CA'); }
   function fmtPct(n) { return (n > 0 ? '+' : '') + n.toFixed(1) + '%'; }
 
+  // Address autocomplete via OpenStreetMap Nominatim (free, no API key needed)
+  function setupAddressAutocomplete(inputId) {
+    const input = document.getElementById(inputId);
+    const wrap = input.parentElement;
+    const dropdown = document.createElement('div');
+    dropdown.className = 'address-dropdown';
+    wrap.appendChild(dropdown);
+    input.addEventListener('input', function() {
+      clearTimeout(addrTimeout);
+      const val = this.value.trim();
+      if (val.length < 4) { dropdown.style.display = 'none'; return; }
+      addrTimeout = setTimeout(async () => {
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(val)}&countrycodes=ca&format=json&limit=5&addressdetails=1`);
+          const data = await res.json();
+          if (!data.length) { dropdown.style.display = 'none'; return; }
+          dropdown.innerHTML = data.map(r => {
+            const a = r.address;
+            const parts = [];
+            if (a.house_number && a.road) parts.push(`${a.house_number} ${a.road}`);
+            else if (a.road) parts.push(a.road);
+            if (a.suburb || a.neighbourhood) parts.push(a.suburb || a.neighbourhood);
+            if (a.city || a.town || a.village) parts.push(a.city || a.town || a.village);
+            if (a.state) parts.push(a.state);
+            const label = parts.length ? parts.join(', ') : r.display_name.substring(0, 80);
+            return `<div class="addr-option" data-val="${label}">${label}</div>`;
+          }).join('');
+          dropdown.style.display = 'block';
+          dropdown.querySelectorAll('.addr-option').forEach(opt => {
+            opt.addEventListener('mousedown', function(e) {
+              e.preventDefault();
+              input.value = this.dataset.val;
+              dropdown.style.display = 'none';
+            });
+          });
+        } catch(e) {}
+      }, 400);
+    });
+    document.addEventListener('click', e => { if (!wrap.contains(e.target)) dropdown.style.display = 'none'; });
+  }
+  setupAddressAutocomplete('address');
+
   function validateForm() {
-    const a = document.getElementById('address').value.trim();
-    const p = document.getElementById('prop-type').value;
-    const pr = document.getElementById('purchase-price').value;
-    const yr = document.getElementById('purchase-year').value;
-    return a && p && pr && yr;
+    return document.getElementById('address').value.trim() &&
+           document.getElementById('prop-type').value &&
+           document.getElementById('purchase-price').value &&
+           document.getElementById('purchase-year').value;
   }
 
   async function runValuation() {
-    if (!validateForm()) {
-      document.getElementById('form-error').classList.add('show');
-      return;
-    }
+    if (!validateForm()) { document.getElementById('form-error').classList.add('show'); return; }
     document.getElementById('form-error').classList.remove('show');
 
     const address = document.getElementById('address').value.trim();
@@ -385,7 +424,6 @@
     document.getElementById('input-state').style.display = 'none';
     document.getElementById('loading-state').classList.add('active');
     setStep(2);
-
     ['ls1','ls2','ls3','ls4'].forEach((id, i) => setTimeout(() => document.getElementById(id).classList.add('show'), i * 900));
 
     const prompt = `You are a Canadian real estate valuation expert. Analyze this property and return ONLY a JSON object (no markdown, no preamble).
@@ -400,38 +438,36 @@ Property details:
 
 Return this exact JSON structure:
 {
-  "value_low": <integer — conservative estimate>,
-  "value_mid": <integer — most likely estimate>,
-  "value_high": <integer — optimistic estimate>,
-  "appreciation_dollars": <integer — mid estimate minus purchase price>,
-  "appreciation_pct": <float — percentage gain since purchase>,
-  "annual_growth_rate": <float — implied CAGR>,
-  "neighbourhood_trend_12mo": <float — estimated 12-month appreciation % for this area>,
-  "neighbourhood_note": <1 sentence about this neighbourhood/city's market>,
-  "equity_dollars": <integer if balance provided, else null>,
-  "ltv_ratio": <float 0-100 if balance provided, else null>,
-  "heloc_available": <integer — estimated HELOC room at 80% LTV, or null>,
-  "market_context": <1-2 sentences on broader Canadian market context relevant to this property>,
-  "property_type_trend": <1 sentence on how this property type is performing in this market>,
+  "value_low": <integer>,
+  "value_mid": <integer>,
+  "value_high": <integer>,
+  "appreciation_dollars": <integer>,
+  "appreciation_pct": <float>,
+  "annual_growth_rate": <float>,
+  "neighbourhood_trend_12mo": <float>,
+  "neighbourhood_note": <string>,
+  "equity_dollars": <integer or null>,
+  "ltv_ratio": <float or null>,
+  "heloc_available": <integer or null>,
+  "market_context": <string>,
+  "property_type_trend": <string>,
   "value_drivers": [
-    {"factor": <string>, "impact": <"positive" | "neutral" | "negative">, "note": <short string>},
-    {"factor": <string>, "impact": <"positive" | "neutral" | "negative">, "note": <short string>},
-    {"factor": <string>, "impact": <"positive" | "neutral" | "negative">, "note": <short string>}
+    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string>},
+    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string>},
+    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string>}
   ],
-  "best_action": <1 sentence recommendation based on equity/market position>,
-  "confidence": <"High" | "Medium" | "Low">,
-  "confidence_note": <1 sentence on data confidence>
+  "best_action": <string — MUST end with: "Book a free equity review call to explore how your equity could be working harder — whether that's refinancing, a HELOC, or planning your next move.">,
+  "confidence": <"High"|"Medium"|"Low">,
+  "confidence_note": <string>
 }
 
-Be realistic for the Canadian market in 2026. Use known market trends for the city/neighbourhood if identifiable from the address.`;
+Be realistic for the Canadian market in 2026.`;
 
     try {
       const res = await fetch('/.netlify/functions/capture-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          claudeMessages: [{ role: 'user', content: prompt }]
-        })
+        body: JSON.stringify({ claudeMessages: [{ role: 'user', content: prompt }] })
       });
       const data = await res.json();
       const text = data.claude?.content?.find(b => b.type === 'text')?.text || '';
@@ -447,7 +483,8 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
 
   function generateFallback(purchasePrice, purchaseYear, mortgageBal, propType, address) {
     const yearsSince = new Date().getFullYear() - purchaseYear;
-    const isBC = address.toLowerCase().includes('bc') || address.toLowerCase().includes('vancouver') || address.toLowerCase().includes('richmond') || address.toLowerCase().includes('surrey') || address.toLowerCase().includes('burnaby');
+    const addr = address.toLowerCase();
+    const isBC = addr.includes('bc') || addr.includes('vancouver') || addr.includes('richmond') || addr.includes('surrey') || addr.includes('burnaby') || addr.includes('coquitlam') || addr.includes('langley');
     const annualGrowth = isBC ? 0.055 : 0.042;
     const midVal = Math.round(purchasePrice * Math.pow(1 + annualGrowth, yearsSince));
     const appPct = ((midVal - purchasePrice) / purchasePrice) * 100;
@@ -473,23 +510,20 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
         { factor: "Time held", impact: yearsSince >= 5 ? "positive" : "neutral", note: `${yearsSince} years of appreciation captured` },
         { factor: "Property type", impact: propType.includes('Condo') ? "neutral" : "positive", note: propType.includes('Condo') ? "Condo market has been more volatile" : "Ground-oriented properties retain strong demand" }
       ],
-      best_action: equity && equity > 100000 ? "Your equity position is strong — consider whether it could be working harder via a HELOC or strategic refinance." : "Continue building equity; your property has appreciated well relative to purchase price.",
-      confidence: isBC ? "Medium" : "Medium",
+      best_action: `Your equity position has been building steadily${equity && equity > 100000 ? ' and is now substantial' : ''}. Book a free equity review call to explore how your equity could be working harder — whether that's refinancing, a HELOC, or planning your next move.`,
+      confidence: "Medium",
       confidence_note: "AI estimate based on general market data. A formal appraisal will give the most accurate value for lending purposes."
     };
   }
 
   function showTeaser(mortgageBal) {
     document.getElementById('teaser-state').classList.add('active');
-    setStep(2, 'done');
-    setStep(3, 'active');
-
+    setStep(2, 'done'); setStep(3, 'active');
     const r = reportData;
     document.getElementById('val-low').textContent = fmt(r.value_low);
     document.getElementById('val-mid').textContent = fmt(r.value_mid);
     document.getElementById('val-high').textContent = fmt(r.value_high);
     document.getElementById('val-caption').textContent = `Based on ${r.annual_growth_rate.toFixed(1)}% average annual growth since purchase. ${r.confidence} confidence.`;
-
     if (mortgageBal && r.equity_dollars !== null) {
       const et = document.getElementById('equity-teaser');
       et.style.display = 'flex';
@@ -502,23 +536,18 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
   function unlockReport() {
     const name = document.getElementById('gate-name').value.trim();
     const email = document.getElementById('gate-email').value.trim();
-    if (!name || !email || !email.includes('@')) {
-      document.getElementById('gate-error').classList.add('show');
-      return;
-    }
+    if (!name || !email || !email.includes('@')) { document.getElementById('gate-error').classList.add('show'); return; }
     document.getElementById('gate-error').classList.remove('show');
 
-    storeLead(name, email);
-
-    // Save lead to Notion + Mailchimp via Netlify function
     const r = reportData;
-    const mortgageBalForLead = parseFloat(document.getElementById('mortgage-bal').value) || null;
+    const mortgageBal = parseFloat(document.getElementById('mortgage-bal').value) || null;
+
+    // Send lead to Notion + Mailchimp via Netlify function
     fetch('/.netlify/functions/capture-lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name,
-        email,
+        name, email,
         source: 'Home Value Estimator',
         address: document.getElementById('address').value.trim(),
         prop_type: document.getElementById('prop-type').value,
@@ -527,7 +556,7 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
         value_mid: r.value_mid,
         value_low: r.value_low,
         value_high: r.value_high,
-        equity_dollars: mortgageBalForLead ? r.equity_dollars : null,
+        equity_dollars: mortgageBal ? r.equity_dollars : null,
         appreciation_pct: r.appreciation_pct
       })
     }).catch(e => console.error('Lead capture failed:', e));
@@ -536,14 +565,13 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
     document.getElementById('full-result').classList.add('active');
     setStep(3, 'done');
 
+    const purchasePrice = parseFloat(document.getElementById('purchase-price').value);
+    const purchaseYear = parseInt(document.getElementById('purchase-year').value);
+
     document.getElementById('val-low-2').textContent = fmt(r.value_low);
     document.getElementById('val-mid-2').textContent = fmt(r.value_mid);
     document.getElementById('val-high-2').textContent = fmt(r.value_high);
     document.getElementById('val-caption-2').textContent = `${r.confidence} confidence · ${r.confidence_note}`;
-
-    const mortgageBal = parseFloat(document.getElementById('mortgage-bal').value) || null;
-    const purchasePrice = parseFloat(document.getElementById('purchase-price').value);
-    const purchaseYear = parseInt(document.getElementById('purchase-year').value);
 
     document.getElementById('full-report-content').innerHTML = `
       <div class="value-chart">
@@ -551,25 +579,18 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
         <div class="chart-bar-wrap">
           <div class="chart-row">
             <div class="chart-label">Purchased (${purchaseYear})</div>
-            <div class="chart-track">
-              <div class="chart-fill purchase" style="width:${Math.round((purchasePrice/r.value_high)*85)}%">${fmt(purchasePrice)}</div>
-            </div>
+            <div class="chart-track"><div class="chart-fill purchase" style="width:${Math.round((purchasePrice/r.value_high)*85)}%">${fmt(purchasePrice)}</div></div>
           </div>
           <div class="chart-row">
             <div class="chart-label">Est. today</div>
-            <div class="chart-track">
-              <div class="chart-fill current" style="width:${Math.round((r.value_mid/r.value_high)*85)}%">${fmt(r.value_mid)}</div>
-            </div>
+            <div class="chart-track"><div class="chart-fill current" style="width:${Math.round((r.value_mid/r.value_high)*85)}%">${fmt(r.value_mid)}</div></div>
           </div>
           <div class="chart-row">
             <div class="chart-label">High estimate</div>
-            <div class="chart-track">
-              <div class="chart-fill high" style="width:85%">${fmt(r.value_high)}</div>
-            </div>
+            <div class="chart-track"><div class="chart-fill high" style="width:85%">${fmt(r.value_high)}</div></div>
           </div>
         </div>
       </div>
-
       <div class="result-section">
         <div class="result-section-title">Appreciation Summary</div>
         <div class="result-row"><span class="result-key">Purchase price</span><span class="result-val">${fmt(purchasePrice)}</span></div>
@@ -577,7 +598,6 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
         <div class="result-row"><span class="result-key">Annual growth rate (est.)</span><span class="result-val">${r.annual_growth_rate.toFixed(1)}% / year</span></div>
         <div class="result-row"><span class="result-key">Neighbourhood trend (12mo)</span><span class="result-val ${r.neighbourhood_trend_12mo >= 3 ? 'good' : r.neighbourhood_trend_12mo >= 1 ? '' : 'warn'}">${fmtPct(r.neighbourhood_trend_12mo)}</span></div>
       </div>
-
       ${mortgageBal && r.equity_dollars !== null ? `
       <div class="result-section">
         <div class="result-section-title">Equity Position</div>
@@ -587,7 +607,6 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
         <div class="result-row"><span class="result-key">Loan-to-value (LTV)</span><span class="result-val ${r.ltv_ratio < 65 ? 'good' : r.ltv_ratio < 80 ? '' : 'warn'}">${r.ltv_ratio.toFixed(1)}%</span></div>
         ${r.heloc_available > 0 ? `<div class="result-row"><span class="result-key">Est. HELOC room (at 80% LTV)</span><span class="result-val good">${fmt(r.heloc_available)}</span></div>` : ''}
       </div>` : ''}
-
       <div class="result-section">
         <div class="result-section-title">Value Drivers</div>
         ${r.value_drivers.map(d => `
@@ -596,7 +615,6 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
             <span class="result-val ${d.impact === 'positive' ? 'good' : d.impact === 'negative' ? 'bad' : ''}">${d.note}</span>
           </div>`).join('')}
       </div>
-
       <div class="result-insight">
         <strong>Market Context</strong>
         ${r.neighbourhood_note} ${r.property_type_trend}
@@ -604,27 +622,23 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
       <div class="result-insight" style="margin-top:0.75rem;">
         <strong>Mack's Take</strong>
         ${r.best_action}
+        <div style="margin-top:1rem;">
+          <button class="book-btn" onclick="openCalendly()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Book a Free Equity Review Call
+          </button>
+        </div>
       </div>
     `;
 
-    // Animate chart bars
     setTimeout(() => {
       document.querySelectorAll('.chart-fill').forEach(el => {
-        const w = el.style.width;
-        el.style.width = '0';
+        const w = el.style.width; el.style.width = '0';
         setTimeout(() => { el.style.width = w; }, 50);
       });
     }, 100);
 
     window.scrollTo({ top: document.getElementById('full-result').getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-  }
-
-  function storeLead(name, email) {
-    try {
-      const leads = JSON.parse(localStorage.getItem('mm_leads') || '[]');
-      leads.push({ name, email, tool: 'Home Valuation', address: document.getElementById('address').value, value_est: reportData?.value_mid, timestamp: new Date().toISOString() });
-      localStorage.setItem('mm_leads', JSON.stringify(leads));
-    } catch(e) {}
   }
 
   function setStep(num, state) {
