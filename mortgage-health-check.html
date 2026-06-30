@@ -473,17 +473,15 @@ Return this exact JSON structure:
 Be realistic and specific. Use current Canadian mortgage market context (mid-2026). Big 6 banks typically offer less competitive rates than monolines. Score 80-100 = excellent, 60-79 = good, 40-59 = fair, below 40 = needs attention.`;
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('/.netlify/functions/capture-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
+          claudeMessages: [{ role: 'user', content: prompt }]
         })
       });
       const data = await res.json();
-      const text = data.content?.find(b => b.type === 'text')?.text || '';
+      const text = data.claude?.content?.find(b => b.type === 'text')?.text || '';
       const clean = text.replace(/```json|```/g, '').trim();
       reportData = JSON.parse(clean);
     } catch(e) {
@@ -577,9 +575,27 @@ Be realistic and specific. Use current Canadian mortgage market context (mid-202
     }
     document.getElementById('gate-error').classList.remove('show');
 
-    // Log lead (in production you'd POST to a backend)
-    console.log('LEAD:', { name, email, address: document.getElementById('address').value, timestamp: new Date().toISOString() });
+    // Save lead to Notion + Mailchimp via Netlify function
     storeLead(name, email);
+    const r = reportData;
+    fetch('/.netlify/functions/capture-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        source: 'Mortgage Health Check',
+        address: document.getElementById('address').value.trim(),
+        balance: document.getElementById('balance').value,
+        rate: document.getElementById('curr-rate').value,
+        lender: document.getElementById('lender').value,
+        term: document.getElementById('term').value,
+        score: r.score,
+        grade: r.grade,
+        renewal_strategy: r.renewal_strategy,
+        savings_potential: r.savings_potential
+      })
+    }).catch(e => console.error('Lead capture failed:', e));
 
     document.getElementById('teaser-state').classList.remove('active');
     document.getElementById('full-result').classList.add('active');
@@ -596,11 +612,11 @@ Be realistic and specific. Use current Canadian mortgage market context (mid-202
     animateRing('score-ring-2', s);
 
     // Build report content
-    const r = reportData;
+    const r2 = reportData;
     document.getElementById('full-report-content').innerHTML = `
       <div class="result-section" style="margin-top:1.5rem;">
         <div class="result-section-title">Rate Analysis</div>
-        ${r.insights.map(i => `
+        ${r2.insights.map(i => `
           <div class="result-row">
             <span class="result-key">${i.label}</span>
             <span class="result-val ${i.flag === 'neutral' ? '' : i.flag}">${i.value}</span>
@@ -608,20 +624,20 @@ Be realistic and specific. Use current Canadian mortgage market context (mid-202
       </div>
       <div class="result-section">
         <div class="result-section-title">Opportunity Summary</div>
-        <div class="result-row"><span class="result-key">Rate vs. market best</span><span class="result-val ${r.annual_overpayment > 500 ? 'warn' : 'good'}">${r.rate_vs_market}</span></div>
-        <div class="result-row"><span class="result-key">Annual overpayment est.</span><span class="result-val ${r.annual_overpayment > 1000 ? 'bad' : r.annual_overpayment > 300 ? 'warn' : 'good'}">$${r.annual_overpayment.toLocaleString()}</span></div>
-        <div class="result-row"><span class="result-key">Savings potential (annual)</span><span class="result-val good">$${r.savings_potential.toLocaleString()}</span></div>
-        <div class="result-row"><span class="result-key">Opportunity level</span><span class="result-val ${r.opportunity_level === 'High' ? 'bad' : r.opportunity_level === 'Moderate' ? 'warn' : 'good'}">${r.opportunity_level}</span></div>
+        <div class="result-row"><span class="result-key">Rate vs. market best</span><span class="result-val ${r2.annual_overpayment > 500 ? 'warn' : 'good'}">${r2.rate_vs_market}</span></div>
+        <div class="result-row"><span class="result-key">Annual overpayment est.</span><span class="result-val ${r2.annual_overpayment > 1000 ? 'bad' : r2.annual_overpayment > 300 ? 'warn' : 'good'}">$${r2.annual_overpayment.toLocaleString()}</span></div>
+        <div class="result-row"><span class="result-key">Savings potential (annual)</span><span class="result-val good">$${r2.savings_potential.toLocaleString()}</span></div>
+        <div class="result-row"><span class="result-key">Opportunity level</span><span class="result-val ${r2.opportunity_level === 'High' ? 'bad' : r2.opportunity_level === 'Moderate' ? 'warn' : 'good'}">${r2.opportunity_level}</span></div>
       </div>
       <div class="result-section">
         <div class="result-section-title">Lender Assessment</div>
-        <div class="result-row"><span class="result-key">Lender competitiveness</span><span class="result-val ${r.lender_score >= 70 ? 'good' : r.lender_score >= 50 ? 'warn' : 'bad'}">${r.lender_score}/100</span></div>
-        <div class="result-row" style="display:block;padding:0.75rem 0;"><span class="result-key" style="display:block;margin-bottom:0.3rem;">Lender note</span><span style="font-size:0.875rem;">${r.lender_note}</span></div>
-        <div class="result-row"><span class="result-key">Recommended action</span><span class="result-val">${r.renewal_strategy}</span></div>
+        <div class="result-row"><span class="result-key">Lender competitiveness</span><span class="result-val ${r2.lender_score >= 70 ? 'good' : r2.lender_score >= 50 ? 'warn' : 'bad'}">${r2.lender_score}/100</span></div>
+        <div class="result-row" style="display:block;padding:0.75rem 0;"><span class="result-key" style="display:block;margin-bottom:0.3rem;">Lender note</span><span style="font-size:0.875rem;">${r2.lender_note}</span></div>
+        <div class="result-row"><span class="result-key">Recommended action</span><span class="result-val">${r2.renewal_strategy}</span></div>
       </div>
       <div class="result-insight">
         <strong>Mack's Take</strong>
-        ${r.top_recommendation}
+        ${r2.top_recommendation}
       </div>
     `;
 
