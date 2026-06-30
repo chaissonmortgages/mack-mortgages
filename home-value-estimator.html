@@ -426,17 +426,15 @@ Return this exact JSON structure:
 Be realistic for the Canadian market in 2026. Use known market trends for the city/neighbourhood if identifiable from the address.`;
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('/.netlify/functions/capture-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
+          claudeMessages: [{ role: 'user', content: prompt }]
         })
       });
       const data = await res.json();
-      const text = data.content?.find(b => b.type === 'text')?.text || '';
+      const text = data.claude?.content?.find(b => b.type === 'text')?.text || '';
       reportData = JSON.parse(text.replace(/```json|```/g, '').trim());
     } catch(e) {
       reportData = generateFallback(purchasePrice, purchaseYear, mortgageBal, propType, address);
@@ -512,11 +510,32 @@ Be realistic for the Canadian market in 2026. Use known market trends for the ci
 
     storeLead(name, email);
 
+    // Save lead to Notion + Mailchimp via Netlify function
+    const r = reportData;
+    const mortgageBalForLead = parseFloat(document.getElementById('mortgage-bal').value) || null;
+    fetch('/.netlify/functions/capture-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        source: 'Home Value Estimator',
+        address: document.getElementById('address').value.trim(),
+        prop_type: document.getElementById('prop-type').value,
+        purchase_price: document.getElementById('purchase-price').value,
+        purchase_year: document.getElementById('purchase-year').value,
+        value_mid: r.value_mid,
+        value_low: r.value_low,
+        value_high: r.value_high,
+        equity_dollars: mortgageBalForLead ? r.equity_dollars : null,
+        appreciation_pct: r.appreciation_pct
+      })
+    }).catch(e => console.error('Lead capture failed:', e));
+
     document.getElementById('teaser-state').classList.remove('active');
     document.getElementById('full-result').classList.add('active');
     setStep(3, 'done');
 
-    const r = reportData;
     document.getElementById('val-low-2').textContent = fmt(r.value_low);
     document.getElementById('val-mid-2').textContent = fmt(r.value_mid);
     document.getElementById('val-high-2').textContent = fmt(r.value_high);
