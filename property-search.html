@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Search — Mack Mortgages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F8F8F6; --ink: #111110; --ink-soft: #555552;
+    --accent: #3D5A80; --accent-light: #E8EEF4; --border: #E2E2DE;
+    --white: #FFFFFF; --radius: 4px; --green: #2D6A4F;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,248,246,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 5vw; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--ink-soft); font-size: 0.9rem; }
+  .nav-links a:hover, .nav-links a.active { color: var(--ink); font-weight: 500; }
+  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--accent); }
+  .nav-mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .mobile-nav { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(248,248,246,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 99; flex-direction: column; }
+  .mobile-nav a { text-decoration: none; color: var(--ink); font-size: 1rem; font-weight: 500; padding: 1rem 5vw; border-bottom: 1px solid var(--border); display: block; }
+  .mobile-nav-cta { margin: 1rem 5vw 1.5rem; display: block; text-align: center; background: var(--ink); color: var(--white); padding: 0.9rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; width: calc(100% - 10vw); }
+
+  .page-hero { padding: 120px 5vw 80px; max-width: 860px; margin: 0 auto; text-align: center; }
+  .page-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-sub { font-size: 1rem; color: var(--ink-soft); font-weight: 300; line-height: 1.75; max-width: 580px; margin: 0 auto; }
+
+  .portals-section { padding: 0 5vw 80px; }
+  .portals-inner { max-width: 1200px; margin: 0 auto; }
+  .portals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 3rem; }
+  .portal-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+  .portal-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .portal-header { padding: 2rem 2rem 1.5rem; border-bottom: 1px solid var(--border); }
+  .portal-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .portal-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+  .portal-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .portal-desc { font-size: 0.875rem; color: var(--ink-soft); line-height: 1.65; }
+  .portal-body { padding: 1.5rem 2rem; flex: 1; }
+  .portal-feature { display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 0.6rem; }
+  .portal-feature svg { flex-shrink: 0; color: var(--green); }
+  .portal-footer { padding: 1.25rem 2rem; border-top: 1px solid var(--border); }
+  .portal-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; background: var(--ink); color: var(--white); text-decoration: none; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600; transition: background 0.2s; }
+  .portal-btn:hover { background: var(--accent); }
+  .portal-btn.secondary { background: var(--bg); color: var(--ink); border: 1.5px solid var(--border); }
+  .portal-btn.secondary:hover { border-color: var(--ink); background: var(--white); }
+
+  .tip-strip { background: var(--accent-light); border-radius: 12px; padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .tip-text h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .tip-text p { font-size: 0.875rem; color: var(--ink-soft); line-height: 1.6; }
+  .tip-btn { background: var(--ink); color: var(--white); border: none; padding: 0.85rem 1.5rem; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+  .tip-btn:hover { background: var(--accent); }
+
+  .process-section { padding: 80px 5vw; background: var(--white); border-top: 1px solid var(--border); }
+  .process-inner { max-width: 900px; margin: 0 auto; }
+  .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 3rem; }
+  .process-step { text-align: center; }
+  .process-num { width: 48px; height: 48px; background: var(--accent-light); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; margin: 0 auto 1rem; }
+  .process-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .process-desc { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.65; }
+
+  footer { background: var(--ink); color: var(--white); padding: 2.5rem 5vw; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-size: 1rem; font-weight: 600; }
+  .footer-logo span { color: #8AABC4; }
+  .footer-copy { font-size: 0.78rem; color: #666662; }
+
+  @media (max-width: 900px) {
+    .portals-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .nav-mobile-toggle { display: flex; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Mack<span>Mortgages</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#calculator">Calculator</a></li>
+    <li><a href="index.html#tools">Free Tools</a></li>
+    <li><a href="property-search.html" class="active">Property Search</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openCalendly()">Book a Call with Mack</button>
+  <button class="nav-mobile-toggle" onclick="toggleMobileNav()" id="nav-toggle">
+    <svg id="hamburger-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    <svg id="close-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html#services" onclick="closeMobileNav()">Services</a>
+  <a href="index.html#calculator" onclick="closeMobileNav()">Calculator</a>
+  <a href="index.html#tools" onclick="closeMobileNav()">Free Tools</a>
+  <a href="property-search.html" onclick="closeMobileNav()">Property Search</a>
+  <a href="index.html#faq" onclick="closeMobileNav()">FAQ</a>
+  <a href="index.html#contact" onclick="closeMobileNav()">Contact</a>
+  <button class="mobile-nav-cta" onclick="openCalendly();closeMobileNav();">Book a Free Call with Mack</button>
+</div>
+
+<div class="page-hero">
+  <p class="page-eyebrow">Browse Listings</p>
+  <h1 class="page-title">Find your next property <em>in BC.</em></h1>
+  <p class="page-sub">Search active MLS listings through BC's top real estate portals. When you find something you like, book a call and we'll get you pre-approved fast — often within 24 hours.</p>
+</div>
+
+<div class="portals-section">
+  <div class="portals-inner">
+    <div class="portals-grid">
+      <div class="portal-card">
+        <div class="portal-header">
+          <div class="portal-icon">🏠</div>
+          <div class="portal-tag">Most Popular in BC</div>
+          <div class="portal-name">REW.ca</div>
+          <div class="portal-desc">BC's leading real estate search platform with full MLS coverage, neighbourhood insights, and a clean map-based interface.</div>
+        </div>
+        <div class="portal-body">
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Full BC MLS coverage</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Map search by neighbourhood</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>School catchment info</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Price history per property</div>
+        </div>
+        <div class="portal-footer">
+          <a href="https://www.rew.ca/properties/areas/british-columbia" target="_blank" rel="noopener" class="portal-btn">
+            Search on REW.ca
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="portal-card">
+        <div class="portal-header">
+          <div class="portal-icon">🗺️</div>
+          <div class="portal-tag">Official CREA Source</div>
+          <div class="portal-name">Realtor.ca</div>
+          <div class="portal-desc">The official national MLS database maintained by CREA. Every active listing in Canada, directly from the source, updated in real time.</div>
+        </div>
+        <div class="portal-body">
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Real-time MLS updates</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Direct REALTOR contact</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Open house schedules</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Save searches and alerts</div>
+        </div>
+        <div class="portal-footer">
+          <a href="https://www.realtor.ca/map#ZoomLevel=8&Center=49.600000%2C-122.500000&LatitudeMax=50.50&LatitudeMin=48.80&LongitudeMax=-120.50&LongitudeMin=-124.50&view=list&CurrentPage=1&SortBy=6&SortOrder=A&PropertyTypeGroupID=1&TransactionTypeId=2" target="_blank" rel="noopener" class="portal-btn">
+            Search on Realtor.ca
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="portal-card">
+        <div class="portal-header">
+          <div class="portal-icon">📊</div>
+          <div class="portal-tag">Best for Market Data</div>
+          <div class="portal-name">Zolo.ca</div>
+          <div class="portal-desc">Active listings plus deep sold data and neighbourhood price trends. Best for understanding what properties are actually trading at in any area.</div>
+        </div>
+        <div class="portal-body">
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Sold price history</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Neighbourhood price trends</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Days on market data</div>
+          <div class="portal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Price per sq ft analysis</div>
+        </div>
+        <div class="portal-footer">
+          <a href="https://www.zolo.ca/british-columbia-real-estate" target="_blank" rel="noopener" class="portal-btn">
+            Explore on Zolo.ca
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-strip">
+      <div class="tip-text">
+        <h3>Found something you like?</h3>
+        <p>Get your pre-approval lined up before you make an offer. A firm pre-approval gives you a competitive edge and tells you exactly what you can spend.</p>
+      </div>
+      <button class="tip-btn" onclick="openCalendly()">Book a Pre-Approval Call</button>
+    </div>
+  </div>
+</div>
+
+<div class="process-section">
+  <div class="process-inner">
+    <p style="font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">How it works</p>
+    <h2 style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:500;letter-spacing:-0.02em;max-width:500px;">From browsing to keys in hand.</h2>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <div class="process-title">Browse and shortlist</div>
+        <div class="process-desc">Use the portals above to find properties that fit your budget and area. Save favourites and note what matters most to you.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <div class="process-title">Get pre-approved</div>
+        <div class="process-desc">Book a free 30-minute call with Mack. We'll go through your finances and get a pre-approval letter fast — often same day.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">3</div>
+        <div class="process-title">Make your offer with confidence</div>
+        <div class="process-desc">With a solid pre-approval in hand, your offer is stronger. Mack handles the mortgage from accepted offer through to closing.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <button onclick="openCalendly()" style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--ink);color:var(--white);border:none;padding:0.9rem 1.75rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--ink)'">
+        Book a Free Call with Mack
+      </button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Mack<span>Mortgages</span></div>
+    <div style="font-size:0.82rem;color:#888884;">📞 <a href="tel:7788742451" style="color:#888884;text-decoration:none;">778-874-2451</a> &nbsp;·&nbsp; ✉️ <a href="mailto:Mack.Chaisson@Cleartrust.ca" style="color:#888884;text-decoration:none;">Mack.Chaisson@Cleartrust.ca</a></div>
+    <div class="footer-copy">© 2026 Mack Mortgages. Licensed Mortgage Broker · DLC / Clear Trust Mortgages</div>
+  </div>
+</footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+  function openCalendly() {
+    if (typeof Calendly !== 'undefined') {
+      Calendly.initPopupWidget({ url: 'https://calendly.com/chaissonmortgages/initialmeet' });
+    } else {
+      window.open('https://calendly.com/chaissonmortgages/initialmeet', '_blank');
+    }
+  }
+  function toggleMobileNav() {
+    const nav = document.getElementById('mobile-nav');
+    const ham = document.getElementById('hamburger-icon');
+    const close = document.getElementById('close-icon');
+    const isOpen = nav.style.display === 'flex';
+    nav.style.display = isOpen ? 'none' : 'flex';
+    ham.style.display = isOpen ? 'block' : 'none';
+    close.style.display = isOpen ? 'none' : 'block';
+  }
+  function closeMobileNav() {
+    document.getElementById('mobile-nav').style.display = 'none';
+    document.getElementById('hamburger-icon').style.display = 'block';
+    document.getElementById('close-icon').style.display = 'none';
+  }
+</script>
+</body>
+</html>
