@@ -287,29 +287,37 @@
   function fmtPct(n) { return n.toFixed(1) + '%'; }
 
   function calculateAffordability(annualIncome, downPayment, monthlyDebts) {
-    const rate = 0.0409;
-    const months = 300; // 25yr
-    const r = rate / 12;
-    const factor = Math.pow(1 + r, months);
+    const contractRate = 0.0409;
+    // Stress test: qualify at contract rate + 2% or 5.25%, whichever is higher (OSFI B-20)
+    const stressRate = Math.max(contractRate + 0.02, 0.0525);
+    const months = 300; // 25yr amortization
+    const r_stress = stressRate / 12;
+    const r_contract = contractRate / 12;
+    const factor_stress = Math.pow(1 + r_stress, months);
+    const factor_contract = Math.pow(1 + r_contract, months);
     const heat = 150;
     const maxMonthlyIncome = annualIncome / 12;
 
-    // Iterate twice to converge on accurate property tax
+    // Qualify at stress test rate, iterate to converge on property tax
     let maxPrice = 0;
     let taxEstimate = 300;
     for (let i = 0; i < 3; i++) {
       const maxPayment = maxMonthlyIncome * 0.39 - heat - taxEstimate;
       if (maxPayment <= 0) return null;
-      const maxLoan = maxPayment * (factor - 1) / (r * factor);
+      // Max loan using STRESS TEST rate
+      const maxLoan = maxPayment * (factor_stress - 1) / (r_stress * factor_stress);
       maxPrice = maxLoan + downPayment;
       taxEstimate = maxPrice * 0.005 / 12;
     }
 
     const maxLoan = maxPrice - downPayment;
-    const monthlyPayment = maxLoan * r * factor / (factor - 1);
+    // Show actual payment at CONTRACT rate
+    const monthlyPayment = maxLoan * r_contract * factor_contract / (factor_contract - 1);
     const monthlyTax = maxPrice * 0.005 / 12;
-    const gds = (monthlyPayment + monthlyTax + heat) / maxMonthlyIncome * 100;
-    const tds = (monthlyPayment + monthlyTax + heat + monthlyDebts) / maxMonthlyIncome * 100;
+    // GDS/TDS use stress test payment for qualification
+    const stressPayment = maxLoan * r_stress * factor_stress / (factor_stress - 1);
+    const gds = (stressPayment + monthlyTax + heat) / maxMonthlyIncome * 100;
+    const tds = (stressPayment + monthlyTax + heat + monthlyDebts) / maxMonthlyIncome * 100;
 
     // Minimum down payment (CMHC rules)
     let minDown;
@@ -383,7 +391,7 @@
     const d = calcData;
     document.getElementById('teaser-price').textContent = fmt(d.maxPrice);
     document.getElementById('teaser-range').textContent = `${fmt(d.maxPrice * 0.95)} to ${fmt(d.maxPrice * 1.05)} estimated range`;
-    document.getElementById('teaser-caption').textContent = `Based on 39% GDS at 4.09% (5yr fixed, 25yr amortization)`;
+    document.getElementById('teaser-caption').textContent = `Stress tested at 6.09% (contract + 2%), actual payment at 4.09%`;
 
     const badge = document.getElementById('qualify-badge');
     if (d.qualifies && d.gds <= 36) {
@@ -457,16 +465,11 @@
       <div class="result-insight">
         <strong>Mack's Take</strong>
         ${d.qualifies
-          ? `Based on your income of ${fmt(d.annualIncome)} and down payment of ${fmt(d.downPayment)}, you're in a solid position. Your GDS of ${fmtPct(d.gds)} sits ${d.gds <= 36 ? 'comfortably within' : 'near'} the 39% guideline. Keep in mind this is based on current rates — a pre-approval locks in your rate and gives you a firm number to shop with.`
-          : `Your numbers show a couple of things to address before applying. ${!d.downOK ? 'Your down payment needs to reach ' + fmt(d.minDown) + ' for this price range. ' : ''}${!d.tdsOK ? 'Your total debt load is above the 44% TDS threshold — paying down some debts before applying would help significantly.' : ''} Book a call and I'll walk through exactly what needs to happen.`
+          ? `Based on your income of ${fmt(d.annualIncome)} and down payment of ${fmt(d.downPayment)}, you're in a solid position. This estimate already factors in Canada's mortgage stress test, so your pre-approval will reflect a similar number. A pre-approval locks in your rate and gives you a firm budget to shop with.`
+          : `Your numbers show a couple of things to address before applying. ${!d.downOK ? 'Your down payment needs to reach ' + fmt(d.minDown) + ' for this price range. ' : ''}${!d.tdsOK ? 'Your total debt load is above the qualifying threshold. Paying down some debts before applying would help significantly.' : ''} Book a call and I'll walk through exactly what needs to happen.`
         }
-        <div style="margin-top:1rem;">
-          <button onclick="openCalendly()" style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--accent);color:var(--white);border:none;padding:0.75rem 1.4rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='var(--ink)'" onmouseout="this.style.background='var(--accent)'">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Book a Free Pre-Approval Call
-          </button>
-        </div>
       </div>
+      <p style="font-size:0.72rem;color:var(--ink-soft);margin-top:1.25rem;line-height:1.65;padding:0 0.25rem;">GDS (Gross Debt Service) is your total monthly housing cost divided by gross income. Canada's guideline is 39% max. This tool qualifies you at your contract rate plus 2% (the mortgage stress test required by all federally regulated lenders), so the maximum purchase price shown is what you would realistically be approved for today.</p>
     `;
     window.scrollTo({ top: document.getElementById('full-result').getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
   }
