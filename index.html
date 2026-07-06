@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mack Mortgages - Home Financing, Simplified</title>
+<title>Mack Mortgages - Licensed Mortgage Broker, BC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
   :root {
     --bg: #F8F8F6; --ink: #111110; --ink-soft: #555552;
     --accent: #3D5A80; --accent-light: #E8EEF4; --border: #E2E2DE;
-    --white: #FFFFFF; --radius: 4px;
+    --white: #FFFFFF; --radius: 4px; --green: #2D6A4F;
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
@@ -22,9 +22,9 @@
   .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
   .nav-logo span { color: var(--accent); }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--ink-soft); font-size: 0.9rem; font-weight: 400; transition: color 0.2s; }
+  .nav-links a { text-decoration: none; color: var(--ink-soft); font-size: 0.9rem; transition: color 0.2s; }
   .nav-links a:hover { color: var(--ink); }
-  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
   .nav-cta:hover { background: var(--accent); }
   .nav-mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
   .mobile-nav { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(248,248,246,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 99; flex-direction: column; }
@@ -32,96 +32,107 @@
   .mobile-nav a:hover { background: var(--accent-light); }
   .mobile-nav-cta { margin: 1rem 5vw 1.5rem; display: block; text-align: center; background: var(--ink); color: var(--white); padding: 0.9rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; width: calc(100% - 10vw); }
 
-  #hero { padding: 160px 5vw 120px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-  .hero-eyebrow { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
-  .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 4.5vw, 3.75rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  /* HERO */
+  #hero { padding: 120px 5vw 0; background: var(--white); border-bottom: 1px solid var(--border); }
+  .hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 260px 1fr; gap: 5rem; align-items: center; padding-bottom: 80px; }
+  .hero-person { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .hero-photo { width: 220px; height: 220px; border-radius: 50%; overflow: hidden; border: 5px solid var(--accent-light); box-shadow: 0 0 0 2px var(--accent); margin-bottom: 1.25rem; flex-shrink: 0; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .hero-name { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.25rem; }
+  .hero-title { font-size: 0.78rem; color: var(--ink-soft); line-height: 1.5; }
+  .hero-content { }
+  .hero-eyebrow { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+  .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
   .hero-headline em { font-style: italic; color: var(--accent); }
-  .hero-sub { font-size: 1.05rem; color: var(--ink-soft); max-width: 440px; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.75; }
+  .hero-sub { font-size: 1rem; color: var(--ink-soft); max-width: 520px; margin-bottom: 2rem; font-weight: 300; line-height: 1.8; }
   .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary { background: var(--ink); color: var(--white); padding: 0.8rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; display: inline-block; }
+  .btn-primary { background: var(--ink); color: var(--white); padding: 0.85rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; display: inline-block; }
   .btn-primary:hover { background: var(--accent); }
-  .btn-secondary { background: transparent; color: var(--ink); padding: 0.8rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1.5px solid var(--border); transition: border-color 0.2s; cursor: pointer; font-family: 'DM Sans', sans-serif; display: inline-block; }
+  .btn-secondary { background: transparent; color: var(--ink); padding: 0.85rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-size: 0.9rem; font-weight: 500; border: 1.5px solid var(--border); transition: border-color 0.2s; cursor: pointer; font-family: 'DM Sans', sans-serif; display: inline-block; }
   .btn-secondary:hover { border-color: var(--ink); }
-  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--border); }
-  .stat-num { font-size: 1.9rem; font-weight: 600; letter-spacing: -0.03em; }
-  .stat-label { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.2rem; }
-  .hero-visual { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; box-shadow: 0 4px 40px rgba(0,0,0,0.06); }
-  .hero-visual-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 1.5rem; }
-  .rate-display { font-size: 3.5rem; font-weight: 300; letter-spacing: -0.04em; color: var(--ink); line-height: 1; }
-  .rate-display span { font-size: 1.5rem; color: var(--ink-soft); }
-  .rate-subtitle { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.4rem; margin-bottom: 2rem; }
-  .rate-breakdown { display: flex; flex-direction: column; gap: 0.75rem; }
-  .rate-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; }
-  .rate-row-label { color: var(--ink-soft); }
-  .rate-row-val { font-weight: 500; }
-  .rate-bar-wrap { height: 3px; background: var(--border); border-radius: 2px; margin: 0.25rem 0; }
-  .rate-bar { height: 3px; background: var(--accent); border-radius: 2px; }
 
-  #tools { padding: 80px 5vw; background: var(--white); border-top: 1px solid var(--border); }
-  .tools-inner { max-width: 1200px; margin: 0 auto; }
-  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  /* STATS STRIP */
+  .stats-strip { background: var(--ink); color: var(--white); padding: 1.75rem 5vw; }
+  .stats-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; }
+  .stat-item { text-align: center; padding: 0 3rem; border-right: 1px solid rgba(255,255,255,0.12); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.03em; }
+  .stat-label { font-size: 0.75rem; color: #888884; margin-top: 0.15rem; }
 
-  #services { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 5vw; }
-  .section-inner { max-width: 1200px; margin: 0 auto; }
-  .section-header { margin-bottom: 4rem; }
+  /* RATES */
+  #rates { padding: 80px 5vw; background: var(--bg); }
+  .rates-inner { max-width: 1100px; margin: 0 auto; }
   .section-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
-  .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; max-width: 560px; }
+  .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; max-width: 560px; margin-bottom: 0.5rem; }
+  .section-sub { font-size: 0.875rem; color: var(--ink-soft); margin-bottom: 2.5rem; }
+  .rates-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 1.5rem; }
+  .rate-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem 1.5rem; text-align: center; }
+  .rate-card.featured { border-color: var(--accent); background: var(--accent-light); }
+  .rate-type { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin-bottom: 0.75rem; font-weight: 500; }
+  .rate-num { font-size: 2.25rem; font-weight: 300; letter-spacing: -0.04em; color: var(--ink); line-height: 1; margin-bottom: 0.4rem; }
+  .rate-num span { font-size: 1.2rem; }
+  .rate-tag { font-size: 0.7rem; color: var(--ink-soft); }
+  .rate-card.featured .rate-tag { color: var(--accent); font-weight: 600; }
+  .rates-disclaimer { font-size: 0.78rem; color: var(--ink-soft); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .rates-cta { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0; }
+  .rates-cta:hover { text-decoration: underline; }
+
+  /* CALCULATOR */
+  #calculator { padding: 80px 5vw; background: var(--white); border-top: 1px solid var(--border); }
+  .calc-inner { max-width: 1100px; margin: 0 auto; }
+  .calc-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: start; margin-top: 2.5rem; }
+  .calc-field { margin-bottom: 2rem; }
+  .calc-field-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+  .calc-field-label { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-soft); }
+  .calc-field-input { width: 130px; font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.4rem 0.6rem; font-size: 0.875rem; color: var(--ink); background: var(--bg); outline: none; text-align: right; }
+  .calc-field-input:focus { border-color: var(--accent); }
+  input[type="range"] { -webkit-appearance: none; width: 100%; height: 2px; background: var(--border); border-radius: 2px; outline: none; cursor: pointer; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--ink); border-radius: 50%; border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--ink); }
+  input[type="range"]::-webkit-slider-thumb:hover { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+  input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: var(--ink); border-radius: 50%; border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--ink); cursor: pointer; }
+  .calc-result { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; position: sticky; top: 80px; }
+  .calc-result-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.5rem; }
+  .calc-monthly { font-size: 3.5rem; font-weight: 300; letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem; }
+  .calc-monthly-sub { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 2rem; }
+  .calc-breakdown { border-top: 1px solid var(--border); padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0.875rem; }
+  .calc-row { display: flex; justify-content: space-between; font-size: 0.875rem; }
+  .calc-row-key { color: var(--ink-soft); }
+  .calc-row-num { font-weight: 500; }
+  .calc-cta { margin-top: 1.75rem; display: block; text-align: center; background: var(--ink); color: var(--white); padding: 0.95rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; width: 100%; }
+  .calc-cta:hover { background: var(--accent); }
+
+  /* TOOLS */
+  #tools { padding: 80px 5vw; background: var(--bg); border-top: 1px solid var(--border); }
+  .tools-inner { max-width: 1200px; margin: 0 auto; }
+  .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+  /* SERVICES */
+  #services { background: var(--white); border-top: 1px solid var(--border); padding: 80px 5vw; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-header { margin-bottom: 3rem; }
   .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-  .service-card { background: var(--white); padding: 2.5rem 2rem; border-right: 1px solid var(--border); transition: background 0.2s; display: flex; flex-direction: column; }
+  .service-card { background: var(--bg); padding: 2.5rem 2rem; border-right: 1px solid var(--border); transition: background 0.2s; display: flex; flex-direction: column; }
   .service-card:last-child { border-right: none; }
   .service-card:hover { background: var(--accent-light); }
   .service-icon { width: 40px; height: 40px; margin-bottom: 1.5rem; color: var(--accent); }
-  .service-name { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+  .service-name { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.75rem; }
   .service-desc { font-size: 0.875rem; color: var(--ink-soft); line-height: 1.7; flex: 1; }
   .service-link { margin-top: 1.25rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-align: left; padding: 0; }
-  .service-link:hover { text-decoration: underline; }
 
-  #calculator { padding: 100px 5vw; background: var(--white); }
-  .calc-layout { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: start; }
-  .calc-controls { display: flex; flex-direction: column; gap: 2rem; }
-  .calc-field label { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.75rem; }
-  .calc-field label .calc-val { font-size: 0.95rem; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink); }
-  input[type="range"] { -webkit-appearance: none; width: 100%; height: 2px; background: var(--border); border-radius: 2px; outline: none; cursor: pointer; }
-  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--ink); border-radius: 50%; border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--ink); transition: background 0.15s; }
-  input[type="range"]::-webkit-slider-thumb:hover { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
-  input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: var(--ink); border-radius: 50%; border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--ink); cursor: pointer; }
-  .calc-result { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; }
-  .calc-result-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.5rem; }
-  .calc-monthly { font-size: 3.75rem; font-weight: 300; letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem; }
-  .calc-monthly-sub { font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 2.5rem; }
-  .calc-breakdown { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
-  .calc-row { display: flex; justify-content: space-between; font-size: 0.9rem; }
-  .calc-row-key { color: var(--ink-soft); }
-  .calc-row-num { font-weight: 500; }
-  .calc-cta { margin-top: 2rem; display: block; text-align: center; background: var(--ink); color: var(--white); padding: 1rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 500; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; width: 100%; }
-  .calc-cta:hover { background: var(--accent); }
-
-  #about { background: var(--ink); color: var(--white); padding: 100px 5vw; }
-  .about-layout { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-  .about-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #8AABC4; margin-bottom: 1.25rem; }
-  .about-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 400; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 1.5rem; }
-  .about-body { font-size: 0.95rem; color: #A8A8A4; line-height: 1.8; font-weight: 300; margin-bottom: 1.5rem; }
-  .about-vals { display: flex; flex-direction: column; gap: 1.25rem; }
-  .about-val { display: flex; gap: 1rem; align-items: flex-start; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
-  .about-val-icon { font-size: 1.25rem; margin-top: 0.1rem; flex-shrink: 0; }
-  .about-val-text strong { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
-  .about-val-text p { font-size: 0.8rem; color: #A8A8A4; line-height: 1.6; }
-
-  #testimonials { background: var(--white); border-top: 1px solid var(--border); padding: 100px 5vw; }
-  .testimonials-grid { max-width: 1200px; margin: 0 auto; }
-  .testimonials-header { margin-bottom: 4rem; }
+  /* TESTIMONIALS */
+  #testimonials { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 5vw; }
   .testi-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  .testi-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; display: flex; flex-direction: column; }
+  .testi-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 2rem; display: flex; flex-direction: column; }
   .testi-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
   .testi-stars { color: #F59E0B; font-size: 0.9rem; letter-spacing: 2px; }
   .testi-source { font-size: 0.72rem; color: var(--ink-soft); display: flex; align-items: center; gap: 0.35rem; }
   .testi-quote { font-size: 0.875rem; line-height: 1.75; color: var(--ink); margin-bottom: 1.25rem; font-weight: 300; flex: 1; }
-  .testi-author { font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+  .testi-author { font-size: 0.82rem; font-weight: 600; }
   .testi-date { font-size: 0.75rem; color: var(--ink-soft); margin-top: 0.2rem; }
 
-  #faq { padding: 100px 5vw; background: var(--bg); }
+  /* FAQ */
+  #faq { padding: 80px 5vw; background: var(--white); border-top: 1px solid var(--border); }
   .faq-inner { max-width: 780px; margin: 0 auto; }
-  .faq-header { margin-bottom: 3rem; }
   .faq-list { display: flex; flex-direction: column; }
   .faq-item { border-top: 1px solid var(--border); }
   .faq-item:last-child { border-bottom: 1px solid var(--border); }
@@ -132,30 +143,10 @@
   .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; font-size: 0.925rem; color: var(--ink-soft); line-height: 1.8; }
   .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.5rem; }
 
-  #contact { padding: 100px 5vw; background: var(--white); }
-  .contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
-  .contact-info-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; margin-bottom: 1.25rem; }
-  .contact-info-sub { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.75; font-weight: 300; margin-bottom: 2rem; }
-  .contact-details { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
-  .contact-det-row { display: flex; gap: 1rem; align-items: center; font-size: 0.9rem; }
-  .contact-det-icon { font-size: 1rem; }
-  .contact-det-val { font-weight: 500; }
-  .contact-det-val a { color: var(--ink); text-decoration: none; }
-  .contact-det-val a:hover { color: var(--accent); }
-  .book-cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: var(--white); padding: 0.85rem 1.5rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
-  .book-cta-btn:hover { background: var(--ink); }
-  .contact-form { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
-  .form-group label { font-size: 0.78rem; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
-  .form-group input, .form-group select, .form-group textarea { font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.7rem 0.85rem; font-size: 0.9rem; background: var(--white); color: var(--ink); outline: none; transition: border-color 0.2s; }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
-  .form-group textarea { resize: vertical; min-height: 100px; }
-  .form-submit { width: 100%; padding: 1rem; background: var(--ink); color: var(--white); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; letter-spacing: 0.02em; }
-  .form-submit:hover { background: var(--accent); }
-  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  /* CONTACT */
+  #contact { padding: 100px 5vw; background: var(--bg); border-top: 1px solid var(--border); }
 
-  footer { background: var(--ink); color: var(--white); padding: 3rem 5vw; border-top: 1px solid rgba(255,255,255,0.08); }
+  footer { background: var(--ink); color: var(--white); padding: 3rem 5vw; }
   .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
   .footer-logo { font-size: 1rem; font-weight: 600; }
   .footer-logo span { color: #8AABC4; }
@@ -165,31 +156,31 @@
   .footer-copy { font-size: 0.78rem; color: #666662; }
 
   @media (max-width: 900px) {
-    #hero { grid-template-columns: 1fr; padding: 120px 5vw 80px; gap: 3rem; }
-    .hero-visual { display: none; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 60px; text-align: center; }
+    .hero-person { flex-direction: column; align-items: center; }
+    .hero-actions { justify-content: center; }
+    .hero-sub { margin: 0 auto 2rem; }
+    .stats-inner { gap: 0; }
+    .stat-item { padding: 0.5rem 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); width: 50%; }
+    .stat-item:nth-last-child(-n+2) { border-bottom: none; }
+    .rates-grid { grid-template-columns: repeat(2, 1fr); }
+    .calc-layout { grid-template-columns: 1fr; gap: 2rem; }
     .tools-grid { grid-template-columns: 1fr; }
     .services-grid { grid-template-columns: 1fr; }
     .service-card { border-right: none; border-bottom: 1px solid var(--border); }
     .service-card:last-child { border-bottom: none; }
-    .calc-layout { grid-template-columns: 1fr; gap: 3rem; }
-    .about-layout { grid-template-columns: 1fr; gap: 3rem; }
     .testi-cards { grid-template-columns: 1fr; }
-    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
     .nav-links { display: none; }
     .nav-cta { display: none; }
     .nav-mobile-toggle { display: flex; align-items: center; }
-    .form-row { grid-template-columns: 1fr; }
     .footer-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
     .footer-links { flex-wrap: wrap; gap: 1rem; }
-    .prop-grid { grid-template-columns: 1fr !important; }
+    .calc-result { position: static; }
   }
   @media (max-width: 480px) {
-    #hero { padding: 100px 5vw 60px; }
-    .hero-stats { grid-template-columns: 1fr 1fr; }
-    .calc-result { padding: 1.5rem; }
-    .contact-form { padding: 1.5rem; }
-    #tools { padding: 60px 5vw; }
-    #services, #calculator, #about, #testimonials, #faq, #contact { padding: 70px 5vw; }
+    .hero-photo { width: 180px; height: 180px; }
+    .rates-grid { grid-template-columns: 1fr 1fr; }
+    .stat-item { width: 50%; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
@@ -201,12 +192,12 @@
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#calculator">Calculator</a></li>
-    <li><a href="#about">About</a></li>
     <li><a href="#tools">Free Tools</a></li>
+    <li><a href="property-search.html">Property Search</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <button class="nav-cta" onclick="openCalendly()">Book a Call with Mack</button>
-  <button class="nav-mobile-toggle" onclick="toggleMobileNav()" id="nav-toggle" aria-label="Menu">
+  <button class="nav-mobile-toggle" onclick="toggleMobileNav()" id="nav-toggle">
     <svg id="hamburger-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
     <svg id="close-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
   </button>
@@ -214,132 +205,176 @@
 <div class="mobile-nav" id="mobile-nav">
   <a href="#services" onclick="closeMobileNav()">Services</a>
   <a href="#calculator" onclick="closeMobileNav()">Calculator</a>
-  <a href="#about" onclick="closeMobileNav()">About</a>
   <a href="#tools" onclick="closeMobileNav()">Free Tools</a>
+  <a href="property-search.html" onclick="closeMobileNav()">Property Search</a>
   <a href="#faq" onclick="closeMobileNav()">FAQ</a>
   <a href="#contact" onclick="closeMobileNav()">Contact</a>
   <button class="mobile-nav-cta" onclick="openCalendly();closeMobileNav();">Book a Free Call with Mack</button>
 </div>
 
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-left">
-    <p class="hero-eyebrow">Licensed Mortgage Broker · BC and Canada</p>
-    <h1 class="hero-headline">Your path to home ownership, <em>made clear.</em></h1>
-    <p class="hero-sub">We cut through the complexity so you can focus on what matters: finding your home. Transparent rates, honest advice, and a process that actually makes sense.</p>
-    <div class="hero-actions">
-      <a href="#calculator" class="btn-primary">Calculate Your Rate</a>
-      <button class="btn-secondary" onclick="openCalendly()">Book a Call with Mack</button>
+  <div class="hero-inner">
+    <div class="hero-person">
+      <div class="hero-photo">
+        <img src="mack.jpg" alt="Mack Chaisson, Mortgage Broker">
+      </div>
+      <div class="hero-name">Mack Chaisson</div>
+      <div class="hero-title">Licensed Mortgage Broker<br>DLC / Clear Trust Mortgages<br>BC &amp; Canada</div>
     </div>
-    <div class="hero-stats">
-      <div><div class="stat-num">$100M+</div><div class="stat-label">Funded to date</div></div>
-      <div><div class="stat-num">100+</div><div class="stat-label">Happy homeowners</div></div>
-      <div><div class="stat-num">5.0★</div><div class="stat-label">Google rating</div></div>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-visual-label">Today's featured rate</div>
-    <div class="rate-display">4.09<span>%</span></div>
-    <div class="rate-subtitle">5-year fixed · Subject to qualification</div>
-    <div class="rate-breakdown">
-      <div class="rate-row"><span class="rate-row-label">Variable (5yr)</span><span class="rate-row-val">3.45%</span></div>
-      <div class="rate-bar-wrap"><div class="rate-bar" style="width:60%"></div></div>
-      <div class="rate-row"><span class="rate-row-label">Fixed (3yr)</span><span class="rate-row-val">3.89%</span></div>
-      <div class="rate-bar-wrap"><div class="rate-bar" style="width:68%"></div></div>
-      <div class="rate-row"><span class="rate-row-label">Fixed (5yr)</span><span class="rate-row-val">4.09%</span></div>
-      <div class="rate-bar-wrap"><div class="rate-bar" style="width:72%"></div></div>
-      <div class="rate-row"><span class="rate-row-label">HELOC</span><span class="rate-row-val">4.45%</span></div>
-      <div class="rate-bar-wrap"><div class="rate-bar" style="width:78%"></div></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Independent Broker · Since 2018</p>
+      <h1 class="hero-headline">Making home ownership <em>clear.</em></h1>
+      <p class="hero-sub">As an independent broker I work for you, not a lender. That means shopping 50+ lenders to find the rate and terms that serve your situation, not whoever pays the biggest commission.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="openCalendly()">Book a Call with Mack</button>
+        <a href="#calculator" class="btn-secondary">Calculate My Rate</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FREE TOOLS - moved to top -->
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">Since 2018</div><div class="stat-label">Licensed and active</div></div>
+    <div class="stat-item"><div class="stat-num">$100M+</div><div class="stat-label">Mortgages funded</div></div>
+    <div class="stat-item"><div class="stat-num">100+</div><div class="stat-label">Happy homeowners</div></div>
+    <div class="stat-item"><div class="stat-num">5.0★</div><div class="stat-label">Google rating</div></div>
+  </div>
+</div>
+
+<!-- RATES -->
+<section id="rates">
+  <div class="rates-inner">
+    <div class="section-eyebrow">Today's Rates</div>
+    <h2 class="section-title">What we're getting clients right now.</h2>
+    <p class="section-sub">Updated regularly. Actual rate depends on your credit, property, and amortization.</p>
+    <div class="rates-grid">
+      <div class="rate-card featured">
+        <div class="rate-type">5-Year Fixed</div>
+        <div class="rate-num">4.09<span>%</span></div>
+        <div class="rate-tag">Most popular · Best for stability</div>
+      </div>
+      <div class="rate-card">
+        <div class="rate-type">5-Year Variable</div>
+        <div class="rate-num">3.45<span>%</span></div>
+        <div class="rate-tag">Prime - discount</div>
+      </div>
+      <div class="rate-card">
+        <div class="rate-type">3-Year Fixed</div>
+        <div class="rate-num">3.89<span>%</span></div>
+        <div class="rate-tag">Good for flexibility</div>
+      </div>
+      <div class="rate-card">
+        <div class="rate-type">HELOC</div>
+        <div class="rate-num">4.45<span>%</span></div>
+        <div class="rate-tag">Access your equity</div>
+      </div>
+    </div>
+    <div class="rates-disclaimer">
+      <span>Rates subject to qualification. OAC. Not all rates available on all properties.</span>
+      <button class="rates-cta" onclick="openCalendly()">Get your personalized rate <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="calc-inner">
+    <div class="section-eyebrow">Mortgage Calculator</div>
+    <h2 class="section-title">Get a feel for your numbers.</h2>
+    <div class="calc-layout">
+      <div class="calc-controls">
+        <div class="calc-field">
+          <div class="calc-field-header">
+            <span class="calc-field-label">Home Price</span>
+            <input type="number" class="calc-field-input" id="price-input" value="650000" min="100000" max="2000000" step="5000" oninput="syncFromInput('price','price-input',100000,2000000)">
+          </div>
+          <input type="range" id="price" min="100000" max="2000000" step="5000" value="650000" oninput="syncFromSlider('price','price-input')">
+        </div>
+        <div class="calc-field">
+          <div class="calc-field-header">
+            <span class="calc-field-label">Down Payment %</span>
+            <input type="number" class="calc-field-input" id="down-input" value="20" min="5" max="50" step="1" oninput="syncFromInput('down','down-input',5,50)">
+          </div>
+          <input type="range" id="down" min="5" max="50" step="1" value="20" oninput="syncFromSlider('down','down-input')">
+        </div>
+        <div class="calc-field">
+          <div class="calc-field-header">
+            <span class="calc-field-label">Interest Rate %</span>
+            <input type="number" class="calc-field-input" id="rate-input" value="4.09" min="1" max="10" step="0.05" oninput="syncFromInput('rate','rate-input',1,10)">
+          </div>
+          <input type="range" id="rate" min="1" max="10" step="0.05" value="4.09" oninput="syncFromSlider('rate','rate-input')">
+        </div>
+        <div class="calc-field">
+          <div class="calc-field-header">
+            <span class="calc-field-label">Amortization (years)</span>
+            <input type="number" class="calc-field-input" id="amort-input" value="25" min="5" max="30" step="5" oninput="syncFromInput('amort','amort-input',5,30)">
+          </div>
+          <input type="range" id="amort" min="5" max="30" step="5" value="25" oninput="syncFromSlider('amort','amort-input')">
+        </div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-label">Estimated Monthly Payment</div>
+        <div class="calc-monthly" id="monthly-payment">--</div>
+        <div class="calc-monthly-sub">Principal and interest only</div>
+        <div class="calc-breakdown">
+          <div class="calc-row"><span class="calc-row-key">Loan Amount</span><span class="calc-row-num" id="loan-amt">--</span></div>
+          <div class="calc-row"><span class="calc-row-key">Total Interest</span><span class="calc-row-num" id="total-interest">--</span></div>
+          <div class="calc-row"><span class="calc-row-key">Total Cost</span><span class="calc-row-num" id="total-cost">--</span></div>
+          <div class="calc-row"><span class="calc-row-key">Payoff Date</span><span class="calc-row-num" id="payoff-date">--</span></div>
+        </div>
+        <button class="calc-cta" onclick="openCalendly()">Apply for This Rate</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE TOOLS -->
 <section id="tools">
   <div class="tools-inner">
     <div class="section-header">
-      <p class="section-eyebrow">Free Tools</p>
+      <div class="section-eyebrow">Free Tools</div>
       <h2 class="section-title">Know where you stand before you call.</h2>
     </div>
     <div class="tools-grid">
-      <a href="mortgage-health-check.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="background:var(--accent-light);padding:2.5rem 2.5rem 1.5rem;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:var(--accent);opacity:0.08;border-radius:50%;"></div>
-          <div style="font-size:2.5rem;margin-bottom:1rem;">🩺</div>
-          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;">Free · Takes 60 seconds</div>
-          <div style="font-size:1.4rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:0.5rem;">Mortgage Health Check</div>
-          <div style="font-size:0.875rem;color:var(--ink-soft);line-height:1.6;">Get a score out of 100 on your current mortgage, including rate, lender, term, and savings opportunity. Unlock your full report free.</div>
+      <a href="mortgage-health-check.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="background:var(--accent-light);padding:2rem 2rem 1.5rem;">
+          <div style="font-size:2.25rem;margin-bottom:0.75rem;">🩺</div>
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.4rem;">Free · 60 seconds</div>
+          <div style="font-size:1.1rem;font-weight:600;letter-spacing:-0.01em;margin-bottom:0.5rem;">Mortgage Health Check</div>
+          <div style="font-size:0.82rem;color:var(--ink-soft);line-height:1.6;">Score your current mortgage out of 100. Rate, lender, term, and savings opportunity all in one report.</div>
         </div>
-        <div style="padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);">
-          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Score out of 100</div>
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Letter grade</div>
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Savings estimate</div>
-          </div>
-          <svg width="18" height="18" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        <div style="padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);font-size:0.78rem;color:var(--ink-soft);">
+          <span>Score · Grade · Savings estimate</span>
+          <svg width="16" height="16" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </div>
       </a>
-      <a href="home-value-estimator.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="background:#EEF4EC;padding:2.5rem 2.5rem 1.5rem;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:#2D6A4F;opacity:0.08;border-radius:50%;"></div>
-          <div style="font-size:2.5rem;margin-bottom:1rem;">🏡</div>
-          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#2D6A4F;margin-bottom:0.5rem;">Free · Takes 60 seconds</div>
-          <div style="font-size:1.4rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:0.5rem;">What's My Home Worth?</div>
-          <div style="font-size:0.875rem;color:var(--ink-soft);line-height:1.6;">Get an AI-estimated current value range for your property, your equity position, and what you could access through a HELOC.</div>
+      <a href="home-value-estimator.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="background:#EEF4EC;padding:2rem 2rem 1.5rem;">
+          <div style="font-size:2.25rem;margin-bottom:0.75rem;">🏡</div>
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#2D6A4F;margin-bottom:0.4rem;">Free · 60 seconds</div>
+          <div style="font-size:1.1rem;font-weight:600;letter-spacing:-0.01em;margin-bottom:0.5rem;">What's My Home Worth?</div>
+          <div style="font-size:0.82rem;color:var(--ink-soft);line-height:1.6;">AI-estimated value range for your property, equity position, and HELOC potential.</div>
         </div>
-        <div style="padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);">
-          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Value range</div>
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ Equity snapshot</div>
-            <div style="font-size:0.75rem;color:var(--ink-soft);">✓ HELOC estimate</div>
-          </div>
-          <svg width="18" height="18" fill="none" stroke="#2D6A4F" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        <div style="padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);font-size:0.78rem;color:var(--ink-soft);">
+          <span>Value range · Equity · HELOC estimate</span>
+          <svg width="16" height="16" fill="none" stroke="#2D6A4F" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </div>
       </a>
-    </div>
-  </div>
-</section>
-
-<!-- BROWSE PROPERTIES -->
-<section style="padding:80px 5vw;background:var(--bg);border-top:1px solid var(--border);">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-header">
-      <p class="section-eyebrow">Browse Listings</p>
-      <h2 class="section-title">Find your next property.</h2>
-      <p style="font-size:0.95rem;color:var(--ink-soft);margin-top:0.75rem;font-weight:300;">Search active MLS listings across BC through these trusted portals. Once you find something you like, book a call and we'll get your pre-approval lined up fast.</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
-
-      <a href="https://www.rew.ca/properties/areas/british-columbia" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="font-size:2rem;">🏠</div>
-        <div>
-          <div style="font-size:1rem;font-weight:600;margin-bottom:0.35rem;">REW.ca</div>
-          <div style="font-size:0.82rem;color:var(--ink-soft);line-height:1.6;">BC's most popular real estate search. Full MLS listings with map search, price history, and neighbourhood data.</div>
+      <a href="affordability-check.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="background:#F5F0FF;padding:2rem 2rem 1.5rem;">
+          <div style="font-size:2.25rem;margin-bottom:0.75rem;">🔑</div>
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6B46C1;margin-bottom:0.4rem;">Free · 30 seconds</div>
+          <div style="font-size:1.1rem;font-weight:600;letter-spacing:-0.01em;margin-bottom:0.5rem;">What Can I Afford?</div>
+          <div style="font-size:0.82rem;color:var(--ink-soft);line-height:1.6;">Enter income and down payment. Get your max purchase price based on the 39% GDS qualifying standard.</div>
         </div>
-        <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;font-weight:600;color:var(--accent);margin-top:auto;">Browse BC listings <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></div>
-      </a>
-
-      <a href="https://www.realtor.ca/map#ZoomLevel=8&Center=49.600000%2C-122.500000&LatitudeMax=50.50&LatitudeMin=48.80&LongitudeMax=-120.50&LongitudeMin=-124.50&view=list&CurrentPage=1&SortBy=6&SortOrder=A&PropertyTypeGroupID=1&TransactionTypeId=2" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="font-size:2rem;">🗺️</div>
-        <div>
-          <div style="font-size:1rem;font-weight:600;margin-bottom:0.35rem;">Realtor.ca</div>
-          <div style="font-size:0.82rem;color:var(--ink-soft);line-height:1.6;">The official CREA MLS database. Every active listing in BC directly from the source, updated daily.</div>
+        <div style="padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);font-size:0.78rem;color:var(--ink-soft);">
+          <span>Max price · Mortgage · Monthly payment</span>
+          <svg width="16" height="16" fill="none" stroke="#6B46C1" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </div>
-        <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;font-weight:600;color:var(--accent);margin-top:auto;">Search MLS listings <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></div>
       </a>
-
-      <a href="https://www.zolo.ca/british-columbia-real-estate" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="font-size:2rem;">📊</div>
-        <div>
-          <div style="font-size:1rem;font-weight:600;margin-bottom:0.35rem;">Zolo.ca</div>
-          <div style="font-size:0.82rem;color:var(--ink-soft);line-height:1.6;">Great for sold data and price trends alongside active listings. Useful for understanding what neighbourhoods are actually trading at.</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;font-weight:600;color:var(--accent);margin-top:auto;">Explore BC properties <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></div>
-      </a>
-
-    </div>
-    <div style="margin-top:2rem;padding:1.25rem 1.5rem;background:var(--accent-light);border-radius:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-      <div style="font-size:0.875rem;color:var(--ink);">Found something? Get pre-approved before your competition does.</div>
-      <button onclick="openCalendly()" style="background:var(--accent);color:var(--white);border:none;padding:0.65rem 1.25rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.2s;white-space:nowrap;" onmouseover="this.style.background='var(--ink)'" onmouseout="this.style.background='var(--accent)'">Book a Pre-Approval Call</button>
     </div>
   </div>
 </section>
@@ -348,113 +383,27 @@
 <section id="services">
   <div class="section-inner">
     <div class="section-header">
-      <p class="section-eyebrow">What we offer</p>
+      <div class="section-eyebrow">What we offer</div>
       <h2 class="section-title">Every mortgage type, handled with expertise.</h2>
     </div>
     <div class="services-grid">
       <div class="service-card">
         <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
         <div class="service-name">First-Time Buyers</div>
-        <div class="service-desc">Step-by-step guidance designed for buyers who are new to the process. We walk you through every stage, from pre-approval to closing.</div>
-        <button class="service-link" onclick="openCalendly()">Book a free consultation →</button>
+        <div class="service-desc">Step-by-step guidance for buyers new to the process. We walk you through every stage, from pre-approval to closing.</div>
+        <button class="service-link" onclick="openCalendly()">Book a free consultation</button>
       </div>
       <div class="service-card">
         <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
         <div class="service-name">Refinancing</div>
-        <div class="service-desc">Lower your monthly payment, tap equity, or pay off your mortgage faster. We find the refinance structure that fits your goals.</div>
-        <button class="service-link" onclick="openCalendly()">Book a free consultation →</button>
+        <div class="service-desc">Lower your monthly payment, tap equity, or pay off your mortgage faster. We find the structure that fits your goals.</div>
+        <button class="service-link" onclick="openCalendly()">Book a free consultation</button>
       </div>
       <div class="service-card">
         <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>
         <div class="service-name">Investment Properties</div>
         <div class="service-desc">Build your real estate portfolio with financing structured around rental income and long-term asset performance.</div>
-        <button class="service-link" onclick="openCalendly()">Book a free consultation →</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CALCULATOR -->
-<section id="calculator">
-  <div class="section-inner" style="max-width:1100px;margin:0 auto;padding-bottom:0;">
-    <div class="section-header">
-      <p class="section-eyebrow">Mortgage Calculator</p>
-      <h2 class="section-title">Get a feel for your numbers.</h2>
-    </div>
-  </div>
-  <div class="calc-layout">
-    <div class="calc-controls">
-      <div class="calc-field">
-        <label>Home Price <span class="calc-val" id="price-val">$650,000</span></label>
-        <input type="range" id="price" min="100000" max="2000000" step="5000" value="650000" oninput="calcUpdate()">
-      </div>
-      <div class="calc-field">
-        <label>Down Payment <span class="calc-val" id="down-val">$130,000 (20%)</span></label>
-        <input type="range" id="down" min="5" max="50" step="1" value="20" oninput="calcUpdate()">
-      </div>
-      <div class="calc-field">
-        <label>Interest Rate <span class="calc-val" id="rate-val">4.09%</span></label>
-        <input type="range" id="rate" min="1" max="10" step="0.05" value="4.09" oninput="calcUpdate()">
-      </div>
-      <div class="calc-field">
-        <label>Amortization <span class="calc-val" id="amort-val">25 years</span></label>
-        <input type="range" id="amort" min="5" max="30" step="5" value="25" oninput="calcUpdate()">
-      </div>
-    </div>
-    <div class="calc-result">
-      <div class="calc-result-label">Estimated Monthly Payment</div>
-      <div class="calc-monthly" id="monthly-payment">--</div>
-      <div class="calc-monthly-sub">Principal + Interest only · Excludes property tax, insurance</div>
-      <div class="calc-breakdown">
-        <div class="calc-row"><span class="calc-row-key">Loan Amount</span><span class="calc-row-num" id="loan-amt">--</span></div>
-        <div class="calc-row"><span class="calc-row-key">Total Interest</span><span class="calc-row-num" id="total-interest">--</span></div>
-        <div class="calc-row"><span class="calc-row-key">Total Cost</span><span class="calc-row-num" id="total-cost">--</span></div>
-        <div class="calc-row"><span class="calc-row-key">Payoff Date</span><span class="calc-row-num" id="payoff-date">--</span></div>
-      </div>
-      <button class="calc-cta" onclick="openCalendly()">Apply for This Rate</button>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-layout">
-    <div>
-      <p class="about-eyebrow">Why Mack Mortgages</p>
-      <div style="display:flex;align-items:center;gap:1.75rem;margin-bottom:1.5rem;flex-wrap:wrap;">
-        <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;border:4px solid rgba(255,255,255,0.25);flex-shrink:0;box-shadow:0 0 0 8px rgba(255,255,255,0.06);">
-          <img src="mack.jpg" alt="Mack Chaisson, Mortgage Broker" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
-        </div>
-        <h2 class="about-title" style="margin-bottom:0;">We're brokers, not banks. That difference matters.</h2>
-      </div>
-      <p class="about-body">As an independent broker, I work for you, not a lender. That means shopping dozens of lenders to find the rate and terms that serve your situation, not whoever pays the biggest commission.</p>
-      <p class="about-body">Since 2018, I've helped 100+ homeowners across BC and Canada secure financing that actually fits their lives, with a 5.0 Google rating to show for it.</p>
-      <button onclick="openCalendly()" style="margin-top:1.5rem;display:inline-flex;align-items:center;gap:0.6rem;background:#E8EEF4;color:#111110;border:none;padding:1rem 1.75rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.01em;" onmouseover="this.style.background='#ffffff'" onmouseout="this.style.background='#E8EEF4'">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Book a Free Consult
-      </button>
-    </div>
-    <div class="about-vals">
-      <div class="about-val">
-        <div class="about-val-icon">🔍</div>
-        <div class="about-val-text">
-          <strong>Full market access</strong>
-          <p>We compare rates from 50+ lenders, including big banks, credit unions, and private lenders, to find your best option.</p>
-        </div>
-      </div>
-      <div class="about-val">
-        <div class="about-val-icon">🤝</div>
-        <div class="about-val-text">
-          <strong>No surprises</strong>
-          <p>We explain every fee, term, and condition before you sign. Your file, your decision, always.</p>
-        </div>
-      </div>
-      <div class="about-val">
-        <div class="about-val-icon">⚡</div>
-        <div class="about-val-text">
-          <strong>Fast closings</strong>
-          <p>Pre-approvals in 24 hours. We've closed complex deals in under a week when the situation called for it.</p>
-        </div>
+        <button class="service-link" onclick="openCalendly()">Book a free consultation</button>
       </div>
     </div>
   </div>
@@ -462,47 +411,31 @@
 
 <!-- TESTIMONIALS -->
 <section id="testimonials">
-  <div class="testimonials-grid">
-    <div class="testimonials-header section-header">
-      <p class="section-eyebrow">Client Reviews</p>
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Client Reviews</div>
       <h2 class="section-title">What clients are saying.</h2>
     </div>
     <div class="testi-cards">
       <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars">★★★★★</div>
-          <div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>
-        </div>
-        <p class="testi-quote">"Working with Mack was an absolute pleasure from start to finish. He's friendly, prompt, and incredibly well-organized and was always on top of the details so we didn't have to be. Our mortgage situation wasn't exactly straightforward, but Mack handled it with complete confidence and walked us through every step without making us feel overwhelmed. If you're looking for a confident, professional Mortgage Broker, I recommend contacting Mack!"</p>
-        <div class="testi-author">Eric Adams</div>
-        <div class="testi-date">3 months ago</div>
+        <div class="testi-top"><div class="testi-stars">★★★★★</div><div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google</div></div>
+        <p class="testi-quote">"Working with Mack was an absolute pleasure from start to finish. He's friendly, prompt, and incredibly well-organized. Our mortgage situation wasn't exactly straightforward, but Mack handled it with complete confidence and walked us through every step without making us feel overwhelmed."</p>
+        <div class="testi-author">Eric Adams</div><div class="testi-date">3 months ago</div>
       </div>
       <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars">★★★★★</div>
-          <div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>
-        </div>
-        <p class="testi-quote">"Mack was recommended to me by my real estate agent, and he assisted me with obtaining a mortgage for a more complex situation. Mack was a pleasure to work with. He is very knowledgeable, professional and responsive. He helped me identify the mortgage product that fit my needs, negotiated with the bank to get a competitive rate, and promptly answered all of my questions. I highly recommend Mack for anyone seeking a mortgage."</p>
-        <div class="testi-author">Eivan</div>
-        <div class="testi-date">3 months ago</div>
+        <div class="testi-top"><div class="testi-stars">★★★★★</div><div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google</div></div>
+        <p class="testi-quote">"Mack was recommended to me by my real estate agent for a more complex situation. He is very knowledgeable, professional and responsive. He helped me identify the mortgage product that fit my needs, negotiated with the bank to get a competitive rate, and promptly answered all of my questions."</p>
+        <div class="testi-author">Eivan</div><div class="testi-date">3 months ago</div>
       </div>
       <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars">★★★★★</div>
-          <div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>
-        </div>
-        <p class="testi-quote">"I came to Mack with a desperate case. My bank didn't give me the renewal rate on my mortgage until the last minute, so I had only a couple of weeks to find something better and close the transfer. Didn't have high hopes, but Mack jumped on it, worked really hard and in a few days I had a much better offer and everything went smoothly from that point on! Besides finding me an excellent deal, Mack went above and beyond leading me step by step, making sure that I understood the pros and cons of every detail, and never hesitated to direct me to what served my best interest regardless of the impact on his own commission."</p>
-        <div class="testi-author">Tarek Trabulsi</div>
-        <div class="testi-date">7 months ago</div>
+        <div class="testi-top"><div class="testi-stars">★★★★★</div><div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google</div></div>
+        <p class="testi-quote">"My bank didn't give me the renewal rate until the last minute, so I had only a couple of weeks to find something better. Mack jumped on it and in a few days I had a much better offer. He went above and beyond leading me step by step and never hesitated to direct me to what served my best interest regardless of the impact on his own commission."</p>
+        <div class="testi-author">Tarek Trabulsi</div><div class="testi-date">7 months ago</div>
       </div>
       <div class="testi-card">
-        <div class="testi-top">
-          <div class="testi-stars">★★★★★</div>
-          <div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>
-        </div>
-        <p class="testi-quote">"Mack helped us with our mortgage of our second home, right before the arrival of our first baby. In what could have been a stressful experience, Mack helped create a seamless situation. Excellent communication! Did all the hard work and made everything so easy for us despite being on a time crunch! Highly recommend!"</p>
-        <div class="testi-author">Jasmine Harkness</div>
-        <div class="testi-date">1 month ago</div>
+        <div class="testi-top"><div class="testi-stars">★★★★★</div><div class="testi-source"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google</div></div>
+        <p class="testi-quote">"Mack helped us with the mortgage on our second home right before the arrival of our first baby. In what could have been a stressful experience, Mack helped create a seamless situation. Excellent communication and did all the hard work despite being on a time crunch. Highly recommend!"</p>
+        <div class="testi-author">Jasmine Harkness</div><div class="testi-date">1 month ago</div>
       </div>
     </div>
   </div>
@@ -511,31 +444,16 @@
 <!-- FAQ -->
 <section id="faq">
   <div class="faq-inner">
-    <div class="faq-header section-header">
-      <p class="section-eyebrow">FAQ</p>
+    <div class="section-header">
+      <div class="section-eyebrow">FAQ</div>
       <h2 class="section-title">Questions we hear often.</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What's the difference between a broker and a bank?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">A bank only offers their own products. A mortgage broker like Mack has access to dozens of lenders and shops the market on your behalf. In most cases the lender pays our fee, so there's no cost to you for using our service.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How does a pre-approval work?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">We review your income, credit, and assets and present them to lenders to get a commitment on the maximum amount you can borrow at what rate. Pre-approvals typically take 24 hours and are valid for 90 to 120 days. It doesn't affect your credit score.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What credit score do I need to qualify?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">Most prime lenders require a score of 680+, though some will work with 620+. For clients with challenged credit, we work with alternative lenders who weigh other factors like equity and income. Everyone's file is different. Book a call and we'll give you an honest assessment.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How much of a down payment do I need?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">In Canada, the minimum is 5% for homes under $500K, scaling to 10% for the portion between $500K and $999K. Homes over $1M require 20% minimum. Putting 20%+ down avoids mortgage default insurance (CMHC), which reduces your total cost.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How long does the mortgage process take?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
-        <div class="faq-a">Pre-approval: 24 hours. Full approval after an accepted offer: 3 to 7 business days for most files. Complex files (self-employed, commercial, non-resident) can take longer. We always aim to give you a clear timeline upfront.</div>
-      </div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What's the difference between a broker and a bank?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="faq-a">A bank only offers their own products. A mortgage broker like Mack has access to dozens of lenders and shops the market on your behalf. In most cases the lender pays our fee, so there's no cost to you for using our service.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How does a pre-approval work?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="faq-a">We review your income, credit, and assets and present them to lenders to get a commitment on the maximum amount you can borrow at what rate. Pre-approvals typically take 24 hours and are valid for 90 to 120 days. It doesn't affect your credit score.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What credit score do I need to qualify?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="faq-a">Most prime lenders require a score of 680+, though some will work with 620+. For clients with challenged credit, we work with alternative lenders who weigh equity and income. Everyone's file is different. Book a call and we'll give you an honest assessment.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How much of a down payment do I need?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="faq-a">In Canada, the minimum is 5% for homes under $500K, scaling to 10% for the portion between $500K and $999K. Homes over $1M require 20% minimum. Putting 20%+ down avoids CMHC insurance and reduces your total cost.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How long does the mortgage process take?<svg class="faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="faq-a">Pre-approval: 24 hours. Full approval after an accepted offer: 3 to 7 business days for most files. Complex files such as self-employed or non-resident can take longer. We always give you a clear timeline upfront.</div></div>
     </div>
   </div>
 </section>
@@ -547,25 +465,14 @@
     <h2 style="font-size:clamp(2rem,3.5vw,2.75rem);font-weight:500;letter-spacing:-0.025em;line-height:1.2;margin-bottom:1.25rem;">Ready to save money on your mortgage?</h2>
     <p style="font-size:1.05rem;color:var(--ink-soft);line-height:1.75;font-weight:300;max-width:560px;margin:0 auto 0.75rem;">Book a free 30-minute call with Mack. No paperwork, no pressure, just a straight conversation about your options. You won't regret finding out how much you could be saving.</p>
     <p style="font-size:0.875rem;color:var(--accent);font-weight:600;margin-bottom:2.5rem;">Most clients are surprised by what's available to them.</p>
-
     <button onclick="openCalendly()" style="display:inline-flex;align-items:center;gap:0.75rem;background:var(--ink);color:var(--white);border:none;padding:1.1rem 2.25rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s;letter-spacing:0.01em;box-shadow:0 4px 20px rgba(17,17,16,0.25);" onmouseover="this.style.background='#3D5A80'" onmouseout="this.style.background='#111110'">
       <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
       Book a Free Call with Mack
     </button>
-
     <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;">
-        <span style="font-size:1.1rem;">📞</span>
-        <a href="tel:7788742451" style="color:var(--ink);text-decoration:none;font-weight:500;">778-874-2451</a>
-      </div>
-      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;">
-        <span style="font-size:1.1rem;">✉️</span>
-        <a href="mailto:Mack.Chaisson@Cleartrust.ca" style="color:var(--ink);text-decoration:none;font-weight:500;">Mack.Chaisson@Cleartrust.ca</a>
-      </div>
-      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;">
-        <span style="font-size:1.1rem;">📍</span>
-        <span style="font-weight:500;">Richmond, BC · Serving all of Canada</span>
-      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;"><span>📞</span><a href="tel:7788742451" style="color:var(--ink);text-decoration:none;font-weight:500;">778-874-2451</a></div>
+      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;"><span>✉️</span><a href="mailto:Mack.Chaisson@Cleartrust.ca" style="color:var(--ink);text-decoration:none;font-weight:500;">Mack.Chaisson@Cleartrust.ca</a></div>
+      <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.9rem;"><span>📍</span><span style="font-weight:500;">Richmond, BC · Serving all of Canada</span></div>
     </div>
   </div>
 </section>
@@ -576,8 +483,9 @@
     <ul class="footer-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#calculator">Calculator</a></li>
+      <li><a href="#tools">Free Tools</a></li>
+      <li><a href="property-search.html">Property Search</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="footer-copy">© 2026 Mack Mortgages. Licensed Mortgage Broker · DLC / Clear Trust Mortgages</div>
   </div>
@@ -588,12 +496,9 @@
   function openCalendly() {
     if (typeof Calendly !== 'undefined') {
       Calendly.initPopupWidget({ url: 'https://calendly.com/chaissonmortgages/initialmeet' });
-    } else {
-      window.open('https://calendly.com/chaissonmortgages/initialmeet', '_blank');
-    }
+    } else { window.open('https://calendly.com/chaissonmortgages/initialmeet', '_blank'); }
     return false;
   }
-
   function toggleMobileNav() {
     const nav = document.getElementById('mobile-nav');
     const ham = document.getElementById('hamburger-icon');
@@ -608,8 +513,20 @@
     document.getElementById('hamburger-icon').style.display = 'block';
     document.getElementById('close-icon').style.display = 'none';
   }
-
   function fmt(n) { return '$' + Math.round(n).toLocaleString('en-CA'); }
+
+  // Calculator with synced sliders and inputs
+  function syncFromSlider(sliderId, inputId) {
+    document.getElementById(inputId).value = document.getElementById(sliderId).value;
+    calcUpdate();
+  }
+  function syncFromInput(sliderId, inputId, min, max) {
+    let val = parseFloat(document.getElementById(inputId).value);
+    if (isNaN(val)) return;
+    val = Math.min(max, Math.max(min, val));
+    document.getElementById(sliderId).value = val;
+    calcUpdate();
+  }
   function calcUpdate() {
     const price = +document.getElementById('price').value;
     const downPct = +document.getElementById('down').value;
@@ -619,20 +536,15 @@
     const loan = price - down;
     const r = (annualRate / 100) / 12;
     const n = years * 12;
-    const monthly = r === 0 ? loan / n : loan * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+    const monthly = r === 0 ? loan / n : loan * (r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
     const totalPaid = monthly * n;
-    const totalInterest = totalPaid - loan;
-    document.getElementById('price-val').textContent = fmt(price);
-    document.getElementById('down-val').textContent = `${fmt(down)} (${downPct}%)`;
-    document.getElementById('rate-val').textContent = annualRate.toFixed(2) + '%';
-    document.getElementById('amort-val').textContent = years + ' years';
     document.getElementById('monthly-payment').textContent = fmt(monthly);
     document.getElementById('loan-amt').textContent = fmt(loan);
-    document.getElementById('total-interest').textContent = fmt(totalInterest);
+    document.getElementById('total-interest').textContent = fmt(totalPaid - loan);
     document.getElementById('total-cost').textContent = fmt(totalPaid);
-    const payoffDate = new Date();
-    payoffDate.setMonth(payoffDate.getMonth() + n);
-    document.getElementById('payoff-date').textContent = payoffDate.toLocaleDateString('en-CA', { month: 'long', year: 'numeric' });
+    const payoff = new Date();
+    payoff.setMonth(payoff.getMonth() + n);
+    document.getElementById('payoff-date').textContent = payoff.toLocaleDateString('en-CA', { month: 'long', year: 'numeric' });
   }
   calcUpdate();
 
@@ -642,8 +554,6 @@
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
     if (!isOpen) item.classList.add('open');
   }
-
-
 </script>
 </body>
 </html>
