@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BC Closing Costs Calculator — Mack Mortgages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F8F8F6; --ink: #111110; --ink-soft: #555552;
+    --accent: #3D5A80; --accent-light: #E8EEF4; --border: #E2E2DE;
+    --white: #FFFFFF; --radius: 4px;
+    --green: #2D6A4F; --amber: #B45309; --red: #991B1B;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,248,246,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 5vw; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .nav-logo span { color: var(--accent); }
+  .nav-back { font-size: 0.875rem; color: var(--ink-soft); text-decoration: none; }
+  .nav-back:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--accent); }
+
+  .page-hero { padding: 120px 5vw 60px; max-width: 760px; margin: 0 auto; text-align: center; }
+  .page-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
+  .page-title em { font-style: italic; color: var(--amber); }
+  .page-sub { font-size: 1rem; color: var(--ink-soft); font-weight: 300; line-height: 1.75; }
+
+  .steps-bar { max-width: 560px; margin: 0 auto 3rem; display: flex; align-items: center; padding: 0 5vw; }
+  .step { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .step-dot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: var(--ink-soft); z-index: 1; transition: all 0.3s; }
+  .step.active .step-dot { background: var(--ink); border-color: var(--ink); color: var(--white); }
+  .step.done .step-dot { background: var(--amber); border-color: var(--amber); color: var(--white); }
+  .step-label { font-size: 0.7rem; color: var(--ink-soft); margin-top: 0.4rem; white-space: nowrap; }
+  .step.active .step-label { color: var(--ink); font-weight: 500; }
+  .step-line { flex: 1; height: 1px; background: var(--border); margin-bottom: 1.2rem; }
+  .step-line.done { background: var(--amber); }
+
+  .form-wrap { max-width: 640px; margin: 0 auto; padding: 0 5vw 80px; }
+  .tool-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; }
+  .tool-card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .tool-card-sub { font-size: 0.875rem; color: var(--ink-soft); margin-bottom: 2rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .form-group label { font-size: 0.75rem; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
+  .form-group input { font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem 0.9rem; font-size: 0.9rem; background: var(--bg); color: var(--ink); outline: none; transition: border-color 0.2s; width: 100%; }
+  .form-group input:focus { border-color: var(--amber); }
+  .input-prefix-wrap { position: relative; }
+  .input-prefix { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--ink-soft); font-size: 0.9rem; pointer-events: none; }
+  .input-prefix-wrap input { padding-left: 1.6rem; }
+
+  .toggle-group { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
+  .toggle-group label { font-size: 0.75rem; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.1rem; display: block; }
+  .toggle-options { display: flex; gap: 0.75rem; }
+  .toggle-btn { flex: 1; padding: 0.7rem; border: 1.5px solid var(--border); border-radius: var(--radius); background: var(--bg); font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s; color: var(--ink-soft); }
+  .toggle-btn.active { border-color: var(--amber); background: #FFF7ED; color: var(--amber); font-weight: 600; }
+
+  .btn-full { width: 100%; padding: 1rem; background: var(--ink); color: var(--white); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+  .btn-full:hover { background: var(--amber); }
+  .disclaimer { font-size: 0.72rem; color: var(--ink-soft); text-align: center; margin-top: 1rem; line-height: 1.6; }
+  .error-msg { font-size: 0.8rem; color: var(--red); margin-top: 0.4rem; display: none; }
+  .error-msg.show { display: block; }
+
+  .loading-state { display: none; text-align: center; padding: 3rem 0; }
+  .loading-state.active { display: block; }
+  .spinner { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--amber); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1.5rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-msg { font-size: 0.9rem; color: var(--ink-soft); }
+  .loading-steps { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .load-step { font-size: 0.8rem; color: var(--ink-soft); opacity: 0; transition: opacity 0.4s; display: flex; align-items: center; gap: 0.5rem; justify-content: center; }
+  .load-step.show { opacity: 1; }
+  .load-step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+  .teaser-state { display: none; }
+  .teaser-state.active { display: block; }
+  .total-hero { text-align: center; padding: 2rem 0 1.5rem; }
+  .total-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.75rem; }
+  .total-num { font-size: 3rem; font-weight: 300; letter-spacing: -0.04em; color: var(--ink); line-height: 1; margin-bottom: 0.4rem; }
+  .total-sub { font-size: 0.875rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+
+  .blurred-preview { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+  .blurred-content { filter: blur(6px); user-select: none; pointer-events: none; padding: 1.5rem; background: var(--bg); }
+  .blur-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+  .blur-row:last-child { border-bottom: none; }
+  .blur-key { color: var(--ink-soft); }
+  .blur-val { font-weight: 600; }
+  .blur-overlay { position: absolute; inset: 0; background: rgba(248,248,246,0.7); backdrop-filter: blur(2px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; }
+  .blur-overlay-icon { font-size: 1.5rem; }
+  .blur-overlay-text { font-size: 0.875rem; font-weight: 500; text-align: center; }
+  .blur-overlay-sub { font-size: 0.78rem; color: var(--ink-soft); text-align: center; }
+
+  .gate-form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .gate-form input { font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem 0.9rem; font-size: 0.9rem; background: var(--white); color: var(--ink); outline: none; transition: border-color 0.2s; width: 100%; }
+  .gate-form input:focus { border-color: var(--amber); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .full-result { display: none; }
+  .full-result.active { display: block; }
+  .result-section { margin-bottom: 1.5rem; }
+  .result-section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 0.75rem; font-weight: 500; }
+  .result-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; gap: 1rem; }
+  .result-row:last-child { border-bottom: none; }
+  .result-key { color: var(--ink-soft); flex: 1; }
+  .result-key-note { font-size: 0.75rem; color: var(--ink-soft); opacity: 0.7; display: block; margin-top: 0.1rem; }
+  .result-val { font-weight: 500; text-align: right; }
+  .result-val.free { color: var(--green); }
+  .result-val.amber { color: var(--amber); }
+  .result-total-row { display: flex; justify-content: space-between; padding: 1rem 0 0; margin-top: 0.5rem; border-top: 2px solid var(--ink); font-size: 1rem; font-weight: 700; }
+  .result-insight { background: #FFF7ED; border-left: 3px solid var(--amber); padding: 1rem 1.25rem; border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.875rem; line-height: 1.7; margin-top: 1rem; color: var(--ink); }
+  .result-insight strong { display: block; font-weight: 600; margin-bottom: 0.3rem; }
+  .cta-box { background: var(--ink); color: var(--white); border-radius: 8px; padding: 2rem; text-align: center; margin-top: 1.5rem; }
+  .cta-box h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .cta-box p { font-size: 0.875rem; color: #A8A8A4; margin-bottom: 1.25rem; line-height: 1.6; }
+  .cta-box-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--white); color: var(--ink); border: none; padding: 0.75rem 1.75rem; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .cta-box-btn:hover { background: var(--accent-light); }
+
+  footer { background: var(--ink); color: var(--white); padding: 2.5rem 5vw; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-size: 1rem; font-weight: 600; }
+  .footer-logo span { color: #8AABC4; }
+  .footer-copy { font-size: 0.78rem; color: #666662; }
+
+  @media (max-width: 640px) {
+    .form-row { grid-template-columns: 1fr; }
+    .tool-card { padding: 1.5rem; }
+    .total-num { font-size: 2.25rem; }
+    .steps-bar { padding: 0 2vw; }
+    .step-label { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Mack<span>Mortgages</span></a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+  <button class="nav-cta" onclick="openCalendly()">Book a Call with Mack</button>
+</nav>
+
+<div class="page-hero">
+  <p class="page-eyebrow">Free Tool · BC Specific</p>
+  <h1 class="page-title">BC Closing <em>Costs Calculator</em></h1>
+  <p class="page-sub">See exactly what you'll owe at closing before you make an offer. Property Transfer Tax, legal fees, inspection, title insurance — all itemized for British Columbia.</p>
+</div>
+
+<div class="steps-bar">
+  <div class="step active" id="step1-dot"><div class="step-dot">1</div><div class="step-label">Your purchase</div></div>
+  <div class="step-line" id="line1"></div>
+  <div class="step" id="step2-dot"><div class="step-dot">2</div><div class="step-label">Total estimate</div></div>
+  <div class="step-line" id="line2"></div>
+  <div class="step" id="step3-dot"><div class="step-dot">3</div><div class="step-label">Full breakdown</div></div>
+</div>
+
+<div class="form-wrap">
+  <div class="tool-card">
+
+    <div id="input-state">
+      <div class="tool-card-title">Tell us about your purchase</div>
+      <div class="tool-card-sub">30 seconds. No personal info required at this step.</div>
+
+      <div class="form-group">
+        <label>Purchase Price</label>
+        <div class="input-prefix-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="price" placeholder="750,000" min="0">
+        </div>
+      </div>
+
+      <div class="toggle-group">
+        <label>Are you a first-time buyer?</label>
+        <div class="toggle-options">
+          <button class="toggle-btn" id="ftb-yes" onclick="setToggle('ftb', true)">Yes</button>
+          <button class="toggle-btn active" id="ftb-no" onclick="setToggle('ftb', false)">No</button>
+        </div>
+      </div>
+
+      <div class="toggle-group">
+        <label>Is this a newly built home?</label>
+        <div class="toggle-options">
+          <button class="toggle-btn" id="new-yes" onclick="setToggle('newBuild', true)">Yes</button>
+          <button class="toggle-btn active" id="new-no" onclick="setToggle('newBuild', false)">No</button>
+        </div>
+      </div>
+
+      <div class="toggle-group">
+        <label>Is this a strata / condo?</label>
+        <div class="toggle-options">
+          <button class="toggle-btn" id="strata-yes" onclick="setToggle('strata', true)">Yes</button>
+          <button class="toggle-btn active" id="strata-no" onclick="setToggle('strata', false)">No</button>
+        </div>
+      </div>
+
+      <div id="form-error" class="error-msg">Please enter a purchase price.</div>
+      <button class="btn-full" onclick="runCalculation()">
+        <span>Calculate My Closing Costs</span>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </button>
+      <p class="disclaimer">Estimates are for informational purposes only. Actual costs vary by property and transaction. Consult your notary or lawyer for exact amounts.</p>
+    </div>
+
+    <div class="loading-state" id="loading-state">
+      <div class="spinner"></div>
+      <div class="loading-msg">Calculating your closing costs...</div>
+      <div class="loading-steps">
+        <div class="load-step" id="ls1"><div class="load-step-dot"></div>Calculating BC Property Transfer Tax</div>
+        <div class="load-step" id="ls2"><div class="load-step-dot"></div>Checking first-time buyer exemptions</div>
+        <div class="load-step" id="ls3"><div class="load-step-dot"></div>Estimating legal and inspection fees</div>
+        <div class="load-step" id="ls4"><div class="load-step-dot"></div>Building your full breakdown</div>
+      </div>
+    </div>
+
+    <div class="teaser-state" id="teaser-state">
+      <div class="total-hero">
+        <div class="total-label">Estimated Total Closing Costs</div>
+        <div class="total-num" id="teaser-total">--</div>
+        <div class="total-sub" id="teaser-sub"></div>
+      </div>
+
+      <div class="blurred-preview">
+        <div class="blurred-content">
+          <div class="blur-row"><span class="blur-key">Property Transfer Tax</span><span class="blur-val">$12,500</span></div>
+          <div class="blur-row"><span class="blur-key">Legal / notary fees</span><span class="blur-val">$1,500</span></div>
+          <div class="blur-row"><span class="blur-key">Home inspection</span><span class="blur-val">$500</span></div>
+          <div class="blur-row"><span class="blur-key">Title insurance</span><span class="blur-val">$250</span></div>
+          <div class="blur-row"><span class="blur-key">Tax and fee adjustments</span><span class="blur-val">$1,800</span></div>
+        </div>
+        <div class="blur-overlay">
+          <div class="blur-overlay-icon">🔒</div>
+          <div class="blur-overlay-text">Your itemized breakdown is ready</div>
+          <div class="blur-overlay-sub">Enter your name and email to unlock it — free, no spam.</div>
+        </div>
+      </div>
+
+      <div class="gate-form">
+        <div class="form-row">
+          <input type="text" id="gate-name" placeholder="Your first name">
+          <input type="email" id="gate-email" placeholder="Your email address">
+        </div>
+        <div id="gate-error" class="error-msg">Please enter your name and email.</div>
+        <button class="btn-full" onclick="unlockReport()">
+          <span>Unlock My Full Breakdown</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="full-result" id="full-result">
+      <div class="total-hero" style="padding-top:0.5rem;">
+        <div class="total-label">Estimated Total Closing Costs</div>
+        <div class="total-num" id="full-total">--</div>
+        <div class="total-sub" id="full-sub"></div>
+      </div>
+      <div id="full-report-content"></div>
+      <div class="cta-box">
+        <h3>Ready to prepare for your purchase?</h3>
+        <p>Book a free call and I'll walk through everything you need to have ready before you make an offer — including how to structure your offer to compete effectively.</p>
+        <button class="cta-box-btn" onclick="openCalendly()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Book a Free Pre-Purchase Call
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Mack<span>Mortgages</span></div>
+    <div style="font-size:0.82rem;color:#888884;">📞 <a href="tel:7788742451" style="color:#888884;text-decoration:none;">778-874-2451</a> &nbsp;·&nbsp; ✉️ <a href="mailto:Mack.Chaisson@Cleartrust.ca" style="color:#888884;text-decoration:none;">Mack.Chaisson@Cleartrust.ca</a></div>
+    <div class="footer-copy">© 2026 Mack Mortgages. Estimates are for informational purposes only.</div>
+  </div>
+</footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+  let calcData = null;
+  let state = { ftb: false, newBuild: false, strata: false };
+
+  function openCalendly() {
+    if (typeof Calendly !== 'undefined') {
+      Calendly.initPopupWidget({ url: 'https://calendly.com/chaissonmortgages/initialmeet' });
+    } else { window.open('https://calendly.com/chaissonmortgages/initialmeet', '_blank'); }
+    return false;
+  }
+
+  function setToggle(key, val) {
+    state[key] = val;
+    if (key === 'ftb') {
+      document.getElementById('ftb-yes').classList.toggle('active', val);
+      document.getElementById('ftb-no').classList.toggle('active', !val);
+    } else if (key === 'newBuild') {
+      document.getElementById('new-yes').classList.toggle('active', val);
+      document.getElementById('new-no').classList.toggle('active', !val);
+    } else if (key === 'strata') {
+      document.getElementById('strata-yes').classList.toggle('active', val);
+      document.getElementById('strata-no').classList.toggle('active', !val);
+    }
+  }
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-CA'); }
+
+  function calculatePTT(price, ftb, newBuild) {
+    // Standard BC PTT
+    let ptt = 0;
+    if (price <= 200000) {
+      ptt = price * 0.01;
+    } else if (price <= 2000000) {
+      ptt = 2000 + (price - 200000) * 0.02;
+    } else if (price <= 3000000) {
+      ptt = 2000 + 36000 + (price - 2000000) * 0.03;
+    } else {
+      ptt = 2000 + 36000 + 30000 + (price - 3000000) * 0.05;
+    }
+
+    let pttNote = '';
+    let pttExempt = false;
+
+    // First-time buyer exemption
+    if (ftb) {
+      if (price <= 500000) {
+        ptt = 0;
+        pttExempt = true;
+        pttNote = 'Exempt — first-time buyer under $500K';
+      } else if (price < 525000) {
+        const fullExemption = 2000 + Math.min(price - 200000, 300000) * 0.02;
+        const factor = (525000 - price) / 25000;
+        ptt = ptt - fullExemption * factor;
+        pttNote = 'Partial first-time buyer exemption applied';
+      } else {
+        pttNote = 'No exemption — purchase price over $525K';
+      }
+    }
+
+    // Newly built exemption (if not already fully exempt from FTB)
+    if (newBuild && !pttExempt) {
+      if (price <= 750000) {
+        ptt = 0;
+        pttNote = 'Exempt — newly built home under $750K';
+      } else if (price < 800000) {
+        const fullExemption = 2000 + Math.min(750000 - 200000, 550000) * 0.02;
+        const factor = (800000 - price) / 50000;
+        ptt = ptt - fullExemption * factor;
+        pttNote = 'Partial newly built exemption applied';
+      } else {
+        pttNote = 'No new build exemption — price over $800K';
+      }
+    }
+
+    return { amount: Math.max(0, Math.round(ptt)), note: pttNote, exempt: pttExempt };
+  }
+
+  function calculate(price, ftb, newBuild, strata) {
+    const ptt = calculatePTT(price, ftb, newBuild);
+    const legal = 1500; // typical notary/lawyer
+    const inspection = newBuild ? 0 : 500; // new builds sometimes skip
+    const titleInsurance = 250;
+    const taxAdjustment = Math.round(price * 0.005 / 12 * 3); // ~3 months prepaid property tax
+    const strataAdjustment = strata ? 600 : 0; // typical strata fee prepayment
+    const movingCost = 1500; // conservative estimate
+    const gst = newBuild ? Math.round(price * 0.05) : 0; // 5% GST on new builds (rebates apply)
+
+    const subtotal = ptt.amount + legal + inspection + titleInsurance + taxAdjustment + strataAdjustment + movingCost + gst;
+
+    return {
+      price, ftb, newBuild, strata,
+      ptt, legal, inspection, titleInsurance,
+      taxAdjustment, strataAdjustment, movingCost, gst,
+      total: subtotal
+    };
+  }
+
+  function runCalculation() {
+    const price = parseFloat(document.getElementById('price').value);
+    if (!price || price < 50000) {
+      document.getElementById('form-error').classList.add('show');
+      return;
+    }
+    document.getElementById('form-error').classList.remove('show');
+
+    document.getElementById('input-state').style.display = 'none';
+    document.getElementById('loading-state').classList.add('active');
+    setStep(2);
+    ['ls1','ls2','ls3','ls4'].forEach((id, i) => setTimeout(() => document.getElementById(id).classList.add('show'), i * 500));
+
+    calcData = calculate(price, state.ftb, state.newBuild, state.strata);
+
+    setTimeout(() => {
+      document.getElementById('loading-state').classList.remove('active');
+      showTeaser();
+    }, 2400);
+  }
+
+  function showTeaser() {
+    document.getElementById('teaser-state').classList.add('active');
+    setStep(2, 'done'); setStep(3, 'active');
+    const d = calcData;
+    document.getElementById('teaser-total').textContent = fmt(d.total);
+    document.getElementById('teaser-sub').textContent = `On a ${fmt(d.price)} purchase in BC${d.ftb ? ' as a first-time buyer' : ''}`;
+  }
+
+  function unlockReport() {
+    const name = document.getElementById('gate-name').value.trim();
+    const email = document.getElementById('gate-email').value.trim();
+    if (!name || !email || !email.includes('@')) { document.getElementById('gate-error').classList.add('show'); return; }
+    document.getElementById('gate-error').classList.remove('show');
+
+    const d = calcData;
+    fetch('/.netlify/functions/capture-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name, email,
+        source: 'Closing Costs Calculator',
+        address: '',
+        purchase_price: d.price,
+        value_mid: d.price
+      })
+    }).catch(e => console.error('Lead capture failed:', e));
+
+    document.getElementById('teaser-state').classList.remove('active');
+    document.getElementById('full-result').classList.add('active');
+    setStep(3, 'done');
+
+    document.getElementById('full-total').textContent = fmt(d.total);
+    document.getElementById('full-sub').textContent = `On a ${fmt(d.price)} purchase in BC${d.ftb ? ' as a first-time buyer' : ''}`;
+
+    const hasExemption = d.ftb || d.newBuild;
+
+    document.getElementById('full-report-content').innerHTML = `
+      <div class="result-section" style="margin-top:1.5rem;">
+        <div class="result-section-title">Government Fees</div>
+        <div class="result-row">
+          <div class="result-key">
+            Property Transfer Tax
+            ${d.ptt.note ? `<span class="result-key-note">${d.ptt.note}</span>` : ''}
+          </div>
+          <span class="result-val ${d.ptt.amount === 0 ? 'free' : ''}">${d.ptt.amount === 0 ? 'Exempt' : fmt(d.ptt.amount)}</span>
+        </div>
+        ${d.gst > 0 ? `
+        <div class="result-row">
+          <div class="result-key">
+            GST (new construction)
+            <span class="result-key-note">5% on purchase price. A partial rebate may apply — confirm with your notary.</span>
+          </div>
+          <span class="result-val amber">${fmt(d.gst)}</span>
+        </div>` : ''}
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Professional Fees</div>
+        <div class="result-row">
+          <div class="result-key">Legal / notary fees<span class="result-key-note">Estimate. Shop around — fees vary by firm.</span></div>
+          <span class="result-val">${fmt(d.legal)}</span>
+        </div>
+        ${d.inspection > 0 ? `
+        <div class="result-row">
+          <div class="result-key">Home inspection<span class="result-key-note">Strongly recommended on resale properties.</span></div>
+          <span class="result-val">${fmt(d.inspection)}</span>
+        </div>` : ''}
+        <div class="result-row">
+          <div class="result-key">Title insurance<span class="result-key-note">Protects against title defects and fraud.</span></div>
+          <span class="result-val">${fmt(d.titleInsurance)}</span>
+        </div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Adjustments at Closing</div>
+        <div class="result-row">
+          <div class="result-key">Property tax prepayment<span class="result-key-note">Typically 2-4 months reimbursed to the seller.</span></div>
+          <span class="result-val">${fmt(d.taxAdjustment)}</span>
+        </div>
+        ${d.strataAdjustment > 0 ? `
+        <div class="result-row">
+          <div class="result-key">Strata fee adjustment<span class="result-key-note">Prepaid portion reimbursed to seller.</span></div>
+          <span class="result-val">${fmt(d.strataAdjustment)}</span>
+        </div>` : ''}
+        <div class="result-row">
+          <div class="result-key">Moving costs<span class="result-key-note">Estimate for local BC move. Long-distance will be higher.</span></div>
+          <span class="result-val">${fmt(d.movingCost)}</span>
+        </div>
+      </div>
+      <div class="result-total-row">
+        <span>Estimated total closing costs</span>
+        <span>${fmt(d.total)}</span>
+      </div>
+      <p style="font-size:0.75rem;color:var(--ink-soft);margin-top:0.75rem;line-height:1.6;">This estimate excludes your down payment and mortgage costs. Not all costs apply to every transaction. ${hasExemption ? 'Exemption eligibility requires confirmation with BC Land Title and your notary.' : ''}</p>
+      <div class="result-insight" style="margin-top:1.25rem;">
+        <strong>Mack's Take</strong>
+        On a ${fmt(d.price)} purchase, ${d.ftb ? "you're in a good spot as a first-time buyer — the PTT exemption saves you real money." : "the single biggest closing cost is typically Property Transfer Tax."} Budget these costs separately from your down payment so there are no surprises at completion. If you haven't already, now is a great time to get your pre-approval locked in so your offer is ready to go when you find the right place.
+      </div>
+    `;
+    window.scrollTo({ top: document.getElementById('full-result').getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  }
+
+  function setStep(num, state) {
+    const dot = document.getElementById(`step${num}-dot`);
+    if (!dot) return;
+    dot.classList.remove('active','done');
+    if (state) dot.classList.add(state);
+    if (num > 1) {
+      const line = document.getElementById(`line${num-1}`);
+      if (line && state === 'done') line.classList.add('done');
+    }
+  }
+</script>
+</body>
+</html>
