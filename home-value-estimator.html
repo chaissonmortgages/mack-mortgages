@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What's My Home Worth? — Mack Mortgages</title>
+<title>What's My Home Worth? | Mack Mortgages</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
@@ -174,7 +174,7 @@
 <div class="page-hero">
   <p class="page-eyebrow">Free Tool</p>
   <h1 class="page-title">What's My Home <em>Worth?</em></h1>
-  <p class="page-sub">Enter your address and what you paid — get an AI-estimated current value range, your equity position, and a full property snapshot in under a minute.</p>
+  <p class="page-sub">Enter your address and what you paid. Get an AI-estimated current value range, your equity position, and a full property snapshot in under a minute.</p>
 </div>
 
 <div class="steps-bar" id="steps-bar">
@@ -190,7 +190,7 @@
 
     <div id="input-state">
       <div class="tool-card-title">Tell us about your property</div>
-      <div class="tool-card-sub">Just your address, what you paid, and when — no account needed.</div>
+      <div class="tool-card-sub">Just your address, what you paid, and when, no account needed.</div>
       <div class="form-group">
         <label>Property Address</label>
         <div class="autocomplete-wrap">
@@ -225,10 +225,10 @@
         <label>Current Mortgage Balance (optional)</label>
         <div class="input-prefix-wrap">
           <span class="input-prefix">$</span>
-          <input type="number" id="mortgage-bal" placeholder="520,000 — leave blank if paid off" min="0">
+          <input type="number" id="mortgage-bal" placeholder="520,000, leave blank if paid off or unknown" min="0">
         </div>
       </div>
-      <p class="form-hint">Leave blank if paid off or unknown — we'll skip equity calculation.</p>
+      <p class="form-hint">Leave blank if paid off or unknown; we'll skip equity calculation.</p>
       <div id="form-error" class="error-msg">Please fill in address, property type, purchase price, and year.</div>
       <button class="btn-full" onclick="runValuation()">
         <span>Estimate My Home Value</span>
@@ -252,11 +252,11 @@
       <div class="value-range-wrap">
         <div class="value-range-label">Estimated Current Value Range</div>
         <div class="value-range-nums">
-          <div class="value-low" id="val-low">—</div>
+          <div class="value-low" id="val-low"></div>
           <div class="value-range-dash">–</div>
-          <div class="value-mid" id="val-mid">—</div>
+          <div class="value-mid" id="val-mid"></div>
           <div class="value-range-dash">–</div>
-          <div class="value-high" id="val-high">—</div>
+          <div class="value-high" id="val-high"></div>
         </div>
         <div class="value-range-bar">
           <span class="range-low-label">Low</span>
@@ -270,17 +270,17 @@
       </div>
       <div class="equity-teaser" id="equity-teaser" style="display:none;">
         <div class="equity-item">
-          <div class="equity-item-val" id="eq-value">—</div>
+          <div class="equity-item-val" id="eq-value"></div>
           <div class="equity-item-label">Est. Value</div>
         </div>
         <div class="equity-item" style="font-size:1.5rem;color:var(--border)">→</div>
         <div class="equity-item">
-          <div class="equity-item-val" id="eq-balance">—</div>
+          <div class="equity-item-val" id="eq-balance"></div>
           <div class="equity-item-label">Mortgage Balance</div>
         </div>
         <div class="equity-item" style="font-size:1.5rem;color:var(--border)">=</div>
         <div class="equity-item">
-          <div class="equity-item-val" id="eq-equity" style="color:var(--green)">—</div>
+          <div class="equity-item-val" id="eq-equity" style="color:var(--green)"></div>
           <div class="equity-item-label">Your Equity</div>
         </div>
       </div>
@@ -295,7 +295,7 @@
         <div class="blur-overlay">
           <div class="blur-overlay-icon">🔒</div>
           <div class="blur-overlay-text">Your full property report is ready</div>
-          <div class="blur-overlay-sub">Free — just your name and email to unlock it.</div>
+          <div class="blur-overlay-sub">Free, just your name and email to unlock it.</div>
         </div>
       </div>
       <div class="gate-form">
@@ -315,18 +315,18 @@
       <div class="value-range-wrap" style="padding-top:0.5rem;">
         <div class="value-range-label">Estimated Current Value Range</div>
         <div class="value-range-nums">
-          <div class="value-low" id="val-low-2">—</div>
+          <div class="value-low" id="val-low-2"></div>
           <div class="value-range-dash">–</div>
-          <div class="value-mid" id="val-mid-2">—</div>
+          <div class="value-mid" id="val-mid-2"></div>
           <div class="value-range-dash">–</div>
-          <div class="value-high" id="val-high-2">—</div>
+          <div class="value-high" id="val-high-2"></div>
         </div>
         <div class="value-caption" id="val-caption-2"></div>
       </div>
       <div id="full-report-content"></div>
       <div class="cta-box">
         <h3>Want to put your equity to work?</h3>
-        <p>Book a free 30-minute call and I'll show you exactly what your equity position means for refinancing, renewal, or your next property — no obligation, no cost to you.</p>
+        <p>Book a free 30-minute call and I'll show you exactly what your equity position means for refinancing, renewal, or your next property, no obligation, no cost to you.</p>
         <button class="cta-box-btn" onclick="openCalendly()">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           Book My Free Equity Review →
@@ -457,7 +457,7 @@ Return this exact JSON structure:
     {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string>},
     {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string>}
   ],
-  "best_action": <string — MUST end with: "Book a free equity review call to explore how your equity could be working harder — whether that's refinancing, a HELOC, or planning your next move.">,
+  "best_action": <string, MUST end with: "Book a free equity review call to explore how your equity could be working harder, whether that's refinancing, a HELOC, or planning your next move.">,
   "confidence": <"High"|"Medium"|"Low">,
   "confidence_note": <string>
 }
@@ -511,7 +511,7 @@ Be realistic for the Canadian market in 2026.`;
         { factor: "Time held", impact: yearsSince >= 5 ? "positive" : "neutral", note: `${yearsSince} years of appreciation captured` },
         { factor: "Property type", impact: propType.includes('Condo') ? "neutral" : "positive", note: propType.includes('Condo') ? "Condo market has been more volatile" : "Ground-oriented properties retain strong demand" }
       ],
-      best_action: `Your equity position has been building steadily${equity && equity > 100000 ? ' and is now substantial' : ''}. Book a free equity review call to explore how your equity could be working harder — whether that's refinancing, a HELOC, or planning your next move.`,
+      best_action: `Your equity position has been building steadily${equity && equity > 100000 ? ' and is now substantial' : ''}. Book a free equity review call to explore how your equity could be working harder, whether that's refinancing, a HELOC, or planning your next move.`,
       confidence: "Medium",
       confidence_note: "AI estimate based on general market data. A formal appraisal will give the most accurate value for lending purposes."
     };
