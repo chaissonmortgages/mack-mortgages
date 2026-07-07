@@ -63,7 +63,7 @@ exports.handler = async (event) => {
 
   // ─── 1. PROXY CLAUDE API CALLS ────────────────────────────────────────────
   // If the request includes a 'claudeMessages' field, proxy it to Anthropic.
-  // This does NOT write a lead — it only returns the Claude response.
+  // This does NOT write a lead, it only returns the Claude response.
   if (payload.claudeMessages) {
     try {
       const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
