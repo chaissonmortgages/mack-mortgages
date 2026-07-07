@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BC Closing Costs Calculator — Mack Mortgages</title>
+<title>BC Closing Costs Calculator | Mack Mortgages</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
@@ -147,7 +147,7 @@
 <div class="page-hero">
   <p class="page-eyebrow">Free Tool · BC Specific</p>
   <h1 class="page-title">BC Closing <em>Costs Calculator</em></h1>
-  <p class="page-sub">See exactly what you'll owe at closing before you make an offer. Property Transfer Tax, legal fees, inspection, title insurance — all itemized for British Columbia.</p>
+  <p class="page-sub">See exactly what you'll owe at closing before you make an offer. Property Transfer Tax, legal fees, inspection, title insurance, all itemized for British Columbia.</p>
 </div>
 
 <div class="steps-bar">
@@ -234,7 +234,7 @@
         <div class="blur-overlay">
           <div class="blur-overlay-icon">🔒</div>
           <div class="blur-overlay-text">Your itemized breakdown is ready</div>
-          <div class="blur-overlay-sub">Enter your name and email to unlock it — free, no spam.</div>
+          <div class="blur-overlay-sub">Enter your name and email to unlock it, free, no spam.</div>
         </div>
       </div>
 
@@ -260,7 +260,7 @@
       <div id="full-report-content"></div>
       <div class="cta-box">
         <h3>Ready to prepare for your purchase?</h3>
-        <p>Book a free call and I'll walk through everything you need to have ready before you make an offer — including how to structure your offer to compete effectively.</p>
+        <p>Book a free call and I'll walk through everything you need to have ready before you make an offer, including how to structure your offer to compete effectively.</p>
         <button class="cta-box-btn" onclick="openCalendly()">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           Book a Free Pre-Purchase Call
@@ -328,14 +328,14 @@
       if (price <= 500000) {
         ptt = 0;
         pttExempt = true;
-        pttNote = 'Exempt — first-time buyer under $500K';
+        pttNote = 'Exempt (first-time buyer under $500K)';
       } else if (price < 525000) {
         const fullExemption = 2000 + Math.min(price - 200000, 300000) * 0.02;
         const factor = (525000 - price) / 25000;
         ptt = ptt - fullExemption * factor;
         pttNote = 'Partial first-time buyer exemption applied';
       } else {
-        pttNote = 'No exemption — purchase price over $525K';
+        pttNote = 'No exemption, purchase price over $525K';
       }
     }
 
@@ -343,14 +343,14 @@
     if (newBuild && !pttExempt) {
       if (price <= 750000) {
         ptt = 0;
-        pttNote = 'Exempt — newly built home under $750K';
+        pttNote = 'Exempt, newly built home under $750K';
       } else if (price < 800000) {
         const fullExemption = 2000 + Math.min(750000 - 200000, 550000) * 0.02;
         const factor = (800000 - price) / 50000;
         ptt = ptt - fullExemption * factor;
         pttNote = 'Partial newly built exemption applied';
       } else {
-        pttNote = 'No new build exemption — price over $800K';
+        pttNote = 'No new build exemption, price over $800K';
       }
     }
 
@@ -448,7 +448,7 @@
         <div class="result-row">
           <div class="result-key">
             GST (new construction)
-            <span class="result-key-note">5% on purchase price. A partial rebate may apply — confirm with your notary.</span>
+            <span class="result-key-note">5% on purchase price. A partial rebate may apply, confirm with your notary.</span>
           </div>
           <span class="result-val amber">${fmt(d.gst)}</span>
         </div>` : ''}
@@ -456,7 +456,7 @@
       <div class="result-section">
         <div class="result-section-title">Professional Fees</div>
         <div class="result-row">
-          <div class="result-key">Legal / notary fees<span class="result-key-note">Estimate. Shop around — fees vary by firm.</span></div>
+          <div class="result-key">Legal / notary fees<span class="result-key-note">Estimate. Shop around, fees vary by firm.</span></div>
           <span class="result-val">${fmt(d.legal)}</span>
         </div>
         ${d.inspection > 0 ? `
@@ -492,7 +492,7 @@
       <p style="font-size:0.75rem;color:var(--ink-soft);margin-top:0.75rem;line-height:1.6;">This estimate excludes your down payment and mortgage costs. Not all costs apply to every transaction. ${hasExemption ? 'Exemption eligibility requires confirmation with BC Land Title and your notary.' : ''}</p>
       <div class="result-insight" style="margin-top:1.25rem;">
         <strong>Mack's Take</strong>
-        On a ${fmt(d.price)} purchase, ${d.ftb ? "you're in a good spot as a first-time buyer — the PTT exemption saves you real money." : "the single biggest closing cost is typically Property Transfer Tax."} Budget these costs separately from your down payment so there are no surprises at completion. If you haven't already, now is a great time to get your pre-approval locked in so your offer is ready to go when you find the right place.
+        On a ${fmt(d.price)} purchase, ${d.ftb ? "you're in a good spot as a first-time buyer, the PTT exemption saves you real money." : "the single biggest closing cost is typically Property Transfer Tax."} Budget these costs separately from your down payment so there are no surprises at completion. If you haven't already, now is a great time to get your pre-approval locked in so your offer is ready to go when you find the right place.
       </div>
     `;
     window.scrollTo({ top: document.getElementById('full-result').getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
