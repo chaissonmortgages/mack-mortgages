@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mortgage Health Check — Mack Mortgages</title>
+<title>Mortgage Health Check | Mack Mortgages</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
@@ -169,7 +169,7 @@
 <div class="page-hero">
   <p class="page-eyebrow">Free Tool</p>
   <h1 class="page-title">Your Mortgage <em>Health Check</em></h1>
-  <p class="page-sub">Enter your mortgage details and get an instant score out of 100 — rating your rate, term, lender competitiveness, and potential savings.</p>
+  <p class="page-sub">Enter your mortgage details and get an instant score out of 100, rating your rate, term, lender competitiveness, and potential savings.</p>
 </div>
 
 <div class="steps-bar" id="steps-bar">
@@ -185,7 +185,7 @@
 
     <div id="input-state">
       <div class="tool-card-title">Tell us about your mortgage</div>
-      <div class="tool-card-sub">Takes about 60 seconds. No SIN, no banking info — just the basics.</div>
+      <div class="tool-card-sub">Takes about 60 seconds. No SIN, no banking info, just the basics.</div>
       <div class="form-group">
         <label>Property Address</label>
         <div class="autocomplete-wrap">
@@ -265,11 +265,11 @@
             <circle class="score-ring-fill" id="score-ring" cx="80" cy="80" r="68" stroke-dasharray="427.26" stroke-dashoffset="427.26"/>
           </svg>
           <div class="score-center">
-            <div class="score-num" id="score-display">—</div>
+            <div class="score-num" id="score-display"></div>
             <div class="score-denom">/100</div>
           </div>
         </div>
-        <div id="grade-badge" class="grade-badge">—</div>
+        <div id="grade-badge" class="grade-badge"></div>
         <div class="teaser-headline" id="teaser-headline">Calculating…</div>
         <div class="teaser-sub" id="teaser-sub"></div>
       </div>
@@ -278,13 +278,13 @@
           <div class="blur-row"><span class="blur-key">Rate vs. market best</span><span class="blur-val">0.45% above ideal</span></div>
           <div class="blur-row"><span class="blur-key">Annual overpayment</span><span class="blur-val">$1,890 / year</span></div>
           <div class="blur-row"><span class="blur-key">Lender score</span><span class="blur-val">62 / 100</span></div>
-          <div class="blur-row"><span class="blur-key">Refinance opportunity</span><span class="blur-val">Strong — act now</span></div>
+          <div class="blur-row"><span class="blur-key">Refinance opportunity</span><span class="blur-val">Strong, act now</span></div>
           <div class="blur-row"><span class="blur-key">Recommended action</span><span class="blur-val">Book a call for competitive quotes</span></div>
         </div>
         <div class="blur-overlay">
           <div class="blur-overlay-icon">🔒</div>
           <div class="blur-overlay-text">Your full report is ready</div>
-          <div class="blur-overlay-sub">Enter your name and email to unlock it — free, no spam.</div>
+          <div class="blur-overlay-sub">Enter your name and email to unlock it, free, no spam.</div>
         </div>
       </div>
       <div class="gate-form">
@@ -309,18 +309,18 @@
             <circle class="score-ring-fill" id="score-ring-2" cx="80" cy="80" r="68" stroke-dasharray="427.26" stroke-dashoffset="427.26"/>
           </svg>
           <div class="score-center">
-            <div class="score-num" id="score-display-2">—</div>
+            <div class="score-num" id="score-display-2"></div>
             <div class="score-denom">/100</div>
           </div>
         </div>
-        <div id="grade-badge-2" class="grade-badge">—</div>
+        <div id="grade-badge-2" class="grade-badge"></div>
         <div class="teaser-headline" id="full-headline"></div>
         <div class="teaser-sub" id="full-sub" style="margin-bottom:0"></div>
       </div>
       <div id="full-report-content"></div>
       <div class="cta-box">
         <h3>Ready to get competitive quotes?</h3>
-        <p>Book a free 30-minute call and I'll shop 50+ lenders to find your best rate — no obligation, no cost to you.</p>
+        <p>Book a free 30-minute call and I'll shop 50+ lenders to find your best rate, no obligation, no cost to you.</p>
         <button class="cta-box-btn" onclick="openCalendly()">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           Book My Free Call →
@@ -438,10 +438,10 @@ Return this exact JSON structure:
   "annual_overpayment": <number in dollars, 0 if rate is competitive>,
   "lender_score": <integer 0-100>,
   "lender_note": <1 sentence about this lender's competitiveness>,
-  "renewal_strategy": <1 sentence strategy — always frame as: "Book a call to get competitive quotes and [specific benefit for their situation]">,
+  "renewal_strategy": <1 sentence strategy, always frame as: "Book a call to get competitive quotes and [specific benefit for their situation]">,
   "opportunity_level": <"High" | "Moderate" | "Low">,
   "opportunity_note": <1 sentence on savings opportunity>,
-  "savings_potential": <annual dollar savings estimate if they optimize — integer>,
+  "savings_potential": <annual dollar savings estimate if they optimize, integer>,
   "insights": [
     {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">},
     {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">},
@@ -449,7 +449,7 @@ Return this exact JSON structure:
     {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">},
     {"label": <string>, "value": <string>, "flag": <"good" | "warn" | "bad" | "neutral">}
   ],
-  "top_recommendation": <2-3 sentence actionable advice specific to their situation. MUST end with: "Book a free 30-minute call to get competitive quotes from 50+ lenders — even a strong mortgage can be improved.">
+  "top_recommendation": <2-3 sentence actionable advice specific to their situation. MUST end with: "Book a free 30-minute call to get competitive quotes from 50+ lenders, even a strong mortgage can be improved.">
 }
 
 Be realistic and specific. Use current Canadian mortgage market context (mid-2026). Big 6 banks typically offer less competitive rates than monolines. Score 80-100 = excellent, 60-79 = good, 40-59 = fair, below 40 = needs attention.`;
@@ -482,7 +482,7 @@ Be realistic and specific. Use current Canadian mortgage market context (mid-202
     return {
       score, grade,
       headline: diff > 0.5 ? "Your rate has room to improve" : "Your mortgage looks reasonably healthy",
-      summary: diff > 0.3 ? `Your rate is ${diff.toFixed(2)}% above current market best — there may be savings available.` : "Your mortgage is competitive with the current market.",
+      summary: diff > 0.3 ? `Your rate is ${diff.toFixed(2)}% above current market best, there may be savings available.` : "Your mortgage is competitive with the current market.",
       rate_vs_market: diff > 0 ? `${diff.toFixed(2)}% above best available` : "At or below market",
       annual_overpayment: Math.round(balance * (diff / 100)),
       lender_score: isBigBank ? 58 : 74,
@@ -498,7 +498,7 @@ Be realistic and specific. Use current Canadian mortgage market context (mid-202
         { label: "Term remaining", value: `${term} year(s)`, flag: parseFloat(term) <= 1 ? 'good' : 'neutral' },
         { label: "Prepayment flexibility", value: isBigBank ? "Standard (20/20)" : "Check your contract", flag: 'neutral' }
       ],
-      top_recommendation: `With ${term} year(s) remaining, now is the right time to start reviewing your options. ${diff > 0.4 ? `A broker can often find rates meaningfully below what your current lender will offer at renewal — potentially saving you $${Math.round(balance * diff / 100).toLocaleString()} per year.` : "Even a competitive rate can often be improved when a broker shops the full market."} Book a free 30-minute call to get competitive quotes from 50+ lenders — even a strong mortgage can be improved.`
+      top_recommendation: `With ${term} year(s) remaining, now is the right time to start reviewing your options. ${diff > 0.4 ? `A broker can often find rates meaningfully below what your current lender will offer at renewal, potentially saving you $${Math.round(balance * diff / 100).toLocaleString()} per year.` : "Even a competitive rate can often be improved when a broker shops the full market."} Book a free 30-minute call to get competitive quotes from 50+ lenders, even a strong mortgage can be improved.`
     };
   }
 
@@ -602,7 +602,7 @@ Be realistic and specific. Use current Canadian mortgage market context (mid-202
         <div style="margin-top:1rem;">
           <button class="book-btn" onclick="openCalendly()">
             <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Book a Free Call — Get Competitive Quotes
+            Book a Free Call, Get Competitive Quotes
           </button>
         </div>
       </div>
