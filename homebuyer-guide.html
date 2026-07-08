@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free First-Time Buyer Guide — Mack Mortgages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F8F8F6; --ink: #111110; --ink-soft: #555552;
+    --accent: #3D5A80; --accent-light: #E8EEF4; --border: #E2E2DE;
+    --white: #FFFFFF; --radius: 4px; --gold: #B8923A;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* NAV - minimal, no distractions */
+  nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 5vw; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .nav-logo span { color: var(--accent); }
+  .nav-contact { font-size: 0.85rem; color: var(--ink-soft); }
+  .nav-contact a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+  /* HERO */
+  .hero { background: #0F1E35; color: var(--white); padding: 70px 5vw 60px; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 420px; gap: 5rem; align-items: center; }
+  .hero-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+  .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.75rem); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+  .hero-headline em { font-style: italic; color: #8AABC4; }
+  .hero-sub { font-size: 1rem; color: #A8B8C8; font-weight: 300; line-height: 1.8; margin-bottom: 2rem; }
+  .hero-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .hero-bullets li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; color: #C8D8E8; line-height: 1.5; }
+  .hero-bullets li::before { content: "✓"; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+
+  /* FORM CARD */
+  .form-card { background: var(--white); border-radius: 12px; padding: 2.25rem; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .form-card-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .form-card-title { font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 0.35rem; letter-spacing: -0.01em; }
+  .form-card-sub { font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1.5rem; line-height: 1.5; }
+
+  /* BOOK MOCKUP */
+  .book-cover { background: linear-gradient(135deg, #0F1E35 0%, #1A3050 100%); border-radius: 6px; padding: 1.5rem 1.25rem 1.25rem; margin-bottom: 1.5rem; border-left: 4px solid var(--gold); position: relative; overflow: hidden; }
+  .book-cover::after { content: ''; position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: rgba(184,146,58,0.1); border-radius: 50%; }
+  .book-cover-eyebrow { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .book-cover-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; color: var(--white); line-height: 1.35; margin-bottom: 0.35rem; }
+  .book-cover-pages { font-size: 0.7rem; color: #8AABC4; }
+
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 0.73rem; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+  .form-group input { width: 100%; font-family: 'DM Sans', sans-serif; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 0.8rem 0.9rem; font-size: 0.9rem; background: var(--bg); color: var(--ink); outline: none; transition: border-color 0.2s; }
+  .form-group input:focus { border-color: var(--accent); }
+  .download-btn { width: 100%; padding: 1rem; background: var(--accent); color: var(--white); border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; letter-spacing: 0.01em; }
+  .download-btn:hover { background: #2d4560; }
+  .download-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .form-disclaimer { font-size: 0.7rem; color: var(--ink-soft); text-align: center; margin-top: 0.75rem; line-height: 1.5; }
+  .error-msg { font-size: 0.8rem; color: #991B1B; margin-top: 0.4rem; display: none; }
+  .error-msg.show { display: block; }
+
+  /* SUCCESS STATE */
+  .success-state { display: none; text-align: center; padding: 1rem 0; }
+  .success-state.show { display: block; }
+  .success-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .success-title { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+  .success-sub { font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1.25rem; line-height: 1.5; }
+  .success-download { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: var(--white); text-decoration: none; padding: 0.8rem 1.5rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 700; transition: background 0.2s; }
+  .success-download:hover { background: #2d4560; }
+  .success-email-note { font-size: 0.75rem; color: var(--ink-soft); margin-top: 0.75rem; }
+
+  /* SOCIAL PROOF STRIP */
+  .proof-strip { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 5vw; }
+  .proof-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+  .proof-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.875rem; }
+  .proof-num { font-weight: 700; font-size: 1rem; }
+  .proof-label { color: var(--ink-soft); }
+
+  /* CONTENT SECTION */
+  .content-section { padding: 80px 5vw; max-width: 1100px; margin: 0 auto; }
+  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .content-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .content-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 2.5vw, 2.1rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 1.25rem; }
+  .content-body { font-size: 0.925rem; color: var(--ink-soft); line-height: 1.8; margin-bottom: 1rem; font-weight: 300; }
+  .chapters { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .chapter { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); background: var(--white); }
+  .chapter:last-child { border-bottom: none; }
+  .chapter-num { width: 28px; height: 28px; background: var(--accent-light); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; margin-top: 0.1rem; }
+  .chapter-title { font-size: 0.875rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+  .chapter-desc { font-size: 0.78rem; color: var(--ink-soft); line-height: 1.4; }
+
+  /* AUTHOR */
+  .author-section { background: #0F1E35; color: var(--white); padding: 60px 5vw; }
+  .author-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+  .author-photo { width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 3px solid rgba(255,255,255,0.2); flex-shrink: 0; }
+  .author-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .author-text { flex: 1; }
+  .author-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .author-title { font-size: 0.82rem; color: #8AABC4; margin-bottom: 0.75rem; }
+  .author-bio { font-size: 0.875rem; color: #A8B8C8; line-height: 1.75; font-weight: 300; max-width: 600px; }
+  .author-cta { flex-shrink: 0; }
+  .author-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--white); text-decoration: none; padding: 0.85rem 1.5rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 700; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .author-btn:hover { background: #a07c30; }
+
+  footer { background: var(--ink); color: var(--white); padding: 2rem 5vw; text-align: center; }
+  .footer-logo { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .footer-logo span { color: #8AABC4; }
+  .footer-copy { font-size: 0.75rem; color: #666662; }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-card { max-width: 500px; }
+    .content-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .proof-inner { gap: 1.5rem; }
+    .author-inner { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 50px 5vw 40px; }
+    .form-card { padding: 1.5rem; }
+    .proof-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Mack<span>Mortgages</span></a>
+  <div class="nav-contact">Questions? <a href="tel:7788742451">778-874-2451</a></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Free Download · BC First-Time Buyers · 2026 Edition</p>
+      <h1 class="hero-headline">Everything you need to know about financing your <em>first home in BC.</em></h1>
+      <p class="hero-sub">A 12-page guide built for British Columbia buyers, with current numbers, real scenarios, and plain language. No fluff, no sales pitch. The same walkthrough I give clients sitting across the table.</p>
+      <ul class="hero-bullets">
+        <li>2026 FHSA and RRSP Home Buyers' Plan rules, including how to stack both for up to $200,000 in down payment</li>
+        <li>BC Property Transfer Tax exemptions and how to qualify</li>
+        <li>What closing costs actually look like with two real purchase scenarios</li>
+        <li>Step-by-step mortgage process from pre-approval to keys</li>
+        <li>CMHC insurance premiums, stress test rules, and the new $1.5M insured cap</li>
+        <li>Full glossary of terms so nothing catches you off guard</li>
+      </ul>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+      <div class="book-cover">
+        <div class="book-cover-eyebrow">First-Time Buyer Guide · British Columbia · 2026</div>
+        <div class="book-cover-title">Your Complete Guide to Financing Your First Home</div>
+        <div class="book-cover-pages">12 pages · Free download · Mack Chaisson, Mortgage Broker</div>
+      </div>
+
+      <div id="form-state">
+        <p class="form-card-eyebrow">Get the free guide</p>
+        <p class="form-card-title">Download instantly</p>
+        <p class="form-card-sub">Enter your name and email and get the PDF sent directly to your inbox.</p>
+
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="fname" placeholder="Sarah">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="femail" placeholder="sarah@email.com">
+          <div class="error-msg" id="form-error">Please enter your name and a valid email.</div>
+        </div>
+        <button class="download-btn" id="download-btn" onclick="handleDownload()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Send Me the Free Guide
+        </button>
+        <p class="form-disclaimer">No spam, ever. Just the guide and occasional mortgage tips from Mack. Unsubscribe any time.</p>
+      </div>
+
+      <div class="success-state" id="success-state">
+        <div class="success-icon">📬</div>
+        <div class="success-title">Check your inbox!</div>
+        <div class="success-sub">The guide is on its way to your email. While you wait, you can also download it directly below.</div>
+        <a href="/homebuyer-guide.pdf" class="success-download" download>
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Download PDF Now
+        </a>
+        <div class="success-email-note">Also sent to your email for easy access later.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <div class="proof-inner">
+    <div class="proof-item"><span class="proof-num">5.0★</span><span class="proof-label">Google Rating</span></div>
+    <div class="proof-item"><span class="proof-num">$100M+</span><span class="proof-label">Mortgages funded</span></div>
+    <div class="proof-item"><span class="proof-num">100+</span><span class="proof-label">BC homeowners helped</span></div>
+    <div class="proof-item"><span class="proof-num">Since 2018</span><span class="proof-label">Licensed and active</span></div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-section">
+  <div class="content-grid">
+    <div>
+      <p class="content-eyebrow">What is inside</p>
+      <h2 class="content-title">12 pages of content that actually matters for BC buyers.</h2>
+      <p class="content-body">Most first-time buyer guides are generic, outdated, or written to sell you something. This one was built specifically for British Columbia, with 2026 numbers, the programs that are actually available right now, and two real closing cost scenarios so you know what cash to have ready.</p>
+      <p class="content-body">Whether you are just starting to think about buying or you have an accepted offer already, this guide fills in the gaps before we talk.</p>
+    </div>
+    <div class="chapters">
+      <div class="chapter">
+        <div class="chapter-num">1</div>
+        <div>
+          <div class="chapter-title">Is homeownership right for you right now?</div>
+          <div class="chapter-desc">The honest questions to ask before you start shopping, and what ownership actually costs beyond the mortgage.</div>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-num">2</div>
+        <div>
+          <div class="chapter-title">2026 First-Time Buyer Programs</div>
+          <div class="chapter-desc">FHSA and HBP rules updated for 2026. How to stack both programs for up to $200,000 in down payment per couple.</div>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-num">3</div>
+        <div>
+          <div class="chapter-title">BC Property Transfer Tax and CMHC</div>
+          <div class="chapter-desc">Who qualifies for the exemption, the new $1.5M insured mortgage cap, and how default insurance premiums work.</div>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-num">4</div>
+        <div>
+          <div class="chapter-title">Closing costs with real numbers</div>
+          <div class="chapter-desc">Two side-by-side scenarios, $500K and $1M, showing exactly what cash you need beyond your down payment.</div>
+        </div>
+      </div>
+      <div class="chapter">
+        <div class="chapter-num">5</div>
+        <div>
+          <div class="chapter-title">The mortgage process start to finish</div>
+          <div class="chapter-desc">Pre-approval to keys, each step explained without jargon. Plus a full glossary of every term you will encounter.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTHOR -->
+<section class="author-section">
+  <div class="author-inner">
+    <div class="author-photo">
+      <img src="mack.jpg" alt="Mack Chaisson, Mortgage Broker">
+    </div>
+    <div class="author-text">
+      <div class="author-name">Mack Chaisson</div>
+      <div class="author-title">Licensed Mortgage Broker · DLC / Clear Trust Mortgages · BC and Canada</div>
+      <p class="author-bio">I put this guide together because too many first-time buyers walk into the process without knowing what to expect. I work with buyers across BC every day and I know exactly where the surprises come from. If you want to walk through your specific numbers after reading, book a free call. No pressure, just answers.</p>
+    </div>
+    <div class="author-cta">
+      <button class="author-btn" onclick="window.open('https://calendly.com/chaissonmortgages/initialmeet','_blank')">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Book a Free Call
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Mack<span>Mortgages</span></div>
+  <div class="footer-copy">© 2026 Mack Mortgages · Licensed Mortgage Broker · DLC / Clear Trust Mortgages · 778-874-2451 · Mack.Chaisson@Cleartrust.ca</div>
+</footer>
+
+<script>
+async function handleDownload() {
+  const fname = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const errEl = document.getElementById('form-error');
+  const btn = document.getElementById('download-btn');
+
+  if (!fname || !email || !email.includes('@')) {
+    errEl.classList.add('show');
+    return;
+  }
+  errEl.classList.remove('show');
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m0 0l-4-4m4 4l4-4"/></svg> Sending...';
+
+  try {
+    await fetch('/.netlify/functions/capture-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: fname,
+        email: email,
+        source: 'Booklet Download',
+        address: ''
+      })
+    });
+  } catch(e) {}
+
+  document.getElementById('form-state').style.display = 'none';
+  document.getElementById('success-state').classList.add('show');
+}
+</script>
+
+</body>
+</html>
