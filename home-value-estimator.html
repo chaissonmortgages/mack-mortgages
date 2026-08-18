@@ -486,19 +486,19 @@ Return this exact JSON structure:
   "ltv_ratio": <float or null>,
   "heloc_available": <integer or null>,
   "assessed_value": <integer, echo the supplied BC Assessed Value exactly, or null if not provided>,
-  "market_context": <string>,
-  "property_type_trend": <string>,
+  "market_context": <string, 2-3 sentences max>,
+  "property_type_trend": <string, 1 sentence>,
   "value_drivers": [
-    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string>},
-    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string>},
-    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string>}
+    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string, 1 sentence max>},
+    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string, 1 sentence max>},
+    {"factor": <string>, "impact": <"positive"|"neutral"|"negative">, "note": <string, 1 sentence max>}
   ],
-  "best_action": <string, MUST end with: "Book a free equity review call to explore how your equity could be working harder, whether that's refinancing, a HELOC, or planning your next move.">,
+  "best_action": <string, 2-3 sentences, MUST end with: "Book a free equity review call to explore how your equity could be working harder, whether that's refinancing, a HELOC, or planning your next move.">,
   "confidence": <"High"|"Medium"|"Low">,
-  "confidence_note": <string>
+  "confidence_note": <string, 1 sentence>
 }
 
-Be realistic for the Canadian market in 2026.`;
+Be realistic for the Canadian market in 2026. Keep every string field concise, as specified, output must fit well within 1600 tokens.`;
 
     try {
       const res = await fetch('/.netlify/functions/capture-lead', {
