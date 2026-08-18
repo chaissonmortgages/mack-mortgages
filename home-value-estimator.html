@@ -234,6 +234,20 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
           <input type="number" id="purchase-year" placeholder="2019" min="1990" max="2026">
         </div>
       </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Year Built (optional)</label>
+          <input type="number" id="year-built" placeholder="1985" min="1900" max="2026">
+        </div>
+        <div class="form-group">
+          <label>BC Assessed Value (optional)</label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix">$</span>
+            <input type="number" id="assessed-value" placeholder="820,000" min="0">
+          </div>
+        </div>
+      </div>
+      <p class="form-hint">Find your assessed value free at <a href="https://www.bcassessment.ca" target="_blank" rel="noopener" style="color:var(--accent);">bcassessment.ca</a>. Adding it and the build year sharpens your estimate.</p>
       <div class="form-group">
         <label>Current Mortgage Balance (optional)</label>
         <div class="input-prefix-wrap">
@@ -433,7 +447,10 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
     const purchasePrice = parseFloat(document.getElementById('purchase-price').value);
     const purchaseYear = parseInt(document.getElementById('purchase-year').value);
     const mortgageBal = parseFloat(document.getElementById('mortgage-bal').value) || null;
+    const yearBuilt = parseInt(document.getElementById('year-built').value) || null;
+    const assessedValue = parseFloat(document.getElementById('assessed-value').value) || null;
     const yearsSince = new Date().getFullYear() - purchaseYear;
+    const buildingAge = yearBuilt ? new Date().getFullYear() - yearBuilt : null;
 
     document.getElementById('input-state').style.display = 'none';
     document.getElementById('loading-state').classList.add('active');
@@ -447,8 +464,13 @@ Property details:
 - Type: ${propType}
 - Purchase price: $${purchasePrice.toLocaleString()}
 - Year purchased: ${purchaseYear} (${yearsSince} years ago)
+- Year built: ${yearBuilt ? `${yearBuilt} (${buildingAge} years old)` : 'Not provided'}
+- BC Assessed Value (owner-supplied, from bcassessment.ca): ${assessedValue ? fmt(assessedValue) : 'Not provided'}
 - Current mortgage balance: ${mortgageBal ? fmt(mortgageBal) : 'Not provided'}
 - Analysis date: ${new Date().toLocaleDateString('en-CA', {month:'long', year:'numeric'})}
+
+${assessedValue ? `BC assessed values are typically set as of July 1 of the prior year and, in a normal BC market, run roughly 85-95% of current fair market value. Use the supplied assessed value as a strong anchor for value_low/value_mid/value_high (do not just repeat the appreciation-based number in isolation), and narrow your range accordingly since you have a real data point.` : ''}
+${buildingAge !== null ? `Factor the building's age into your estimate: older buildings (30+ years) typically carry a modest value discount from deferred maintenance and dated systems unless recently renovated, while newer builds (under 10 years) typically carry a modest premium. Add a 4th entry to value_drivers specifically about building age.` : ''}
 
 Return this exact JSON structure:
 {
@@ -463,6 +485,7 @@ Return this exact JSON structure:
   "equity_dollars": <integer or null>,
   "ltv_ratio": <float or null>,
   "heloc_available": <integer or null>,
+  "assessed_value": <integer, echo the supplied BC Assessed Value exactly, or null if not provided>,
   "market_context": <string>,
   "property_type_trend": <string>,
   "value_drivers": [
@@ -487,7 +510,7 @@ Be realistic for the Canadian market in 2026.`;
       const text = data.claude?.content?.find(b => b.type === 'text')?.text || '';
       reportData = JSON.parse(text.replace(/```json|```/g, '').trim());
     } catch(e) {
-      reportData = generateFallback(purchasePrice, purchaseYear, mortgageBal, propType, address);
+      reportData = generateFallback(purchasePrice, purchaseYear, mortgageBal, propType, address, assessedValue, buildingAge);
     }
 
     await new Promise(r => setTimeout(r, 3800));
@@ -495,20 +518,61 @@ Be realistic for the Canadian market in 2026.`;
     showTeaser(mortgageBal);
   }
 
-  function generateFallback(purchasePrice, purchaseYear, mortgageBal, propType, address) {
+  // BC assessed values are set as of July 1 the prior year and typically run ~85-95% of
+  // current fair market value in a normal market; used only as a blending anchor, never fetched.
+  const ASSESSED_TO_MARKET_RATIO = 0.90;
+
+  function generateFallback(purchasePrice, purchaseYear, mortgageBal, propType, address, assessedValue, buildingAge) {
     const yearsSince = new Date().getFullYear() - purchaseYear;
     const addr = address.toLowerCase();
     const isBC = addr.includes('bc') || addr.includes('vancouver') || addr.includes('richmond') || addr.includes('surrey') || addr.includes('burnaby') || addr.includes('coquitlam') || addr.includes('langley');
     const annualGrowth = isBC ? 0.055 : 0.042;
-    const midVal = Math.round(purchasePrice * Math.pow(1 + annualGrowth, yearsSince));
+
+    // Age adjustment: older buildings skew slightly down (deferred maintenance, dated
+    // systems), newer builds carry a modest premium, absent renovation info either way.
+    let ageAdjustment = 0;
+    let ageNote = null;
+    if (buildingAge !== null) {
+      if (buildingAge < 10) { ageAdjustment = 0.02; ageNote = { factor: "Building age", impact: "positive", note: `${buildingAge} years old, near-new construction typically commands a premium` }; }
+      else if (buildingAge < 30) { ageAdjustment = 0; ageNote = { factor: "Building age", impact: "neutral", note: `${buildingAge} years old, mid-life for major systems` }; }
+      else if (buildingAge < 60) { ageAdjustment = -0.02; ageNote = { factor: "Building age", impact: "neutral", note: `${buildingAge} years old, may need updated systems without recent renovation` }; }
+      else { ageAdjustment = -0.04; ageNote = { factor: "Building age", impact: "negative", note: `${buildingAge} years old, older housing stock typically needs updating unless renovated` }; }
+    }
+
+    const appreciationVal = purchasePrice * Math.pow(1 + annualGrowth, yearsSince) * (1 + ageAdjustment);
+
+    // If an assessed value was supplied, anchor to it rather than relying on the
+    // appreciation model alone, weighted toward the assessed value since it's real data.
+    let midVal, spread, confidence, confidenceNote;
+    if (assessedValue) {
+      const assessedAnchoredVal = assessedValue / ASSESSED_TO_MARKET_RATIO;
+      midVal = Math.round(assessedAnchoredVal * 0.6 + appreciationVal * 0.4);
+      spread = 0.05;
+      confidence = "High";
+      confidenceNote = "Anchored to your supplied BC Assessed Value alongside purchase-price appreciation. A formal appraisal will still give the most accurate value for lending purposes.";
+    } else {
+      midVal = Math.round(appreciationVal);
+      spread = 0.07;
+      confidence = "Medium";
+      confidenceNote = "AI estimate based on general market data; no assessed value supplied. A formal appraisal will give the most accurate value for lending purposes.";
+    }
+
     const appPct = ((midVal - purchasePrice) / purchasePrice) * 100;
     const equity = mortgageBal ? midVal - mortgageBal : null;
     const ltv = mortgageBal ? (mortgageBal / midVal) * 100 : null;
     const heloc = mortgageBal ? Math.max(0, midVal * 0.80 - mortgageBal) : null;
+
+    const value_drivers = [
+      { factor: "Location", impact: "positive", note: isBC ? "BC metro market with strong long-term demand" : "Urban Canadian market with stable demand" },
+      { factor: "Time held", impact: yearsSince >= 5 ? "positive" : "neutral", note: `${yearsSince} years of appreciation captured` },
+      { factor: "Property type", impact: propType.includes('Condo') ? "neutral" : "positive", note: propType.includes('Condo') ? "Condo market has been more volatile" : "Ground-oriented properties retain strong demand" }
+    ];
+    if (ageNote) value_drivers.push(ageNote);
+
     return {
-      value_low: Math.round(midVal * 0.93),
+      value_low: Math.round(midVal * (1 - spread)),
       value_mid: midVal,
-      value_high: Math.round(midVal * 1.07),
+      value_high: Math.round(midVal * (1 + spread)),
       appreciation_dollars: midVal - purchasePrice,
       appreciation_pct: appPct,
       annual_growth_rate: annualGrowth * 100,
@@ -517,16 +581,13 @@ Be realistic for the Canadian market in 2026.`;
       equity_dollars: equity,
       ltv_ratio: ltv,
       heloc_available: heloc,
+      assessed_value: assessedValue || null,
       market_context: "The Canadian housing market in 2026 reflects stabilization after rate-driven corrections, with supply remaining the key long-term driver in most urban centres.",
       property_type_trend: `${propType}s in this area have generally tracked or outpaced the broader market over the past few years.`,
-      value_drivers: [
-        { factor: "Location", impact: "positive", note: isBC ? "BC metro market with strong long-term demand" : "Urban Canadian market with stable demand" },
-        { factor: "Time held", impact: yearsSince >= 5 ? "positive" : "neutral", note: `${yearsSince} years of appreciation captured` },
-        { factor: "Property type", impact: propType.includes('Condo') ? "neutral" : "positive", note: propType.includes('Condo') ? "Condo market has been more volatile" : "Ground-oriented properties retain strong demand" }
-      ],
+      value_drivers,
       best_action: `Your equity position has been building steadily${equity && equity > 100000 ? ' and is now substantial' : ''}. Book a free equity review call to explore how your equity could be working harder, whether that's refinancing, a HELOC, or planning your next move.`,
-      confidence: "Medium",
-      confidence_note: "AI estimate based on general market data. A formal appraisal will give the most accurate value for lending purposes."
+      confidence,
+      confidence_note: confidenceNote
     };
   }
 
@@ -612,6 +673,7 @@ Be realistic for the Canadian market in 2026.`;
         <div class="result-row"><span class="result-key">Estimated gain</span><span class="result-val good">${fmt(r.appreciation_dollars)} (${fmtPct(r.appreciation_pct)})</span></div>
         <div class="result-row"><span class="result-key">Annual growth rate (est.)</span><span class="result-val">${r.annual_growth_rate.toFixed(1)}% / year</span></div>
         <div class="result-row"><span class="result-key">Neighbourhood trend (12mo)</span><span class="result-val ${r.neighbourhood_trend_12mo >= 3 ? 'good' : r.neighbourhood_trend_12mo >= 1 ? '' : 'warn'}">${fmtPct(r.neighbourhood_trend_12mo)}</span></div>
+        ${r.assessed_value ? `<div class="result-row"><span class="result-key">BC Assessed Value (yours)</span><span class="result-val">${fmt(r.assessed_value)}</span></div>` : ''}
       </div>
       ${mortgageBal && r.equity_dollars !== null ? `
       <div class="result-section">

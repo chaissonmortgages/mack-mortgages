@@ -558,6 +558,7 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
     if (isNaN(val)) return;
     val = Math.min(max, Math.max(min, val));
     document.getElementById(sliderId).value = val;
+    document.getElementById(inputId).value = val;
     calcUpdate();
   }
   function calcUpdate() {
