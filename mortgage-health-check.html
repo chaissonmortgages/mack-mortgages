@@ -440,11 +440,12 @@ Mortgage details:
 - Lender: ${lender}
 - Remaining term: ${term} year(s)
 - Analysis date: ${new Date().toLocaleDateString('en-CA', {month:'long', year:'numeric'})}
+- Benchmark rate to compare against (Mack's current best 5-year fixed): 4.14%
 
 Return this exact JSON structure:
 {
   "score": <integer 0-100>,
-  "grade": <"A+" | "A" | "B+" | "B" | "C+" | "C" | "D">,
+  "grade": <"A+" | "A" | "B+" | "B" | "C+" | "C" | "D" | "F">,
   "headline": <short 6-8 word headline about their mortgage health>,
   "summary": <1 sentence plain English summary>,
   "rate_vs_market": <string, e.g. "0.35% above best available">,
@@ -465,7 +466,15 @@ Return this exact JSON structure:
   "top_recommendation": <2-3 sentence actionable advice specific to their situation. MUST end with: "Book a free 30-minute call to get competitive quotes from 50+ lenders, even a strong mortgage can be improved.">
 }
 
-Be realistic and specific. Use current Canadian mortgage market context (mid-2026). Big 6 banks typically offer less competitive rates than monolines. Score 80-100 = excellent, 60-79 = good, 40-59 = fair, below 40 = needs attention. Never use em dashes (—) in any string field, use commas, periods, or colons instead.`;
+Be realistic and specific. Use current Canadian mortgage market context (mid-2026). Big 6 banks typically offer less competitive rates than monolines. Never use em dashes (—) in any string field, use commas, periods, or colons instead.
+
+SCORING RULES (follow these precisely and show your work internally, this is the most important part):
+- Compute this formula exactly: score = 65 - (their rate - 4.14) * 40. Round to the nearest integer, then clamp to a minimum of 10 and a maximum of 88. NEVER output a score above 88 or below 10, no matter how good or bad the rate.
+- A higher rate than the 4.14% benchmark must score noticeably worse, a lower rate must score noticeably better. This formula is the dominant factor, lender and term are secondary flavor only and should not move the final score by more than a couple points.
+- Grade thresholds, based on the final clamped score: 85-88 = A+, 76-84 = A, 68-75 = B+, 58-67 = B, 48-57 = C+, 35-47 = C, 22-34 = D, 10-21 = F.
+- Worked examples (verify your math matches this pattern): rate 6.25% vs 4.14% benchmark is 2.11% over, score = 65 - (2.11*40) = -19.4, clamped to 10, grade F. Rate 4.05% vs 4.14% benchmark is 0.09% under, score = 65 - (-0.09*40) = 68.6, rounds to 69, grade B.
+- The score is capped at 88 on purpose, it is a hook to get them to book a call, not a verdict that they're done shopping. Even a great rate (A or A+) should leave a believable opening, a shorter remaining term, lender fees, prepayment terms, or a second opinion on structure, so "top_recommendation" and "opportunity_note" always give them a real reason to still call.
+- Never let the report feel like "nothing to gain here." If the rate is excellent, shift the hook toward something other than rate (locking in before renewal, portfolio/HELOC strategy, structure review) rather than inventing a fake rate problem.`;
 
     try {
       const res = await fetch('/.netlify/functions/capture-lead', {
@@ -486,10 +495,14 @@ Be realistic and specific. Use current Canadian mortgage market context (mid-202
   }
 
   function generateFallback(rate, lender, balance, term) {
-    const marketRate = 4.89;
+    const marketRate = 4.14;
     const diff = rate - marketRate;
-    const score = Math.max(20, Math.min(95, Math.round(75 - diff * 15)));
-    const grade = score >= 85 ? 'A' : score >= 75 ? 'B+' : score >= 65 ? 'B' : score >= 55 ? 'C+' : 'C';
+    // Same formula as the Claude prompt's SCORING RULES, kept in sync so the
+    // fallback (used only if the API call fails) grades identically. Capped
+    // below 88 even for great rates, the score is a hook to book a call, not
+    // a verdict that they're done shopping.
+    const score = Math.max(10, Math.min(88, Math.round(65 - diff * 40)));
+    const grade = score >= 85 ? 'A+' : score >= 76 ? 'A' : score >= 68 ? 'B+' : score >= 58 ? 'B' : score >= 48 ? 'C+' : score >= 35 ? 'C' : score >= 22 ? 'D' : 'F';
     const bigBanks = ['RBC','TD','Scotiabank','BMO','CIBC','National Bank'];
     const isBigBank = bigBanks.includes(lender);
     return {
@@ -499,14 +512,14 @@ Be realistic and specific. Use current Canadian mortgage market context (mid-202
       rate_vs_market: diff > 0 ? `${diff.toFixed(2)}% above best available` : "At or below market",
       annual_overpayment: Math.round(balance * (diff / 100)),
       lender_score: isBigBank ? 58 : 74,
-      lender_note: isBigBank ? "Big banks typically post rates 0.3–0.6% above what brokers can access." : "This lender offers competitive rates through the broker channel.",
+      lender_note: isBigBank ? "Big banks typically post rates 0.3-0.6% above what brokers can access." : "This lender offers competitive rates through the broker channel.",
       renewal_strategy: "Book a call to get competitive quotes and ensure you're entering renewal with the best possible options.",
       opportunity_level: diff > 0.5 ? "High" : diff > 0.2 ? "Moderate" : "Low",
       opportunity_note: `Potential to save ~$${Math.round(balance * (Math.max(0, diff - 0.1) / 100)).toLocaleString()} annually by optimizing.`,
       savings_potential: Math.round(balance * (Math.max(0, diff - 0.1) / 100)),
       insights: [
         { label: "Current rate", value: `${rate}%`, flag: diff > 0.5 ? 'bad' : diff > 0.2 ? 'warn' : 'good' },
-        { label: "Best available (broker)", value: "4.89% (5yr fixed)", flag: 'neutral' },
+        { label: "Best available (broker)", value: "4.14% (5yr fixed)", flag: 'neutral' },
         { label: "Lender type", value: isBigBank ? "Big 6 Bank" : "Monoline / Credit Union", flag: isBigBank ? 'warn' : 'good' },
         { label: "Term remaining", value: `${term} year(s)`, flag: parseFloat(term) <= 1 ? 'good' : 'neutral' },
         { label: "Prepayment flexibility", value: isBigBank ? "Standard (20/20)" : "Check your contract", flag: 'neutral' }
