@@ -445,7 +445,7 @@ Mortgage details:
 Return this exact JSON structure:
 {
   "score": <integer 0-100>,
-  "grade": <"A+" | "A" | "B+" | "B" | "C+" | "C" | "D" | "F">,
+  "grade": <"A" | "B" | "C" | "D" | "F">,
   "headline": <short 6-8 word headline about their mortgage health>,
   "summary": <1 sentence plain English summary>,
   "rate_vs_market": <string, e.g. "0.35% above best available">,
@@ -469,11 +469,11 @@ Return this exact JSON structure:
 Be realistic and specific. Use current Canadian mortgage market context (mid-2026). Big 6 banks typically offer less competitive rates than monolines. Never use em dashes (—) in any string field, use commas, periods, or colons instead.
 
 SCORING RULES (follow these precisely and show your work internally, this is the most important part):
-- Compute this formula exactly: score = 65 - (their rate - 4.14) * 40. Round to the nearest integer, then clamp to a minimum of 10 and a maximum of 88. NEVER output a score above 88 or below 10, no matter how good or bad the rate.
+- Compute this formula exactly: score = 78 - (their rate - 4.14) * 40. Round to the nearest integer, then clamp to a minimum of 10 and a maximum of 95. NEVER output a score above 95 or below 10, no matter how good or bad the rate.
 - A higher rate than the 4.14% benchmark must score noticeably worse, a lower rate must score noticeably better. This formula is the dominant factor, lender and term are secondary flavor only and should not move the final score by more than a couple points.
-- Grade thresholds, based on the final clamped score: 85-88 = A+, 76-84 = A, 70-75 = B+, 55-69 = B, 45-54 = C+, 32-44 = C, 20-31 = D, 10-19 = F.
-- Worked examples (verify your math matches this pattern): rate 6.25% vs 4.14% benchmark is 2.11% over, score = 65 - (2.11*40) = -19.4, clamped to 10, grade F. Rate 4.05% vs 4.14% benchmark is 0.09% under, score = 65 - (-0.09*40) = 68.6, rounds to 69, grade B.
-- The score is capped at 88 on purpose, it is a hook to get them to book a call, not a verdict that they're done shopping. Even a great rate (A or A+) should leave a believable opening, a shorter remaining term, lender fees, prepayment terms, or a second opinion on structure, so "top_recommendation" and "opportunity_note" always give them a real reason to still call.
+- Grade thresholds use a normal school scale, based on the final clamped score: 90-100 = A, 80-89 = B, 70-79 = C, 50-69 = D, below 50 = F.
+- Worked examples (verify your math matches this pattern): rate 6.25% vs 4.14% benchmark is 2.11% over, score = 78 - (2.11*40) = -6.4, clamped to 10, grade F. Rate 4.05% vs 4.14% benchmark is 0.09% under, score = 78 - (-0.09*40) = 81.6, rounds to 82, grade B. Rate exactly at the 4.14% benchmark scores 78, grade C, an at-market rate is literally average.
+- The score is capped at 95 on purpose (never a perfect 100), it is a hook to get them to book a call, not a verdict that they're done shopping. Even a great rate (A) should leave a believable opening, a shorter remaining term, lender fees, prepayment terms, or a second opinion on structure, so "top_recommendation" and "opportunity_note" always give them a real reason to still call.
 - Never let the report feel like "nothing to gain here." If the rate is excellent, shift the hook toward something other than rate (locking in before renewal, portfolio/HELOC strategy, structure review) rather than inventing a fake rate problem.`;
 
     try {
@@ -499,10 +499,11 @@ SCORING RULES (follow these precisely and show your work internally, this is the
     const diff = rate - marketRate;
     // Same formula as the Claude prompt's SCORING RULES, kept in sync so the
     // fallback (used only if the API call fails) grades identically. Capped
-    // below 88 even for great rates, the score is a hook to book a call, not
-    // a verdict that they're done shopping.
-    const score = Math.max(10, Math.min(88, Math.round(65 - diff * 40)));
-    const grade = score >= 85 ? 'A+' : score >= 76 ? 'A' : score >= 70 ? 'B+' : score >= 55 ? 'B' : score >= 45 ? 'C+' : score >= 32 ? 'C' : score >= 20 ? 'D' : 'F';
+    // below 95 even for great rates, the score is a hook to book a call, not
+    // a verdict that they're done shopping. Grade bands are a normal school
+    // scale: 90+ A, 80s B, 70s C, 50-69 D, below 50 F.
+    const score = Math.max(10, Math.min(95, Math.round(78 - diff * 40)));
+    const grade = score >= 90 ? 'A' : score >= 80 ? 'B' : score >= 70 ? 'C' : score >= 50 ? 'D' : 'F';
     const bigBanks = ['RBC','TD','Scotiabank','BMO','CIBC','National Bank'];
     const isBigBank = bigBanks.includes(lender);
     return {
@@ -510,7 +511,7 @@ SCORING RULES (follow these precisely and show your work internally, this is the
       headline: diff > 0.5 ? "Your rate has room to improve" : "Your mortgage looks reasonably healthy",
       summary: diff > 0.3 ? `Your rate is ${diff.toFixed(2)}% above current market best, there may be savings available.` : "Your mortgage is competitive with the current market.",
       rate_vs_market: diff > 0 ? `${diff.toFixed(2)}% above best available` : "At or below market",
-      annual_overpayment: Math.round(balance * (diff / 100)),
+      annual_overpayment: Math.max(0, Math.round(balance * (diff / 100))),
       lender_score: isBigBank ? 58 : 74,
       lender_note: isBigBank ? "Big banks typically post rates 0.3-0.6% above what brokers can access." : "This lender offers competitive rates through the broker channel.",
       renewal_strategy: "Book a call to get competitive quotes and ensure you're entering renewal with the best possible options.",
@@ -561,6 +562,36 @@ SCORING RULES (follow these precisely and show your work internally, this is the
     animateRing('score-ring', s);
   }
 
+  // Rough break-penalty vs. savings estimate. Real bank IRD formulas are
+  // proprietary and vary by lender, so this is deliberately simple and
+  // transparent rather than a false-precision replica of any one bank's math:
+  // IRD-style penalty = (contract rate - lender's current comparison rate) x
+  // balance x remaining years, floored at the standard 3-months-interest
+  // minimum. Big banks are compared against their own posted rate (~5.35%,
+  // current as of Aug 2026, they cluster tightly across RBC/TD/Scotia/BMO/CIBC),
+  // monolines and credit unions against the site's broker benchmark (4.14%)
+  // since their discretionary rates track much closer to the open market.
+  function estimateBreakAnalysis(rate, balance, term, lender, annualOverpayment) {
+    const years = parseFloat(term);
+    if (!years || years < 1 || !annualOverpayment || annualOverpayment <= 0) return null;
+
+    const bigBanks = ['RBC','TD','Scotiabank','BMO','CIBC','National Bank'];
+    const isBigBank = bigBanks.includes(lender);
+    const comparisonRate = isBigBank ? 5.35 : 4.14;
+
+    const irdEstimate = Math.round(balance * Math.max(0, (rate - comparisonRate) / 100) * years);
+    const threeMonthsInterest = Math.round(balance * (rate / 100) * 0.25);
+    const penaltyEstimate = Math.max(irdEstimate, threeMonthsInterest);
+
+    const legalCostEstimate = 1500;
+    const remainingTermSavings = Math.round(annualOverpayment * years);
+    const netBenefit = remainingTermSavings - penaltyEstimate - legalCostEstimate;
+
+    const verdict = netBenefit > 500 ? 'green' : netBenefit > -500 ? 'amber' : 'unclear';
+
+    return { isBigBank, penaltyEstimate, remainingTermSavings, legalCostEstimate, netBenefit, verdict, years };
+  }
+
   function unlockReport() {
     const name = document.getElementById('gate-name').value.trim();
     const email = document.getElementById('gate-email').value.trim();
@@ -601,6 +632,12 @@ SCORING RULES (follow these precisely and show your work internally, this is the
     badge2.className = 'grade-badge ' + getGradeClass(reportData.grade);
     animateRing('score-ring-2', s);
 
+    const breakBalance = parseFloat(document.getElementById('balance').value);
+    const breakRate = parseFloat(document.getElementById('curr-rate').value);
+    const breakTerm = document.getElementById('term').value;
+    const breakLender = document.getElementById('lender').value;
+    const breakAnalysis = estimateBreakAnalysis(breakRate, breakBalance, breakTerm, breakLender, r.annual_overpayment);
+
     document.getElementById('full-report-content').innerHTML = `
       <div class="result-section" style="margin-top:1.5rem;">
         <div class="result-section-title">Rate Analysis</div>
@@ -617,6 +654,21 @@ SCORING RULES (follow these precisely and show your work internally, this is the
         <div class="result-row"><span class="result-key">Savings potential (annual)</span><span class="result-val good">$${r.savings_potential.toLocaleString()}</span></div>
         <div class="result-row"><span class="result-key">Opportunity level</span><span class="result-val ${r.opportunity_level === 'High' ? 'bad' : r.opportunity_level === 'Moderate' ? 'warn' : 'good'}">${r.opportunity_level}</span></div>
       </div>
+      ${breakAnalysis ? `
+      <div class="result-section">
+        <div class="result-section-title">Break &amp; Switch Analysis</div>
+        <div class="result-row"><span class="result-key">Est. penalty to break now</span><span class="result-val warn">$${breakAnalysis.penaltyEstimate.toLocaleString()}</span></div>
+        <div class="result-row"><span class="result-key">Est. savings over ${breakAnalysis.years} remaining yr(s)</span><span class="result-val good">$${breakAnalysis.remainingTermSavings.toLocaleString()}</span></div>
+        <div class="result-row"><span class="result-key">Est. legal / discharge costs</span><span class="result-val">$${breakAnalysis.legalCostEstimate.toLocaleString()}</span></div>
+        <div class="result-row" style="border-top:2px solid var(--ink);padding-top:0.9rem;margin-top:0.25rem;">
+          <span class="result-key" style="font-weight:600;color:var(--ink);">Net estimated benefit</span>
+          <span class="result-val ${breakAnalysis.verdict === 'green' ? 'good' : breakAnalysis.verdict === 'amber' ? 'warn' : ''}" style="font-size:1.05rem;">${breakAnalysis.netBenefit >= 0 ? '+' : '-'}$${Math.abs(breakAnalysis.netBenefit).toLocaleString()}</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--ink-soft);margin-top:0.75rem;line-height:1.6;">
+          ${breakAnalysis.verdict === 'green' ? 'Even after an estimated penalty and closing costs, switching now could still put more money in your pocket.' : breakAnalysis.verdict === 'amber' ? 'This is close enough that it is worth running your exact numbers with a broker.' : 'On paper the estimated penalty may outweigh near-term savings, but renewal timing and other factors can still make a call worthwhile.'}
+          This is a rough estimate only${breakAnalysis.isBigBank ? ", big bank penalties use the bank's own posted-rate formula and your exact payout can differ meaningfully" : ''}, always confirm your exact discharge penalty directly with your current lender before making a decision.
+        </p>
+      </div>` : ''}
       <div class="result-section">
         <div class="result-section-title">Lender Assessment</div>
         <div class="result-row"><span class="result-key">Lender competitiveness</span><span class="result-val ${r.lender_score >= 70 ? 'good' : r.lender_score >= 50 ? 'warn' : 'bad'}">${r.lender_score}/100</span></div>
