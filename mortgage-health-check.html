@@ -134,13 +134,8 @@
   .result-val.bad { color: var(--red); }
   .result-insight { background: var(--accent-light); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.875rem; line-height: 1.7; margin-top: 1rem; color: var(--ink); }
   .result-insight strong { display: block; font-weight: 600; margin-bottom: 0.3rem; }
-  .book-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; background: var(--accent); color: var(--white); border: none; padding: 0.75rem 1.4rem; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .book-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; background: var(--accent); color: var(--white); border: none; padding: 1.05rem 2.25rem; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
   .book-btn:hover { background: var(--ink); }
-  .cta-box { background: var(--ink); color: var(--white); border-radius: 8px; padding: 2rem; text-align: center; margin-top: 1.5rem; }
-  .cta-box h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .cta-box p { font-size: 0.875rem; color: #A8A8A4; margin-bottom: 1.25rem; line-height: 1.6; }
-  .cta-box-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--white); color: var(--ink); border: none; padding: 0.75rem 1.75rem; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-  .cta-box-btn:hover { background: var(--accent-light); }
 
   footer { background: var(--ink); color: var(--white); padding: 2.5rem 5vw; }
   .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
@@ -331,14 +326,6 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
         <div class="teaser-sub" id="full-sub" style="margin-bottom:0"></div>
       </div>
       <div id="full-report-content"></div>
-      <div class="cta-box">
-        <h3>Ready to get competitive quotes?</h3>
-        <p>Book a free 30-minute call and I'll shop 50+ lenders to find your best rate, no obligation, no cost to you.</p>
-        <button class="cta-box-btn" onclick="openCalendly()">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          Book My Free Call →
-        </button>
-      </div>
     </div>
 
   </div>
@@ -672,15 +659,14 @@ SCORING RULES (follow these precisely and show your work internally, this is the
       <div class="result-section">
         <div class="result-section-title">Lender Assessment</div>
         <div class="result-row"><span class="result-key">Lender competitiveness</span><span class="result-val ${r.lender_score >= 70 ? 'good' : r.lender_score >= 50 ? 'warn' : 'bad'}">${r.lender_score}/100</span></div>
-        <div class="result-row" style="display:block;padding:0.75rem 0;"><span class="result-key" style="display:block;margin-bottom:0.3rem;">Lender note</span><span style="font-size:0.875rem;">${r.lender_note}</span></div>
-        <div class="result-row"><span class="result-key">Recommended action</span><span class="result-val" style="color:var(--accent);cursor:pointer;" onclick="openCalendly()">Book a call for competitive quotes →</span></div>
+        <div class="result-row" style="display:block;padding:0.75rem 0;border-bottom:none;"><span class="result-key" style="display:block;margin-bottom:0.3rem;">Lender note</span><span style="font-size:0.875rem;">${r.lender_note}</span></div>
       </div>
       <div class="result-insight">
         <strong>Mack's Take</strong>
         ${r.top_recommendation}
-        <div style="margin-top:1rem;">
+        <div style="margin-top:1.25rem;text-align:center;">
           <button class="book-btn" onclick="openCalendly()">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             Book a Free Call, Get Competitive Quotes
           </button>
         </div>
