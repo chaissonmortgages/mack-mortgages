@@ -498,7 +498,7 @@ Return this exact JSON structure:
   "confidence_note": <string, 1 sentence>
 }
 
-Be realistic for the Canadian market in 2026. Keep every string field concise, as specified, output must fit well within 1600 tokens.`;
+Be realistic for the Canadian market in 2026. Keep every string field concise, as specified, output must fit well within 1600 tokens. Never use em dashes (—) in any string field, use commas, periods, or colons instead.`;
 
     try {
       const res = await fetch('/.netlify/functions/capture-lead', {
