@@ -1,0 +1,36 @@
+name: Daily Blog Post
+
+on:
+  schedule:
+    # 15:00 UTC ≈ 8am Pacific (7am during standard time). Netlify auto-deploys
+    # the new post within a minute or two of the commit landing on main.
+    - cron: '0 15 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate today's blog post
+        run: node blog/generate-post.js
+
+      - name: Commit and push if a new post was created
+        run: |
+          git config user.name "Mack Mortgages Bot"
+          git config user.email "mack-mortgages-bot@users.noreply.github.com"
+          git add blog/ sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+          else
+            git commit -m "Auto-publish daily blog post"
+            git push
+          fi

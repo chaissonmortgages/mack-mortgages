@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Blog | Vancouver &amp; BC Mortgage Tips | Mack Mortgages</title>
+<meta name="description" content="Practical, BC-specific mortgage advice from a licensed Vancouver mortgage broker. First-time buyers, renewals, refinancing, self-employed mortgages, and more.">
+<link rel="canonical" href="https://mackmortgages.ca/blog/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F8F8F6; --ink: #111110; --ink-soft: #555552;
+    --accent: #3D5A80; --accent-light: #E8EEF4; --border: #E2E2DE;
+    --white: #FFFFFF; --radius: 4px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,248,246,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 5vw; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .nav-logo span { color: var(--accent); }
+  .nav-back { font-size: 0.875rem; color: var(--ink-soft); text-decoration: none; }
+  .nav-back:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink); color: var(--white); padding: 0.5rem 1.2rem; border-radius: var(--radius); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .nav-cta:hover { background: var(--accent); }
+
+  .page-hero { padding: 130px 5vw 50px; max-width: 760px; margin: 0 auto; text-align: center; }
+  .page-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
+  .page-sub { font-size: 1rem; color: var(--ink-soft); font-weight: 300; line-height: 1.75; }
+
+  .tag-filters { max-width: 1100px; margin: 0 auto; padding: 0 5vw 2rem; display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; }
+  .tag-filter { background: var(--white); border: 1px solid var(--border); color: var(--ink-soft); padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+  .tag-filter:hover { border-color: var(--accent); color: var(--accent); }
+  .tag-filter.active { background: var(--ink); border-color: var(--ink); color: var(--white); }
+
+  .posts-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5vw 80px; }
+  .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+  .post-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; transition: transform 0.2s, box-shadow 0.2s; }
+  .post-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .post-card-tag { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.75rem; }
+  .post-card-title { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.4; margin-bottom: 0.6rem; flex: 1; }
+  .post-card-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 1rem; }
+  .post-card-date { font-size: 0.75rem; color: var(--ink-soft); }
+  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--ink-soft); font-size: 0.9rem; }
+
+  footer { background: var(--ink); color: var(--white); padding: 2.5rem 5vw; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-size: 1rem; font-weight: 600; }
+  .footer-logo span { color: #8AABC4; }
+  .footer-copy { font-size: 0.78rem; color: #666662; }
+
+  @media (max-width: 900px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .posts-grid { grid-template-columns: 1fr; } .nav-back { display: none; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::as { transition: none !important; animation: none !important; } }
+</style>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','644144389454728');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Mack<span>Mortgages</span></a>
+  <a href="../index.html" class="nav-back">← Back to site</a>
+  <button class="nav-cta" onclick="openCalendly()">Book a Call with Mack</button>
+</nav>
+
+<div class="page-hero">
+  <p class="page-eyebrow">The Blog</p>
+  <h1 class="page-title">Vancouver mortgage advice, <em style="font-style:italic;color:var(--accent);">plainly explained.</em></h1>
+  <p class="page-sub">Practical, BC-specific guidance on buying, renewing, and refinancing, updated regularly.</p>
+</div>
+
+<div class="tag-filters" id="tag-filters"></div>
+
+<div class="posts-wrap">
+  <div class="posts-grid" id="posts-grid">
+    <div class="empty-state">Loading posts…</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Mack<span>Mortgages</span></div>
+    <div style="font-size:0.82rem;color:#888884;">📞 <a href="tel:7788742451" style="color:#888884;text-decoration:none;">778-874-2451</a> &nbsp;·&nbsp; ✉️ <a href="mailto:Mack.Chaisson@Cleartrust.ca" style="color:#888884;text-decoration:none;">Mack.Chaisson@Cleartrust.ca</a></div>
+    <div class="footer-copy">© 2026 Mack Mortgages. Licensed Mortgage Broker · DLC / Clear Trust Mortgages</div>
+  </div>
+</footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+  function openCalendly() {
+    if (typeof Calendly !== 'undefined') {
+      Calendly.initPopupWidget({ url: 'https://calendly.com/chaissonmortgages/initialmeet' });
+    } else { window.open('https://calendly.com/chaissonmortgages/initialmeet', '_blank'); }
+    return false;
+  }
+
+  let allPosts = [];
+  let activeTag = null;
+
+  function fmtDate(iso) {
+    const d = new Date(iso + 'T12:00:00');
+    return d.toLocaleDateString('en-CA', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function renderTags() {
+    const tags = [...new Set(allPosts.map(p => p.primary_tag))].sort();
+    const wrap = document.getElementById('tag-filters');
+    wrap.innerHTML = `<button class="tag-filter ${activeTag === null ? 'active' : ''}" data-tag="">All Topics</button>` +
+      tags.map(t => `<button class="tag-filter ${activeTag === t ? 'active' : ''}" data-tag="${t}">${t}</button>`).join('');
+    wrap.querySelectorAll('.tag-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeTag = btn.dataset.tag || null;
+        renderTags();
+        renderPosts();
+      });
+    });
+  }
+
+  function renderPosts() {
+    const grid = document.getElementById('posts-grid');
+    const list = activeTag ? allPosts.filter(p => p.primary_tag === activeTag) : allPosts;
+    if (!list.length) {
+      grid.innerHTML = '<div class="empty-state">No posts yet, check back soon.</div>';
+      return;
+    }
+    grid.innerHTML = list.map(p => `
+      <a class="post-card" href="posts/${p.slug}.html">
+        <div class="post-card-tag">${p.primary_tag}</div>
+        <div class="post-card-title">${p.title}</div>
+        <div class="post-card-desc">${p.meta_description}</div>
+        <div class="post-card-date">${fmtDate(p.date)}</div>
+      </a>
+    `).join('');
+  }
+
+  fetch('posts.json')
+    .then(r => r.ok ? r.json() : [])
+    .then(data => {
+      allPosts = (Array.isArray(data) ? data : []).sort((a, b) => b.date.localeCompare(a.date));
+      renderTags();
+      renderPosts();
+    })
+    .catch(() => {
+      document.getElementById('posts-grid').innerHTML = '<div class="empty-state">No posts yet, check back soon.</div>';
+    });
+</script>
+</body>
+</html>

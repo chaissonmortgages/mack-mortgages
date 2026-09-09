@@ -75,7 +75,7 @@ exports.handler = async (event) => {
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
-          max_tokens: 1600,
+          max_tokens: Math.min(8000, Math.max(500, parseInt(payload.maxTokens) || 1600)),
           messages: payload.claudeMessages,
         }),
       });
