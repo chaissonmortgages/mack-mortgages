@@ -141,7 +141,7 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
       return;
     }
     grid.innerHTML = list.map(p => `
-      <a class="post-card" href="posts/${p.slug}.html">
+      <a class="post-card" href="posts/${p.slug}/">
         <div class="post-card-tag">${p.primary_tag}</div>
         <div class="post-card-title">${p.title}</div>
         <div class="post-card-desc">${p.meta_description}</div>

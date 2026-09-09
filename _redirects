@@ -1,0 +1,16 @@
+# Canonicalize .html URLs to clean paths (avoids duplicate-content across
+# both /page.html and /page serving the same content with no redirect).
+/index.html                      /                                 301
+/mortgage-health-check.html      /mortgage-health-check             301
+/home-value-estimator.html       /home-value-estimator              301
+/affordability-check.html        /affordability-check               301
+/closing-costs.html              /closing-costs                     301
+/property-search.html            /property-search                   301
+/homebuyer-guide.html            /homebuyer-guide                   301
+/blog/index.html                 /blog/                             301
+
+# Individual blog posts moved from /blog/posts/<slug>.html to
+# /blog/posts/<slug>/ (directory-index style, so there's structurally only
+# one URL per post, no duplicate-content risk). Add one line per old flat
+# post URL that was ever live before this change.
+/blog/posts/vancouver-mortgage-broker-vs-bank-branch.html   /blog/posts/vancouver-mortgage-broker-vs-bank-branch/   301

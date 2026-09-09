@@ -25,25 +25,25 @@ const THEMES = [
     keyword: 'Vancouver mortgage broker',
     tag: 'Vancouver Mortgage Broker',
     angleHints: 'why work with an independent broker instead of walking into a bank branch, how brokers actually get access to better rates, good questions to ask before choosing a broker, what a broker does day to day that a bank employee cannot, signs you have outgrown your current lender relationship',
-    relatedTool: { label: 'Try the free Mortgage Health Check', href: '/mortgage-health-check.html' },
+    relatedTool: { label: 'Try the free Mortgage Health Check', href: '/mortgage-health-check' },
   },
   {
     keyword: 'Richmond mortgage broker',
     tag: 'Richmond',
     angleHints: 'Richmond BC housing market specifics like Steveston or new-build condo towers near Richmond Centre, financing considerations for new-to-Canada buyers who are common in Richmond, BC Assessment quirks specific to Richmond, detached vs condo financing differences in Richmond',
-    relatedTool: { label: "Check what your Richmond home is worth", href: '/home-value-estimator.html' },
+    relatedTool: { label: "Check what your Richmond home is worth", href: '/home-value-estimator' },
   },
   {
     keyword: 'Burnaby mortgage broker',
     tag: 'Burnaby',
     angleHints: 'Burnaby neighbourhoods like Metrotown, Brentwood, or Edmonds and how they differ for buyers, condo presale financing considerations specific to Burnaby developments, comparing Burnaby affordability to Vancouver proper, commuter-friendly financing considerations',
-    relatedTool: { label: 'See what you can afford in Burnaby', href: '/affordability-check.html' },
+    relatedTool: { label: 'See what you can afford in Burnaby', href: '/affordability-check' },
   },
   {
     keyword: 'Vancouver first-time home buyer mortgage',
     tag: 'First-Time Buyers',
     angleHints: 'the BC first-time buyer Property Transfer Tax exemption and its thresholds, minimum down payment rules by purchase price, the mortgage stress test explained in plain English, common first-time buyer mistakes in a competitive market, how much income is realistically needed to qualify in Metro Vancouver',
-    relatedTool: { label: 'Find your max purchase price', href: '/affordability-check.html' },
+    relatedTool: { label: 'Find your max purchase price', href: '/affordability-check' },
   },
   {
     keyword: 'mortgage for self-employed Vancouver',
@@ -55,31 +55,91 @@ const THEMES = [
     keyword: 'mortgage renewal Vancouver',
     tag: 'Renewals',
     angleHints: 'why the renewal offer your bank mails you is rarely their best rate, how rate holds and renewal timelines work, switching lenders at renewal with no penalty, the right time before maturity to start shopping, what happens if you do nothing and just sign the renewal letter',
-    relatedTool: { label: 'Run a free Mortgage Health Check', href: '/mortgage-health-check.html' },
+    relatedTool: { label: 'Run a free Mortgage Health Check', href: '/mortgage-health-check' },
   },
   {
     keyword: 'refinance mortgage Vancouver',
     tag: 'Refinancing',
     angleHints: 'when refinancing actually makes financial sense, how breaking a mortgage early and penalties work at a high level, accessing home equity through a refinance vs a HELOC, using a refinance for debt consolidation, financing a renovation through your mortgage',
-    relatedTool: { label: "Check your home's current value and equity", href: '/home-value-estimator.html' },
+    relatedTool: { label: "Check your home's current value and equity", href: '/home-value-estimator' },
   },
   {
     keyword: 'mortgage pre-approval Vancouver',
     tag: 'Pre-Approval',
     angleHints: 'the real difference between pre-approval and pre-qualification, how long a pre-approval typically holds, documents to gather before applying, why a pre-approval makes an offer stronger in a competitive Vancouver market, what a rate hold actually protects you from',
-    relatedTool: { label: 'See your estimated max purchase price', href: '/affordability-check.html' },
+    relatedTool: { label: 'See your estimated max purchase price', href: '/affordability-check' },
   },
   {
     keyword: 'investment property mortgage Vancouver',
     tag: 'Investment Properties',
     angleHints: 'down payment rules for rental properties versus a primary residence, how lenders treat rental income when qualifying you, financing a second property in Metro Vancouver, using a HELOC on your primary home as a down payment source, secondary suite income and how it factors in',
-    relatedTool: { label: 'See your equity position for a next purchase', href: '/home-value-estimator.html' },
+    relatedTool: { label: 'See your equity position for a next purchase', href: '/home-value-estimator' },
+  },
+  {
+    keyword: 'Surrey mortgage broker',
+    tag: 'Surrey',
+    angleHints: "Surrey neighbourhoods like Cloverdale, South Surrey, and Guildford and how financing considerations differ between them, Surrey as one of BC's fastest growing cities and what that means for new construction financing, comparing Surrey affordability to Vancouver proper, Fraser Valley commuter buyer considerations",
+    relatedTool: { label: 'See what you can afford in Surrey', href: '/affordability-check' },
+  },
+  {
+    keyword: 'Coquitlam mortgage broker',
+    tag: 'Coquitlam',
+    angleHints: "Coquitlam neighbourhoods like Westwood Plateau and Burke Mountain and the Evergreen SkyTrain extension's effect on values, financing new-build homes in Coquitlam's growing town centre, comparing Coquitlam to Burnaby and Port Moody for buyers priced out of Vancouver",
+    relatedTool: { label: 'Check what your Coquitlam home is worth', href: '/home-value-estimator' },
+  },
+  {
+    keyword: 'North Vancouver mortgage broker',
+    tag: 'North Vancouver',
+    angleHints: "North Vancouver's mix of detached homes and newer waterfront condos, financing considerations for the North Shore's higher price points, Lonsdale corridor new developments, commuting and lifestyle factors that affect buyer decisions there",
+    relatedTool: { label: 'See your equity position on the North Shore', href: '/home-value-estimator' },
+  },
+  {
+    keyword: 'New Westminster mortgage broker',
+    tag: 'New Westminster',
+    angleHints: 'New Westminster as one of the more affordable SkyTrain-connected cities in Metro Vancouver, Queens Park heritage home financing considerations, condo-heavy market financing, New West as an entry point for buyers priced out of Vancouver and Burnaby',
+    relatedTool: { label: 'Find your max purchase price', href: '/affordability-check' },
+  },
+  {
+    keyword: 'HELOC Vancouver',
+    tag: 'HELOC',
+    angleHints: 'how a HELOC actually works and how it differs from a second mortgage, using home equity for renovations versus investment versus debt consolidation, qualifying requirements and credit considerations, HELOC versus refinance for accessing equity, the risks of variable-rate revolving credit',
+    relatedTool: { label: "Check your home's equity position", href: '/home-value-estimator' },
+  },
+  {
+    keyword: 'mortgage broker vs bank Vancouver',
+    tag: 'Broker vs Bank',
+    angleHints: 'a direct comparison of what a bank branch offers versus an independent broker, common myths about brokers costing more, how broker compensation actually works, situations where a bank might still make sense, questions worth asking both before deciding',
+    relatedTool: { label: 'Run a free Mortgage Health Check', href: '/mortgage-health-check' },
+  },
+  {
+    keyword: 'presale condo mortgage Vancouver',
+    tag: 'Presale Condos',
+    angleHints: 'how financing a presale differs from a resale purchase, deposit structures and when the mortgage actually gets arranged, rate holds and what can change between signing and completion, assignment clauses and financing implications, risks specific to presale financing in a shifting rate environment',
+    relatedTool: null,
+  },
+  {
+    keyword: 'bridge loan Vancouver',
+    tag: 'Bridge Financing',
+    angleHints: 'what bridge financing is and when buyers actually need it, the common scenario of needing to buy before your current home sells in Metro Vancouver, how bridge loan costs and terms typically work, alternatives to bridging like extending closing dates',
+    relatedTool: { label: "Check your current home's value", href: '/home-value-estimator' },
+  },
+  {
+    keyword: 'bad credit mortgage Vancouver',
+    tag: 'Credit Challenges',
+    angleHints: 'options available for buyers with credit challenges beyond simply being declined, B-lenders and alternative lending explained honestly, what actually improves approval odds, how a broker can help navigate this versus a bank simply saying no, rebuilding credit while still working toward a purchase',
+    relatedTool: null,
+  },
+  {
+    keyword: 'new to Canada mortgage Vancouver',
+    tag: 'Newcomers',
+    angleHints: "newcomer-specific mortgage programs and how they treat limited Canadian credit history, documentation newcomers typically need, down payment sourcing considerations for recent immigrants, how permanent resident versus work permit status affects options, Metro Vancouver's large newcomer buyer community",
+    relatedTool: { label: 'Find your max purchase price', href: '/affordability-check' },
   },
 ];
 
 const STATIC_PAGES = [
-  '', 'mortgage-health-check.html', 'home-value-estimator.html', 'affordability-check.html',
-  'closing-costs.html', 'property-search.html', 'homebuyer-guide.html', 'blog/',
+  '', 'mortgage-health-check', 'home-value-estimator', 'affordability-check',
+  'closing-costs', 'property-search', 'homebuyer-guide', 'blog/',
 ];
 
 function slugify(s) {
@@ -219,19 +279,25 @@ async function main() {
     throw new Error('Claude response was truncated (hit max_tokens), refusing to publish a cut-off post.');
   }
 
+  // Posts live at posts/<slug>/index.html (not posts/<slug>.html) so there is
+  // only ever one URL for a post. Netlify's automatic pretty-URL rewriting
+  // independently serves both /page.html and /page for a flat file with no
+  // redirect between them, which is a real duplicate-content problem, an
+  // index.html inside its own directory has no such alternate path to begin
+  // with.
   const baseSlug = slugify(post.slug || post.title);
   let finalSlug = baseSlug || `post-${today}`;
   let n = 2;
-  while (posts.some(p => p.slug === finalSlug) || fs.existsSync(path.join(POSTS_DIR, `${finalSlug}.html`))) {
+  while (posts.some(p => p.slug === finalSlug) || fs.existsSync(path.join(POSTS_DIR, finalSlug))) {
     finalSlug = `${baseSlug}-${n}`;
     n++;
   }
 
-  const canonicalUrl = `${SITE_URL}/blog/posts/${finalSlug}.html`;
+  const canonicalUrl = `${SITE_URL}/blog/posts/${finalSlug}/`;
 
   let relatedBlock = '';
   if (theme.relatedTool) {
-    relatedBlock = `  <p class="post-related">Related: <a href="../..${theme.relatedTool.href}">${escapeHtml(theme.relatedTool.label)}</a></p>\n`;
+    relatedBlock = `  <p class="post-related">Related: <a href="../../..${theme.relatedTool.href}">${escapeHtml(theme.relatedTool.label)}</a></p>\n`;
   }
 
   let html = fs.readFileSync(TEMPLATE_PATH, 'utf8');
@@ -249,8 +315,9 @@ async function main() {
     .split('{{CTA_HEADLINE}}').join(escapeHtml(post.cta_headline || 'Ready to talk through your options?'))
     .split('{{CTA_SUB}}').join(escapeHtml(post.cta_sub || "Book a free 30-minute call and I'll shop 50+ lenders to find what fits your situation, no obligation, no cost to you."));
 
-  fs.mkdirSync(POSTS_DIR, { recursive: true });
-  fs.writeFileSync(path.join(POSTS_DIR, `${finalSlug}.html`), html);
+  const postDir = path.join(POSTS_DIR, finalSlug);
+  fs.mkdirSync(postDir, { recursive: true });
+  fs.writeFileSync(path.join(postDir, 'index.html'), html);
 
   posts.unshift({
     slug: finalSlug,
@@ -264,12 +331,12 @@ async function main() {
 
   writeSitemap(posts);
 
-  console.log(`Published: "${post.title}" -> blog/posts/${finalSlug}.html`);
+  console.log(`Published: "${post.title}" -> blog/posts/${finalSlug}/`);
 }
 
 function writeSitemap(posts) {
   const staticUrls = STATIC_PAGES.map(p => `  <url><loc>${SITE_URL}/${p}</loc></url>`);
-  const postUrls = posts.map(p => `  <url><loc>${SITE_URL}/blog/posts/${p.slug}.html</loc><lastmod>${p.date}</lastmod></url>`);
+  const postUrls = posts.map(p => `  <url><loc>${SITE_URL}/blog/posts/${p.slug}/</loc><lastmod>${p.date}</lastmod></url>`);
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${staticUrls.concat(postUrls).join('\n')}\n</urlset>\n`;
   fs.writeFileSync(SITEMAP_PATH, xml);
 }
