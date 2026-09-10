@@ -312,7 +312,7 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
   function fmtPct(n) { return n.toFixed(1) + '%'; }
 
   function calculateAffordability(annualIncome, downPayment, monthlyDebts) {
-    const contractRate = 0.0409;
+    const contractRate = 0.0449;
     // Stress test: qualify at contract rate + 2% or 5.25%, whichever is higher (OSFI B-20)
     const stressRate = Math.max(contractRate + 0.02, 0.0525);
     const months = 300; // 25yr amortization
@@ -369,7 +369,8 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
       maxPrice, maxLoan, monthlyPayment, gds, tds,
       minDown, downOK, tdsOK, qualifies,
       cmhcApplies, cmhcPremium, monthlyTax,
-      annualIncome, downPayment, monthlyDebts
+      annualIncome, downPayment, monthlyDebts,
+      contractRate, stressRate
     };
   }
 
@@ -416,7 +417,7 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
     const d = calcData;
     document.getElementById('teaser-price').textContent = fmt(d.maxPrice);
     document.getElementById('teaser-range').textContent = `${fmt(d.maxPrice * 0.95)} to ${fmt(d.maxPrice * 1.05)} estimated range`;
-    document.getElementById('teaser-caption').textContent = `Stress tested at 6.09% (contract + 2%), actual payment at 4.09%`;
+    document.getElementById('teaser-caption').textContent = `Stress tested at ${(d.stressRate * 100).toFixed(2)}% (contract + 2%), actual payment at ${(d.contractRate * 100).toFixed(2)}%`;
 
     const badge = document.getElementById('qualify-badge');
     if (d.qualifies && d.gds <= 36) {

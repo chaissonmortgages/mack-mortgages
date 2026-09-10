@@ -439,7 +439,7 @@ Mortgage details:
 - Lender: ${lender}
 - Remaining term: ${term} year(s)
 - Analysis date: ${new Date().toLocaleDateString('en-CA', {month:'long', year:'numeric'})}
-- Benchmark rate to compare against (Mack's current best 5-year fixed): 4.14%
+- Benchmark rate to compare against (Mack's current best 5-year fixed): 4.49%
 
 Return this exact JSON structure:
 {
@@ -468,10 +468,10 @@ Return this exact JSON structure:
 Be realistic and specific. Use current Canadian mortgage market context (mid-2026). Big 6 banks typically offer less competitive rates than monolines. Never use em dashes (—) in any string field, use commas, periods, or colons instead.
 
 SCORING RULES (follow these precisely and show your work internally, this is the most important part):
-- Compute this formula exactly: score = 78 - (their rate - 4.14) * 40. Round to the nearest integer, then clamp to a minimum of 10 and a maximum of 95. NEVER output a score above 95 or below 10, no matter how good or bad the rate.
-- A higher rate than the 4.14% benchmark must score noticeably worse, a lower rate must score noticeably better. This formula is the dominant factor, lender and term are secondary flavor only and should not move the final score by more than a couple points.
+- Compute this formula exactly: score = 78 - (their rate - 4.49) * 40. Round to the nearest integer, then clamp to a minimum of 10 and a maximum of 95. NEVER output a score above 95 or below 10, no matter how good or bad the rate.
+- A higher rate than the 4.49% benchmark must score noticeably worse, a lower rate must score noticeably better. This formula is the dominant factor, lender and term are secondary flavor only and should not move the final score by more than a couple points.
 - Grade thresholds use a normal school scale, based on the final clamped score: 90-100 = A, 80-89 = B, 70-79 = C, 50-69 = D, below 50 = F.
-- Worked examples (verify your math matches this pattern): rate 6.25% vs 4.14% benchmark is 2.11% over, score = 78 - (2.11*40) = -6.4, clamped to 10, grade F. Rate 4.05% vs 4.14% benchmark is 0.09% under, score = 78 - (-0.09*40) = 81.6, rounds to 82, grade B. Rate exactly at the 4.14% benchmark scores 78, grade C, an at-market rate is literally average.
+- Worked examples (verify your math matches this pattern): rate 6.25% vs 4.49% benchmark is 1.76% over, score = 78 - (1.76*40) = 7.6, clamped to 10, grade F. Rate 4.40% vs 4.49% benchmark is 0.09% under, score = 78 - (-0.09*40) = 81.6, rounds to 82, grade B. Rate exactly at the 4.49% benchmark scores 78, grade C, an at-market rate is literally average.
 - The score is capped at 95 on purpose (never a perfect 100), it is a hook to get them to book a call, not a verdict that they're done shopping. Even a great rate (A) should leave a believable opening, a shorter remaining term, lender fees, prepayment terms, or a second opinion on structure, so "top_recommendation" and "opportunity_note" always give them a real reason to still call.
 - Never let the report feel like "nothing to gain here." If the rate is excellent, shift the hook toward something other than rate (locking in before renewal, portfolio/HELOC strategy, structure review) rather than inventing a fake rate problem.`;
 
@@ -494,7 +494,7 @@ SCORING RULES (follow these precisely and show your work internally, this is the
   }
 
   function generateFallback(rate, lender, balance, term) {
-    const marketRate = 4.14;
+    const marketRate = 4.49;
     const diff = rate - marketRate;
     // Same formula as the Claude prompt's SCORING RULES, kept in sync so the
     // fallback (used only if the API call fails) grades identically. Capped
@@ -519,7 +519,7 @@ SCORING RULES (follow these precisely and show your work internally, this is the
       savings_potential: Math.round(balance * (Math.max(0, diff - 0.1) / 100)),
       insights: [
         { label: "Current rate", value: `${rate}%`, flag: diff > 0.5 ? 'bad' : diff > 0.2 ? 'warn' : 'good' },
-        { label: "Best available (broker)", value: "4.14% (5yr fixed)", flag: 'neutral' },
+        { label: "Best available (broker)", value: "4.49% (5yr fixed)", flag: 'neutral' },
         { label: "Lender type", value: isBigBank ? "Big 6 Bank" : "Monoline / Credit Union", flag: isBigBank ? 'warn' : 'good' },
         { label: "Term remaining", value: `${term} year(s)`, flag: parseFloat(term) <= 1 ? 'good' : 'neutral' },
         { label: "Prepayment flexibility", value: isBigBank ? "Standard (20/20)" : "Check your contract", flag: 'neutral' }
@@ -568,7 +568,7 @@ SCORING RULES (follow these precisely and show your work internally, this is the
   // balance x remaining years, floored at the standard 3-months-interest
   // minimum. Big banks are compared against their own posted rate (~5.35%,
   // current as of Aug 2026, they cluster tightly across RBC/TD/Scotia/BMO/CIBC),
-  // monolines and credit unions against the site's broker benchmark (4.14%)
+  // monolines and credit unions against the site's broker benchmark (4.49%)
   // since their discretionary rates track much closer to the open market.
   function estimateBreakAnalysis(rate, balance, term, lender, annualOverpayment) {
     const years = parseFloat(term);
@@ -576,7 +576,7 @@ SCORING RULES (follow these precisely and show your work internally, this is the
 
     const bigBanks = ['RBC','TD','Scotiabank','BMO','CIBC','National Bank'];
     const isBigBank = bigBanks.includes(lender);
-    const comparisonRate = isBigBank ? 5.35 : 4.14;
+    const comparisonRate = isBigBank ? 5.35 : 4.49;
 
     const irdEstimate = Math.round(balance * Math.max(0, (rate - comparisonRate) / 100) * years);
     const threeMonthsInterest = Math.round(balance * (rate / 100) * 0.25);
