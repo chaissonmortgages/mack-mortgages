@@ -170,6 +170,8 @@
     .steps-bar { padding: 0 2vw; }
     .step-label { font-size: 0.65rem; }
     .chart-label { width: 70px; font-size: 0.72rem; }
+    .nav-back, .nav-property-link { display: none; }
+    .nav-cta { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
@@ -192,7 +194,7 @@ src="https://www.facebook.com/tr?id=644144389454728&ev=PageView&noscript=1"/></n
 <nav>
   <a href="index.html" class="nav-logo">Mack<span>Mortgages</span></a>
   <a href="index.html" class="nav-back">← Back to site</a>
-  <a href="property-search.html" style="font-size:0.875rem;color:var(--ink-soft);text-decoration:none;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink-soft)'">Property Search</a>
+  <a href="property-search.html" class="nav-property-link" style="font-size:0.875rem;color:var(--ink-soft);text-decoration:none;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink-soft)'">Property Search</a>
   <button class="nav-cta" onclick="openCalendly()">Talk to an Advisor</button>
 </nav>
 
